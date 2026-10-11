@@ -1,4 +1,5 @@
 import {
+  diffDays,
   type HistoryEntry,
   historyEntry,
   type IsoDate,
@@ -81,4 +82,26 @@ export function startNextBlock({ state }: Snapshot, today: IsoDate): Patch {
       block: state.block + 1,
     },
   };
+}
+
+/**
+ * Moves a missed session to today. Every session planned on or after it
+ * shifts forward by the same number of days, so the order and the spacing of
+ * the plan are preserved.
+ */
+export function moveSessionToToday({ state }: Snapshot, sessionId: IsoDate, today: IsoDate): Patch {
+  const session = findSession(state, sessionId);
+  if (!session) return {};
+  const days = diffDays(session.date, today);
+  if (days <= 0) return {};
+  return { state: { ...state, shifts: [...state.shifts, { at: sessionId, days }] } };
+}
+
+/** Leaves a session out of the plan without doing it. */
+export function skipSession({ state }: Snapshot, sessionId: IsoDate): Patch {
+  return { state: { ...state, skipped: { ...state.skipped, [sessionId]: true } } };
+}
+
+export function unskipSession({ state }: Snapshot, sessionId: IsoDate): Patch {
+  return { state: { ...state, skipped: without(state.skipped, sessionId) } };
 }

@@ -34,7 +34,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 16. Plan: overview, next-session hero, weeks list, next block
 - [x] 17. Session: workout screen with exercise cards, swap, exclude, edits
 - [x] 18. Session: set tracker, rest timer, wake lock, rating
-- [ ] 19. Plan: missed-session move and skip
+- [x] 19. Plan: missed-session move and skip
 - [ ] 20. Calculator: progression tables and charts
 - [ ] 21. Muscles: body map with heat modes and muscle detail
 - [ ] 22. Muscles: exercise library with search, filters and densities
@@ -174,3 +174,8 @@ tightly related ones) that leaves the project building, linted and tested.
   session marks it done. Ratings (easy, on plan, hard, missed) adjust later
   loads and show a preview of the next session. The header shows the current set
   and a progress ring, and the screen stays awake during a workout. 484 tests.
+- **2026-10-11 — Step 19.** Missed sessions: a banner on the plan (for the
+  earliest missed session) and on the workout screen offers "Do it today", which
+  shifts that session and everything after it by the same number of days, or
+  "Skip", which leaves it out of the plan and can be undone. Rows show missed,
+  not finished, skipped and moved states. 492 tests.

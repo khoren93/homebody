@@ -27,6 +27,9 @@ export const actions = {
 
   toggleSessionDone: bind(sessions.toggleSessionDone),
   startNextBlock: bind(sessions.startNextBlock),
+  moveSessionToToday: bind(sessions.moveSessionToToday),
+  skipSession: bind(sessions.skipSession),
+  unskipSession: bind(sessions.unskipSession),
 
   swapExercise: bind(exercises.swapExercise),
   excludeExercise: bind(exercises.excludeExercise),

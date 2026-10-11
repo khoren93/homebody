@@ -10,12 +10,22 @@ import { SetTracker } from '@/components/SetTracker';
 import type { IsoDate, LoadedItem, LoadedSession } from '@/engine';
 import { nextOccurrence } from '@/engine';
 import { useExerciseText } from '@/features/exercise/useExerciseText';
+import { MissedBanner } from '@/features/plan/MissedBanner';
 import { useSessionLabels } from '@/features/plan/useSessionLabels';
 import { useFormat } from '@/i18n/useFormat';
 import { cx } from '@/lib/cx';
 import { navigate, routeHref } from '@/lib/router';
+import { useToday } from '@/lib/useToday';
 import { useWakeLock } from '@/lib/useWakeLock';
-import { actions, CATALOG, completedSets, sessionProgress, useAppStore, usePlan } from '@/store';
+import {
+  actions,
+  CATALOG,
+  completedSets,
+  isMissed,
+  sessionProgress,
+  useAppStore,
+  usePlan,
+} from '@/store';
 
 import { EffortNote } from './EffortNote';
 import { EffortRating } from './EffortRating';
@@ -50,7 +60,10 @@ function Workout({
   const text = useExerciseText();
   const randomSwap = useRandomSwap(session);
   const rest = useRestTimer();
+  const today = useToday();
   const done = useAppStore((store) => !!store.state.done[session.id]);
+  const skipped = useAppStore((store) => !!store.state.skipped[session.id]);
+  const missed = useAppStore((store) => isMissed(session, store.state, today));
   const setLogs = useAppStore((store) => store.setLogs);
   const overrides = useAppStore((store) => store.state.overrides);
   const progress = sessionProgress(session, setLogs);
@@ -117,6 +130,22 @@ function Workout({
         · {labels.focus(session)} · {format.date(session.date)} ·{' '}
         {t('plan.hero.about', { minutes: session.minutes })}
       </Muted>
+
+      {missed && (
+        <MissedBanner session={session} sessions={sessions} today={today} context="session" />
+      )}
+      {skipped && (
+        <Banner
+          role="status"
+          actions={
+            <Button size="sm" onClick={() => actions.unskipSession(session.id)}>
+              {t('missed.restore')}
+            </Button>
+          }
+        >
+          <strong>{t('missed.skippedTitle')}</strong> {t('missed.skippedBody')}
+        </Banner>
+      )}
 
       <EffortNote session={session} />
       <Muted small>{t('session.warmup')}</Muted>

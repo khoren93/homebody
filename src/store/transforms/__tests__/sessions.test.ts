@@ -12,7 +12,14 @@ import {
   sessionProgress,
 } from '../../selectors';
 import type { Snapshot } from '../../types';
-import { recordSession, startNextBlock, toggleSessionDone } from '../sessions';
+import {
+  moveSessionToToday,
+  recordSession,
+  skipSession,
+  startNextBlock,
+  toggleSessionDone,
+  unskipSession,
+} from '../sessions';
 
 // Wednesday; the sample plan starts on Monday 2026-10-19.
 const today = '2026-10-14';
@@ -170,5 +177,38 @@ describe('session selectors', () => {
     expect(isBlockOver(sessions, all, today)).toBe(true);
     expect(isBlockOver(sessions, none, '2026-11-14')).toBe(true);
     expect(isBlockOver([], none, today)).toBe(false);
+  });
+});
+
+describe('missed sessions', () => {
+  it('moves a missed session to today and shifts everything after it', () => {
+    // The first session was planned for Monday 2026-10-19; today is Thursday.
+    const moved = apply(base, moveSessionToToday(base, first.id, '2026-10-22'));
+    expect(moved.state.shifts).toEqual([{ at: first.id, days: 3 }]);
+
+    const plan = derivePlan(moved.state).plan.sessions;
+    expect(plan.map((s) => s.id)).toEqual(sessions.map((s) => s.id));
+    expect(plan.slice(0, 3).map((s) => s.date)).toEqual(['2026-10-22', '2026-10-24', '2026-10-26']);
+  });
+
+  it('adds up when a later session is moved again', () => {
+    let snapshot = apply(base, moveSessionToToday(base, first.id, '2026-10-22'));
+    const second = derivePlan(snapshot.state).plan.sessions[1]!; // now on 2026-10-24
+    snapshot = apply(snapshot, moveSessionToToday(snapshot, second.id, '2026-10-25'));
+    const plan = derivePlan(snapshot.state).plan.sessions;
+    expect(plan.slice(0, 3).map((s) => s.date)).toEqual(['2026-10-22', '2026-10-25', '2026-10-27']);
+  });
+
+  it('does nothing for a session that is not in the past or not in the plan', () => {
+    expect(moveSessionToToday(base, first.id, first.date)).toEqual({});
+    expect(moveSessionToToday(base, first.id, '2026-10-01')).toEqual({});
+    expect(moveSessionToToday(base, '2020-01-01', '2026-10-22')).toEqual({});
+  });
+
+  it('skips and restores a session', () => {
+    const skipped = apply(base, skipSession(base, first.id));
+    expect(skipped.state.skipped).toEqual({ [first.id]: true });
+    expect(isMissed(first, skipped.state, '2026-10-30')).toBe(false);
+    expect(apply(skipped, unskipSession(skipped, first.id)).state.skipped).toEqual({});
   });
 });

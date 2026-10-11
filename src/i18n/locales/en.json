@@ -556,5 +556,18 @@
     "working": "Work",
     "peak": "Peak",
     "deload": "Deload"
+  },
+  "missed": {
+    "titlePlan": "You missed {{name}} on {{date}}.",
+    "titleSession": "This session was planned for {{date}}.",
+    "moveRest": "You can do it today: the remaining sessions ({{count}}) then move {{days}} forward, and the order and progression stay the same.",
+    "moveLast": "You can do it today: the plan is extended by those days.",
+    "skipHint": "Or skip it and the plan carries on without it.",
+    "doToday": "Do it today",
+    "skip": "Skip",
+    "open": "Open",
+    "skippedTitle": "This session was skipped.",
+    "skippedBody": "It does not count in the plan. If you did it after all, restore it and tick the sets.",
+    "restore": "Restore"
   }
 }

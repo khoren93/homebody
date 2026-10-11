@@ -7,9 +7,10 @@ import { Panel } from '@/components/Panel';
 import { Section } from '@/components/Section';
 import { routeHref } from '@/lib/router';
 import { useToday } from '@/lib/useToday';
-import { nextSession, useAppStore, usePlan } from '@/store';
+import { firstMissed, nextSession, useAppStore, usePlan } from '@/store';
 
 import { BlockCard } from './BlockCard';
+import { MissedBanner } from './MissedBanner';
 import { NextBlockPanel } from './NextBlockPanel';
 import styles from './PlanScreen.module.css';
 import { TodayHero } from './TodayHero';
@@ -23,6 +24,7 @@ export function PlanScreen() {
   const { plan, volume } = usePlan();
   const setupDone = useAppStore((store) => store.state.setupDone);
   const upcoming = useAppStore((store) => nextSession(plan.sessions, store.state, today));
+  const missed = useAppStore((store) => firstMissed(plan.sessions, store.state, today));
 
   return (
     <Page>
@@ -45,6 +47,10 @@ export function PlanScreen() {
         </Panel>
       ) : (
         <>
+          {missed && (
+            <MissedBanner session={missed} sessions={plan.sessions} today={today} context="plan" />
+          )}
+
           {upcoming ? (
             <TodayHero session={upcoming} today={today} />
           ) : (

@@ -210,3 +210,42 @@ describe('PlanScreen', () => {
     expect(screen.getAllByText(/6 упражнений · 17 подходов · ~45 мин/)[0]).toBeInTheDocument();
   });
 });
+
+describe('PlanScreen: missed sessions', () => {
+  // Thursday of the first plan week: Monday's and Wednesday's sessions were missed.
+  const thursday = new Date(2026, 9, 22, 12);
+
+  it('offers to do the first missed session today or to skip it', async () => {
+    vi.setSystemTime(thursday);
+    render(<PlanScreen />);
+    const banner = screen.getByRole('status');
+    expect(banner).toHaveTextContent('You missed “Full body A” on Mon, Oct 19.');
+    expect(banner).toHaveTextContent('the remaining sessions (11) then move 3 days forward');
+    expect(within(banner).getByRole('link', { name: 'Open' })).toHaveAttribute(
+      'href',
+      '#/session/2026-10-19',
+    );
+    expect(screen.getAllByText('missed')).toHaveLength(2);
+
+    await userEvent.click(within(banner).getByRole('button', { name: 'Skip' }));
+    expect(store().state.skipped).toEqual({ '2026-10-19': true });
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'You missed “Full body B” on Wed, Oct 21.',
+    );
+    expect(screen.getByText('skipped')).toBeInTheDocument();
+    vi.setSystemTime(new Date(2026, 9, 14, 12));
+  });
+
+  it('moves the plan when the session is done today', async () => {
+    vi.setSystemTime(thursday);
+    render(<PlanScreen />);
+    await userEvent.click(screen.getByRole('button', { name: 'Do it today' }));
+
+    expect(store().state.shifts).toEqual([{ at: '2026-10-19', days: 3 }]);
+    expect(window.location.hash).toBe('#/session/2026-10-19');
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(screen.getAllByText('moved').length).toBeGreaterThan(0);
+    expect(screen.getByRole('region', { name: 'Full body A' })).toHaveTextContent('Today');
+    vi.setSystemTime(new Date(2026, 9, 14, 12));
+  });
+});

@@ -447,3 +447,28 @@ describe('SessionScreen: rating', () => {
     expect(squat).toHaveTextContent('enter how many you actually did');
   });
 });
+
+describe('SessionScreen: missed and skipped sessions', () => {
+  it('explains a missed session and lets the user skip and restore it', async () => {
+    vi.setSystemTime(new Date(2026, 9, 22, 12));
+    render(<SessionScreen sessionId={FIRST} />);
+    const banner = screen.getByRole('status');
+    expect(banner).toHaveTextContent('This session was planned for Mon, Oct 19.');
+    expect(within(banner).queryByRole('link', { name: 'Open' })).not.toBeInTheDocument();
+
+    await userEvent.click(within(banner).getByRole('button', { name: 'Skip' }));
+    expect(screen.getByRole('status')).toHaveTextContent('This session was skipped.');
+
+    await userEvent.click(screen.getByRole('button', { name: 'Restore' }));
+    expect(state().skipped).toEqual({});
+    expect(screen.getByRole('status')).toHaveTextContent('This session was planned for');
+    vi.setSystemTime(new Date(2026, 9, 14, 12));
+  });
+
+  it('says that the plan is extended when the last session is moved', () => {
+    vi.setSystemTime(new Date(2026, 10, 20, 12));
+    render(<SessionScreen sessionId="2026-11-13" />);
+    expect(screen.getByRole('status')).toHaveTextContent('the plan is extended by those days');
+    vi.setSystemTime(new Date(2026, 9, 14, 12));
+  });
+});
