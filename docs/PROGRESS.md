@@ -46,7 +46,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 - [x] 26. PWA install and offline support
 - [x] 27. End-to-end tests (onboarding, workout, swap, backup)
-- [ ] 28. Deploy demo to GitHub Pages
+- [x] 28. Deploy demo to GitHub Pages
 - [ ] 29. Full README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, templates
 - [ ] 30. Screenshots and demo GIF
 - [ ] 31. Release v0.1.0
@@ -240,3 +240,9 @@ Function`, which the Content-Security-Policy blocks harmlessly.
   random replacement with undo, excluding and restoring, and backup export,
   erase and import. They run in CI. The tests exposed that state writes were
   delayed by a debounce; the state document is now written immediately.
+- **2026-10-11 — Step 28.** GitHub Pages deployment workflow: on every push to
+  `main` the app is built for the repository sub-path and published with the
+  official Pages actions. Verified locally by serving a `/homebody/` build from
+  a plain static server (app, photos and service worker scope all resolve). The
+  job is skipped while the repository is private, because Pages needs a public
+  repository on the free plan; it has therefore not run yet.
