@@ -25,9 +25,6 @@ export type StoreState = Snapshot & {
   saveFailed: boolean;
 };
 
-/** Delay before the state document is written, so bursts of edits cause one write. */
-const SAVE_DELAY_MS = 150;
-
 export const useAppStore = create<StoreState>(() => ({
   ...createSampleSnapshot(toIsoDate(new Date())),
   status: 'loading',
@@ -38,7 +35,8 @@ export const useAppStore = create<StoreState>(() => ({
 
 let persistence: Persistence = createMemoryPersistence();
 let writes: Promise<void> = Promise.resolve();
-let saveTimer: ReturnType<typeof setTimeout> | undefined;
+/** True while a write of the state document is queued but has not started yet. */
+let stateSaveQueued = false;
 
 function snapshotOf(store: StoreState): Snapshot {
   return { state: store.state, history: store.history, setLogs: store.setLogs };
@@ -52,11 +50,19 @@ function enqueue(write: () => Promise<void>): void {
   });
 }
 
-function saveStateNow(): void {
-  clearTimeout(saveTimer);
-  saveTimer = undefined;
+/**
+ * Queues a write of the state document. Writes start right away, so closing
+ * the page a moment after an edit does not lose it; edits that arrive while a
+ * write is already queued are covered by that write.
+ */
+function queueStateSave(): void {
+  if (stateSaveQueued) return;
+  stateSaveQueued = true;
   const target = persistence;
-  enqueue(() => target.saveState(useAppStore.getState().state));
+  enqueue(() => {
+    stateSaveQueued = false;
+    return target.saveState(useAppStore.getState().state);
+  });
 }
 
 function historyChanges(
@@ -77,10 +83,7 @@ function historyChanges(
 function persistChanges(previous: Snapshot, next: Snapshot): void {
   const target = persistence;
 
-  if (next.state !== previous.state) {
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveStateNow, SAVE_DELAY_MS);
-  }
+  if (next.state !== previous.state) queueStateSave();
 
   if (next.history !== previous.history) {
     const { put, remove } = historyChanges(previous.history, next.history);
@@ -113,8 +116,8 @@ export async function initStore(options: {
   persistence: Persistence;
   today: IsoDate;
 }): Promise<void> {
-  clearTimeout(saveTimer);
-  saveTimer = undefined;
+  await writes;
+  stateSaveQueued = false;
   persistence = options.persistence;
   const base = { loadError: null, saveFailed: false } as const;
 
@@ -158,8 +161,12 @@ export function applyPatch(recipe: (snapshot: Snapshot) => Patch): void {
 
 /** Resolves when every pending write has reached storage. */
 export async function flushStore(): Promise<void> {
-  if (saveTimer !== undefined) saveStateNow();
-  await writes;
+  // A write can queue another one while it runs, so wait until the queue is quiet.
+  let settled: Promise<void>;
+  do {
+    settled = writes;
+    await settled;
+  } while (settled !== writes);
 }
 
 /** Replaces everything with the given data (used when importing a backup). */

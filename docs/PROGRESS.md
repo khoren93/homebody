@@ -45,7 +45,7 @@ tightly related ones) that leaves the project building, linted and tested.
 ### Release
 
 - [x] 26. PWA install and offline support
-- [ ] 27. End-to-end tests (onboarding, workout, swap, backup)
+- [x] 27. End-to-end tests (onboarding, workout, swap, backup)
 - [ ] 28. Deploy demo to GitHub Pages
 - [ ] 29. Full README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, templates
 - [ ] 30. Screenshots and demo GIF
@@ -233,3 +233,10 @@ tightly related ones) that leaves the project building, linted and tested.
   the remaining cost is the size of the critical scripts, to be re-measured on
   the deployed demo. The one best-practices finding is Dexie probing `new
 Function`, which the Content-Security-Policy blocks harmlessly.
+- **2026-10-11 — Step 27.** Playwright end-to-end tests against the production
+  build on a phone and a desktop viewport (20 runs): first launch and switching
+  to own data, language and theme persistence, navigation, a full workout with
+  rest timer, rating, edit and history, moving a missed session, manual and
+  random replacement with undo, excluding and restoring, and backup export,
+  erase and import. They run in CI. The tests exposed that state writes were
+  delayed by a debounce; the state document is now written immediately.

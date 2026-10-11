@@ -7,7 +7,7 @@ SHELL := /bin/sh
 PNPM ?= pnpm
 COMPOSE ?= docker compose
 
-.PHONY: help install dev build preview test test-watch coverage lint format typecheck check \
+.PHONY: help install dev build preview test test-watch coverage e2e lint format typecheck check \
 	data-validate data-build docker-build docker-run docker-dev docker-stop clean
 
 help: ## Show available targets
@@ -33,6 +33,9 @@ test-watch: ## Unit tests in watch mode
 
 coverage: ## Unit tests with coverage report
 	$(PNPM) coverage
+
+e2e: ## Playwright end-to-end tests
+	$(PNPM) e2e
 
 lint: ## ESLint
 	$(PNPM) lint

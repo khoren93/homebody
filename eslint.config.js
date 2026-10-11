@@ -106,7 +106,7 @@ export default defineConfig(
 
   // Tooling and config files run in Node and are not part of a TS project.
   {
-    files: ['*.config.{js,ts}', 'scripts/**/*.{js,mjs,ts}'],
+    files: ['*.config.{js,ts}', 'scripts/**/*.{js,mjs,ts}', 'e2e/**/*.ts'],
     languageOptions: {
       globals: globals.node,
     },

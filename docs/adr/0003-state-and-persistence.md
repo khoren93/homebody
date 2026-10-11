@@ -29,8 +29,8 @@ itself is a function of that data and of formulas that will keep evolving.
    nothing will be saved.
 5. **Changes are pure transforms.** A change is a function from the current
    snapshot to the parts that changed. The store applies it and writes the
-   difference: the state document after a short debounce, history rows and
-   set logs row by row.
+   difference right away: the state document (edits that arrive while a
+   write is queued share that write), history rows and set logs row by row.
 6. **Unreadable data is never overwritten.** If the stored state fails
    validation or was written by a newer version, the store enters an error
    state and stops writing, so the user can still export or recover the data.
