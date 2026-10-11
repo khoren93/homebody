@@ -33,11 +33,11 @@ the browser, and can be installed as an app.
   <tr>
     <td width="33%"><img src="docs/assets/screens/plan-dark.png" alt="Plan screen"></td>
     <td width="33%"><img src="docs/assets/screens/workout-dark.png" alt="Workout screen"></td>
-    <td width="33%"><img src="docs/assets/screens/muscles-dark.png" alt="Muscle map"></td>
+    <td width="33%"><img src="docs/assets/screens/map-dark.png" alt="Muscle heat map"></td>
   </tr>
   <tr>
     <td width="33%"><img src="docs/assets/screens/progress-dark.png" alt="Progress screen"></td>
-    <td width="33%"><img src="docs/assets/screens/library-dark.png" alt="Exercise library"></td>
+    <td width="33%"><img src="docs/assets/screens/exercises-dark.png" alt="Exercise catalog"></td>
     <td width="33%"><img src="docs/assets/screens/body-dark.png" alt="Body screen"></td>
   </tr>
 </table>
@@ -64,11 +64,11 @@ the browser, and can be installed as an app.
 - Swap an exercise for an alternative that trains the same muscles, by hand or at random.
 - The screen stays awake while you train.
 
-**Muscles**
+**Exercises**
 
-- A front and back body map with 17 muscle groups.
+- A front and back body map with 17 muscle groups: tap a muscle to see what trains it.
 - Weekly volume as a heat map, planned or actually performed, rated against your goal.
-- A library of 141 exercises with search, filters and three levels of detail.
+- A catalog of 141 exercises under the map, with search, filters and three levels of detail.
 
 **Body**
 
@@ -168,7 +168,7 @@ src/
   store/         state, transforms, derived plan, persistence, backup
   i18n/          setup, locales/en.json, locales/ru.json, formatting
   components/    shared UI building blocks
-  features/      plan, session, progress, muscles, library, body, settings
+  features/      plan, session, progress, exercises, body, settings
   app/           shell, tab bar, service worker registration
   styles/        design tokens, fonts, base styles
 data/            exercises.json, the dataset
