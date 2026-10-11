@@ -9,7 +9,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 - [x] 1. Initialize repository
 - [x] 2. Architecture overview and stack ADR
-- [ ] 3. Scaffold Vite + React + TypeScript app
+- [x] 3. Scaffold Vite + React + TypeScript app
 - [ ] 4. Lint, format and git hooks
 - [ ] 5. Makefile
 - [ ] 6. Docker and compose setup
@@ -59,3 +59,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - **2026-10-11 — Step 2.** Architecture overview (`docs/ARCHITECTURE.md`) and
   the stack decision record (`docs/adr/0001-stack.md`), including the two
   version pins (TypeScript 6.0.x, ESLint 9.x) and the reasons for them.
+- **2026-10-11 — Step 3.** Vite + React + TypeScript scaffold with strict
+  compiler options (including `noUncheckedIndexedAccess`), the `@/` path alias,
+  Vitest with Testing Library and a smoke test. pnpm is pinned to the 10.x
+  line through `packageManager`.
