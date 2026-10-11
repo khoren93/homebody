@@ -13,7 +13,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 4. Lint, format and git hooks
 - [x] 5. Makefile
 - [x] 6. Docker and compose setup
-- [ ] 7. CI workflow and Dependabot
+- [x] 7. CI workflow and Dependabot
 
 ### Data and engine
 
@@ -78,3 +78,8 @@ tightly related ones) that leaves the project building, linted and tested.
   security headers including a CSP), `docker-compose.yml` with the `app` and
   `dev` services, and the `docker-*` Makefile targets. Verified: image builds,
   runs as uid 101, health check passes, dev server serves with hot reload.
+- **2026-10-11 — Step 7.** GitHub Actions CI (lint, format check, typecheck,
+  unit tests with coverage, build, plus a job that builds the Docker image) on
+  pushes to `main` and on pull requests; Dependabot for npm (grouped), GitHub
+  Actions and Docker. The workflow has not run yet because nothing has been
+  pushed.
