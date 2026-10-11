@@ -23,7 +23,7 @@ function Screen({ route }: { route: Route }) {
     case 'body':
       return <BodyScreen />;
     case 'library':
-      return <LibraryScreen />;
+      return <LibraryScreen muscle={route.muscle} />;
     case 'settings':
       return <SettingsScreen />;
   }

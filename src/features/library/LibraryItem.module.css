@@ -1,0 +1,117 @@
+/* Grid tile and compact row share their parts; only the layout differs. */
+.tile,
+.row {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-l);
+  background: var(--surface);
+  text-align: start;
+}
+
+.tile {
+  flex-direction: column;
+  height: 100%;
+}
+
+.row {
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+}
+
+.image {
+  background: var(--photo-plate);
+  object-fit: cover;
+}
+
+.tile .image {
+  width: 100%;
+  height: 112px;
+}
+
+.row .image {
+  flex: none;
+  width: 56px;
+  height: 44px;
+  border-radius: var(--radius-s);
+}
+
+.text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.tile .text {
+  padding: 10px var(--space-3) var(--space-3);
+}
+
+.name {
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.muscles {
+  color: var(--ink-muted);
+  font-size: var(--text-caption);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+/* Long gear lists may wrap instead of pushing the layout wide. */
+.gear {
+  white-space: normal;
+}
+
+.card {
+  --field-bg: var(--bg);
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.title {
+  font-size: var(--display-s);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px var(--space-3);
+  font-size: var(--text-body-s);
+}
+
+.facts dt {
+  color: var(--ink-muted);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-inline-start: var(--space-5);
+  font-size: var(--text-body-s);
+}

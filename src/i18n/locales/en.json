@@ -674,5 +674,52 @@
       "browse": "Browse →",
       "close": "Close {{muscle}}"
     }
+  },
+  "library": {
+    "count_one": "{{count}} exercise",
+    "count_other": "{{count}} exercises",
+    "search": "Search name, muscle or gear",
+    "searchLabel": "Search exercises",
+    "filter": {
+      "label": "Show",
+      "all": "All",
+      "owned": "My gear",
+      "plan": "In plan"
+    },
+    "density": {
+      "label": "Density",
+      "compact": "Compact list",
+      "grid": "Grid",
+      "cards": "Detailed cards"
+    },
+    "muscles": "Filter by muscle",
+    "tags": {
+      "inPlan": "In plan",
+      "excluded": "Excluded",
+      "noGear": "No gear",
+      "needs": "Needs {{gear}}",
+      "assists": "Assists"
+    },
+    "empty": "Nothing found. Try another search or filter.",
+    "open": "Open the photos of {{name}}",
+    "detail": {
+      "primary": "Primary muscles",
+      "secondary": "Assisting",
+      "equipment": "Equipment",
+      "type": "Type",
+      "difficulty": "Difficulty",
+      "next": "Next session",
+      "capacityWeighted": "≈1RM now",
+      "capacityOther": "Limit now",
+      "weighted": "with weight, tracks ≈1RM",
+      "reps": "for reps",
+      "timed": "timed hold",
+      "compound": "compound (multi-joint)",
+      "isolation": "isolation",
+      "steps_one": "Technique · {{count}} step",
+      "steps_other": "Technique · {{count}} steps",
+      "exclude": "Do not suggest",
+      "restore": "Back into the plan"
+    }
   }
 }

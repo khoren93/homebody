@@ -37,7 +37,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 19. Plan: missed-session move and skip
 - [x] 20. Calculator: progression tables and charts
 - [x] 21. Muscles: body map with heat modes and muscle detail
-- [ ] 22. Muscles: exercise library with search, filters and densities
+- [x] 22. Muscles: exercise library with search, filters and densities
 - [ ] 23. Body: weight, girths, body fat, charts
 - [ ] 24. Body: progress photos with compare
 - [ ] 25. Settings: backup export/import and reset
@@ -194,3 +194,10 @@ tightly related ones) that leaves the project building, linted and tested.
   muscle (description, sets, weekly target, time since trained, recovery
   warning, no-direct-work hint, link to its exercises). Mode and selection live
   in the URL. 530 tests.
+- **2026-10-11 — Step 22.** Exercise library as its own screen, built to the
+  mockup: search across names in both languages, muscles and equipment; filters
+  for all, owned gear and in plan; a scrolling row of muscle chips with counts
+  (kept in the URL, so the muscle map links into it); and three densities
+  (compact list, grid, detailed cards) remembered on the device. Detailed cards
+  show muscles, equipment, type, difficulty, the next prescription, the current
+  capacity, technique and exclude or restore. 546 tests.
