@@ -2,6 +2,7 @@ import { applyPatch } from './store';
 import * as exercises from './transforms/exercises';
 import * as sessions from './transforms/sessions';
 import * as settings from './transforms/settings';
+import * as tracking from './transforms/tracking';
 import type { Patch, Snapshot } from './types';
 
 /** Turns a pure transform into an action that updates and persists the store. */
@@ -32,4 +33,7 @@ export const actions = {
   restoreExercise: bind(exercises.restoreExercise),
   editPrescription: bind(exercises.editPrescription),
   restoreCalculation: bind(exercises.restoreCalculation),
+
+  toggleSet: bind(tracking.toggleSet),
+  rateExercise: bind(tracking.rateExercise),
 };

@@ -39,6 +39,18 @@ export function useExerciseText() {
           ? t('exercise.setsSeconds', { sets: item.sets, seconds: item.prescription.seconds })
           : t('exercise.setsReps', { sets: item.sets, reps: item.prescription.reps }),
 
+      /** One set in words: "12 reps · 24 kg" or "55 s". */
+      setDose: (exercise: Exercise, item: Pick<LoadedItem, 'prescription'>) => {
+        const p = item.prescription;
+        if (p.type === 'timed') return t('units.seconds', { value: p.seconds });
+        const reps = t('units.reps', { count: p.reps });
+        if (p.type !== 'weighted') return reps;
+        const load = t(exercise.loadMode === 'pair' ? 'exercise.pairLoad' : 'exercise.load', {
+          weight: format.number(p.weight),
+        });
+        return `${reps} · ${load}`;
+      },
+
       /** "24 kg", or "2 × 24 kg" when there is one implement in each hand. */
       load: (exercise: Exercise, weight: number) =>
         t(exercise.loadMode === 'pair' ? 'exercise.pairLoad' : 'exercise.load', {

@@ -265,7 +265,7 @@
       "hint": "could do 3+ more"
     },
     "ok": {
-      "name": "As planned",
+      "name": "On plan",
       "hint": "effort as prescribed"
     },
     "hard": {
@@ -273,7 +273,7 @@
       "hint": "at the limit"
     },
     "fail": {
-      "name": "Failed",
+      "name": "Missed",
       "hint": "fewer reps"
     }
   },
@@ -514,7 +514,42 @@
       "randomLabel_other": "Swap for another exercise, {{count}} options"
     },
     "missing": "This session is no longer in the plan.",
-    "summary": "Week {{week}} · {{phase}} · {{sets}}"
+    "summary": "Week {{week}} · {{phase}} · {{sets}}",
+    "sets": {
+      "label": "Sets",
+      "hint": "Tick a set as soon as you finish it: the rest timer starts.",
+      "done": "Set {{n}}, done",
+      "current": "Set {{n}}, current",
+      "upcoming": "Set {{n}}"
+    },
+    "rate": {
+      "label": "How did it feel?",
+      "hint": "The calculator adjusts your next loads."
+    },
+    "nextTime": "Next time, {{date}}: {{dose}}",
+    "failHint": "If you missed several reps, enter how many you actually did in the field below.",
+    "progress": {
+      "set": "Set {{current}} of {{total}}",
+      "allDone": "All {{total}} sets done",
+      "ring": "{{percent}}% of sets done"
+    },
+    "finish": {
+      "markDone": "Mark as done",
+      "marked": "Marked as done"
+    },
+    "timer": {
+      "label": "Rest timer",
+      "sameExercise": "Rest · set {{n}} of {{total}} next",
+      "nextExercise": "Next: {{name}}",
+      "nextSet": "set {{n}} of {{total}} · {{dose}}",
+      "minus": "−15 s",
+      "plus": "+15 s",
+      "minusLabel": "15 seconds less",
+      "plusLabel": "15 seconds more",
+      "skip": "Skip",
+      "go": "Go",
+      "ok": "OK"
+    }
   },
   "phaseShort": {
     "intro": "Intro",

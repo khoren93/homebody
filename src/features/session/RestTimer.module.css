@@ -1,0 +1,97 @@
+.wrap {
+  position: fixed;
+  inset-inline: 0;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: var(--z-timer);
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--space-3);
+  pointer-events: none;
+}
+
+.timer {
+  width: 100%;
+  max-width: 30rem;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--timer-bg);
+  box-shadow: var(--shadow-float);
+  color: var(--timer-ink);
+  pointer-events: auto;
+}
+
+.track {
+  height: 4px;
+  background: var(--timer-well);
+}
+
+.fill {
+  height: 100%;
+  background: var(--accent);
+  transition: inline-size 0.25s linear;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--space-3) 14px 14px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.time {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-stretch: var(--display-stretch);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--display-weight);
+  line-height: 1;
+}
+
+.next {
+  min-width: 0;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.detail {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+.buttons {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--space-2);
+}
+
+.button {
+  height: 40px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--timer-well);
+  color: var(--timer-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-body-s);
+}
+
+.button:focus-visible {
+  outline-color: var(--timer-ink);
+}
+
+.skip {
+  background: var(--timer-ink);
+  color: var(--timer-bg);
+  font-family: var(--font-sans);
+  font-weight: 600;
+}

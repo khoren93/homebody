@@ -33,7 +33,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 15. Settings: profile, schedule, equipment, load scale
 - [x] 16. Plan: overview, next-session hero, weeks list, next block
 - [x] 17. Session: workout screen with exercise cards, swap, exclude, edits
-- [ ] 18. Session: set tracker, rest timer, wake lock, rating
+- [x] 18. Session: set tracker, rest timer, wake lock, rating
 - [ ] 19. Plan: missed-session move and skip
 - [ ] 20. Calculator: progression tables and charts
 - [ ] 21. Muscles: body map with heat modes and muscle detail
@@ -167,3 +167,10 @@ tightly related ones) that leaves the project building, linted and tested.
   adopted first; components and screens are then restyled one by one in
   `style:` commits that leave the logic untouched. Screens built after this
   point follow the design from the start.
+- **2026-10-11 — Step 18.** Set tracker, rest timer, wake lock and effort
+  rating, built to the design system specs. Ticking a set starts a rest
+  countdown that names what comes next (adjust by 15 s, skip, beep and vibration
+  at zero); the last set of an exercise records it and the last set of the
+  session marks it done. Ratings (easy, on plan, hard, missed) adjust later
+  loads and show a preview of the next session. The header shows the current set
+  and a progress ring, and the screen stays awake during a workout. 484 tests.

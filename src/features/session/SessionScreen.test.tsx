@@ -20,9 +20,11 @@ describe('SessionScreen: overview', () => {
   it('introduces the session and explains the prescribed effort', () => {
     render(<SessionScreen sessionId={FIRST} />);
     expect(screen.getByRole('heading', { level: 1, name: 'Full body A' })).toBeInTheDocument();
-    expect(screen.getByText('Week 1 · Introduction · 17 working sets')).toBeInTheDocument();
+    expect(screen.getByText('Set 1 of 17')).toBeInTheDocument();
     expect(
-      screen.getByText('Squat & chest press focus · Mon, Oct 19 · about 45 min'),
+      screen.getByText(
+        'Week 1 · Introduction · 17 working sets · Squat & chest press focus · Mon, Oct 19 · about 45 min',
+      ),
     ).toBeInTheDocument();
     expect(screen.getByText('3 reps in reserve.')).toBeInTheDocument();
     expect(screen.getByText(/Warm up for 5 minutes/)).toBeInTheDocument();
@@ -34,7 +36,7 @@ describe('SessionScreen: overview', () => {
 
   it('explains a deload session differently', () => {
     render(<SessionScreen sessionId="2026-11-09" />);
-    expect(screen.getByText('Week 4 · Deload · 12 working sets')).toBeInTheDocument();
+    expect(screen.getByText(/^Week 4 · Deload · 12 working sets/)).toBeInTheDocument();
     expect(screen.getByText('Deload.')).toBeInTheDocument();
     expect(screen.getByText(/about 90% of the calculated weight/)).toBeInTheDocument();
   });
@@ -290,5 +292,158 @@ describe('SessionScreen: Russian', () => {
     expect(within(squat).getByRole('list')).toHaveAttribute('lang', 'en');
     expect(card('Жим гантелей лёжа')).toHaveTextContent('2 × 22 кг');
     expect(card('Жим гантелей лёжа')).toHaveTextContent('≈1ПМ 30,5 кг на руку');
+  });
+});
+
+describe('SessionScreen: tracking sets', () => {
+  const squat = () => card('Dumbbell Goblet Squat');
+  const set = (name: string) => within(squat()).getByRole('button', { name });
+
+  it('shows the sets of an exercise with the current one marked', () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    const sets = within(squat()).getByRole('group', { name: 'Sets' });
+    expect(
+      within(sets)
+        .getAllByRole('button')
+        .map((b) => b.getAttribute('aria-label')),
+    ).toEqual(['Set 1, current', 'Set 2', 'Set 3']);
+    expect(screen.getByRole('img', { name: '0% of sets done' })).toBeInTheDocument();
+  });
+
+  it('ticks a set, advances the progress and starts the rest timer for the next set', async () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    await userEvent.click(set('Set 1, current'));
+
+    expect(set('Set 1, done')).toHaveAttribute('aria-pressed', 'true');
+    expect(set('Set 2, current')).toBeInTheDocument();
+    expect(useAppStore.getState().setLogs[FIRST]).toEqual({ Goblet_Squat: [true, false, false] });
+    expect(screen.getByText('Set 2 of 17')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: '6% of sets done' })).toBeInTheDocument();
+
+    const timer = screen.getByRole('timer', { name: 'Rest timer' });
+    expect(timer).toHaveTextContent('1:45');
+    expect(timer).toHaveTextContent('Rest · set 2 of 3 next');
+    expect(timer).toHaveTextContent('12 reps · 24 kg');
+  });
+
+  it('adjusts and skips the rest', async () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    await userEvent.click(set('Set 1, current'));
+    const timer = screen.getByRole('timer');
+
+    await userEvent.click(within(timer).getByRole('button', { name: '15 seconds more' }));
+    expect(timer).toHaveTextContent('2:00');
+    await userEvent.click(within(timer).getByRole('button', { name: '15 seconds less' }));
+    await userEvent.click(within(timer).getByRole('button', { name: '15 seconds less' }));
+    expect(timer).toHaveTextContent('1:30');
+
+    await userEvent.click(within(timer).getByRole('button', { name: 'Skip' }));
+    expect(screen.queryByRole('timer')).not.toBeInTheDocument();
+  });
+
+  it('says go when the rest is over', async () => {
+    const vibrate = vi.fn();
+    Object.defineProperty(navigator, 'vibrate', { value: vibrate, configurable: true });
+    render(<SessionScreen sessionId={FIRST} />);
+    await userEvent.click(set('Set 1, current'));
+
+    vi.setSystemTime(new Date(2026, 9, 14, 12, 1, 46));
+    const timer = screen.getByRole('timer');
+    expect(await within(timer).findByText('Go')).toBeInTheDocument();
+    expect(vibrate).toHaveBeenCalledTimes(1);
+    expect(
+      within(timer).queryByRole('button', { name: '15 seconds more' }),
+    ).not.toBeInTheDocument();
+    await userEvent.click(within(timer).getByRole('button', { name: 'OK' }));
+    expect(screen.queryByRole('timer')).not.toBeInTheDocument();
+    vi.setSystemTime(new Date(2026, 9, 14, 12));
+  });
+
+  it('points the timer at the next exercise after the last set of one', async () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    await userEvent.click(set('Set 1, current'));
+    await userEvent.click(set('Set 2, current'));
+    await userEvent.click(set('Set 3, current'));
+
+    const timer = screen.getByRole('timer');
+    expect(timer).toHaveTextContent('Next: Dumbbell Bench Press');
+    expect(timer).toHaveTextContent('set 1 of 3 · 8 reps · 2 × 22 kg');
+    expect(useAppStore.getState().history.map((e) => e.exerciseId)).toEqual(['Goblet_Squat']);
+  });
+
+  it('unticks a set without starting the timer', async () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    await userEvent.click(set('Set 1, current'));
+    await userEvent.click(screen.getByRole('button', { name: 'Skip' }));
+    await userEvent.click(set('Set 1, done'));
+
+    expect(useAppStore.getState().setLogs[FIRST]?.Goblet_Squat).toEqual([false, false, false]);
+    expect(screen.queryByRole('timer')).not.toBeInTheDocument();
+  });
+
+  it('finishes the session with the last set', async () => {
+    const all = Object.fromEntries(
+      [
+        'Dumbbell_Bench_Press',
+        'One-Arm_Dumbbell_Row',
+        'Stiff-Legged_Dumbbell_Deadlift',
+        'Standing_Dumbbell_Press',
+      ].map((exercise) => [exercise, [true, true, true]]),
+    );
+    useAppStore.setState({
+      setLogs: { [FIRST]: { ...all, Goblet_Squat: [true, true, true], Plank: [true, false] } },
+    });
+    render(<SessionScreen sessionId={FIRST} />);
+    await userEvent.click(within(card('Plank')).getByRole('button', { name: 'Set 2, current' }));
+
+    expect(state().done).toEqual({ [FIRST]: true });
+    expect(useAppStore.getState().history).toHaveLength(6);
+    expect(screen.getByText('All 17 sets done · done')).toBeInTheDocument();
+    expect(screen.queryByRole('timer')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Marked as done' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+  });
+
+  it('marks the session as done by hand and takes it back', async () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Mark as done' }));
+    expect(state().done).toEqual({ [FIRST]: true });
+    await userEvent.click(screen.getByRole('button', { name: 'Marked as done' }));
+    expect(state().done).toEqual({});
+  });
+});
+
+describe('SessionScreen: rating', () => {
+  it('rates an exercise and previews the next session', async () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    const squat = card('Dumbbell Goblet Squat');
+    const rating = within(squat).getByRole('group', { name: 'How did it feel?' });
+    expect(
+      within(rating)
+        .getAllByRole('button')
+        .map((b) => b.textContent),
+    ).toEqual(['Easy', 'On plan', 'Hard', 'Missed']);
+
+    await userEvent.click(within(rating).getByRole('button', { name: 'Easy' }));
+    expect(state().overrides[`Goblet_Squat|${FIRST}`]).toEqual({ rating: 'easy' });
+    expect(within(rating).getByRole('button', { name: 'Easy' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    expect(squat).toHaveTextContent('rating applied');
+    expect(squat).toHaveTextContent('Next time, Mon, Oct 26: 3 × 16 · 24 kg');
+
+    await userEvent.click(within(rating).getByRole('button', { name: 'Easy' }));
+    expect(state().overrides).toEqual({});
+    expect(squat).not.toHaveTextContent('Next time');
+  });
+
+  it('asks for the real reps after a missed set', async () => {
+    render(<SessionScreen sessionId={FIRST} />);
+    const squat = card('Dumbbell Goblet Squat');
+    await userEvent.click(within(squat).getByRole('button', { name: 'Missed' }));
+    expect(squat).toHaveTextContent('enter how many you actually did');
   });
 });

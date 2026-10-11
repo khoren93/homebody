@@ -1,0 +1,40 @@
+.sets {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.set {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border: 0;
+  border-radius: var(--radius-m);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+}
+
+.done {
+  background: var(--good);
+  color: var(--on-good);
+}
+
+.done svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.6;
+}
+
+.current {
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--ink);
+}
+
+.upcoming {
+  background: var(--surface-3);
+  color: var(--ink-muted);
+}

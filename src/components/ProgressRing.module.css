@@ -1,0 +1,21 @@
+.ring {
+  flex: none;
+  width: 44px;
+  height: 44px;
+}
+
+.track,
+.fill {
+  fill: none;
+  stroke-width: 5;
+}
+
+.track {
+  stroke: var(--line);
+}
+
+.fill {
+  stroke: var(--good);
+  stroke-linecap: round;
+  transition: stroke-dasharray var(--duration-normal) ease-out;
+}
