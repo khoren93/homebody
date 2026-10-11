@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.fields {
+  grid-template-columns: repeat(auto-fit, minmax(8.75rem, 1fr));
+  align-items: end;
+}
+
+.week {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-1);
+}

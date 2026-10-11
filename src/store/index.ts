@@ -1,8 +1,10 @@
+export { actions } from './actions';
 export { CATALOG } from './catalog';
 export { createSampleSnapshot, createSampleState } from './defaults';
 export { type DerivedPlan, derivePlan, usePlan } from './derived';
 export { migrateState, StateFormatError } from './migrations';
 export * from './schema';
+export * from './selectors';
 export {
   applyPatch,
   flushStore,
@@ -14,4 +16,5 @@ export {
   type StoreStatus,
   useAppStore,
 } from './store';
+export { LOAD_SCALE, PLAN_WEEKS, SESSION_MINUTES } from './transforms/settings';
 export type * from './types';

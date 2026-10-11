@@ -23,7 +23,9 @@
     "loading": "Loading…",
     "today": "Today",
     "yesterday": "Yesterday",
-    "comingSoon": "This screen is on its way."
+    "comingSoon": "This screen is on its way.",
+    "quote": "“{{text}}”",
+    "andMore": "and {{count}} more"
   },
   "language": {
     "label": "Language"
@@ -298,6 +300,55 @@
     "dark": "Dark"
   },
   "settings": {
-    "appearance": "Appearance"
+    "appearance": "Appearance",
+    "intro": "Any change rebuilds the plan immediately. Your weight edits and exercise swaps are kept.",
+    "profile": {
+      "title": "Profile",
+      "age": "Age",
+      "height": "Height, cm",
+      "weight": "Current weight, kg",
+      "sex": "Sex",
+      "level": "Strength training experience",
+      "goal": "Goal"
+    },
+    "scale": {
+      "title": "Overall load",
+      "about": "Raises or lowers the working weights of every exercise in one move. The calculator picks new weights from your equipment and recalculates the reps. Exercises where you entered the weight or reps yourself follow your numbers and do not change.",
+      "label": "Weights relative to the calculation",
+      "quick": "Quick adjustment",
+      "reset": "100%"
+    },
+    "schedule": {
+      "title": "Schedule",
+      "days": "Training days",
+      "perWeek_one": "{{count}} day per week",
+      "perWeek_other": "{{count}} days per week",
+      "minutes": "Time per session",
+      "start": "Plan start",
+      "length": "Length",
+      "deload": "Deload week",
+      "deloadOn": "Every 4th week",
+      "deloadOff": "No deload"
+    },
+    "equipment": {
+      "title": "Equipment at home",
+      "about": "The plan is rebuilt right away: exercises that need missing equipment are replaced with ones you can do, and the weights are recalculated.",
+      "list": "What you have",
+      "dbList": "Dumbbells: available weights (per dumbbell), kg",
+      "kbList": "Kettlebells: available weights, kg",
+      "listHint": "Separate the weights with spaces or commas, for example 2.5, 5, 7.5. The calculator only picks weights from this list.",
+      "bar": "Bar, kg",
+      "step": "Weight step, kg",
+      "max": "Maximum, kg",
+      "added": "Added: {{item}}.",
+      "removed": "Removed: {{item}}.",
+      "rebuilt": "The plan was rebuilt.",
+      "newExercises": "New exercises: {{list}}.",
+      "goneExercises": "No longer in the plan: {{list}}.",
+      "recalculated": "Weights were recalculated.",
+      "unchanged": "The exercises in the plan did not change.",
+      "unchangedAdded": "The exercises in the plan did not change: what is already there fits better, but new options are available for swapping and in the library."
+    },
+    "about": "Exercises, photos and instructions come from the open Free Exercise DB (Unlicense). The calculation uses the Epley formula for the estimated one-rep max, prescribes effort as reps in reserve (RIR) and progresses weekly according to your training level. Homebody is not medical advice."
   }
 }

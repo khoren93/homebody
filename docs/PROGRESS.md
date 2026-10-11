@@ -30,7 +30,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 ### Features
 
-- [ ] 15. Settings: profile, schedule, equipment, load scale
+- [x] 15. Settings: profile, schedule, equipment, load scale
 - [ ] 16. Plan: overview, next-session hero, weeks list, next block
 - [ ] 17. Session: workout screen with exercise cards, swap, exclude, edits
 - [ ] 18. Session: set tracker, rest timer, wake lock, rating
@@ -139,3 +139,11 @@ tightly related ones) that leaves the project building, linted and tested.
   screens, and the first shared components (Button, Panel, Segmented, Chip,
   Banner, Field, Stat, ProgressBar, Icon, layout primitives). Screens other than
   Settings are placeholders until their steps. 376 tests.
+- **2026-10-11 — Step 15.** Settings screen: profile (age, height, body weight,
+  sex, experience, goal), overall load scale (slider and quick steps), schedule
+  (training days, session length, start, plan length, deload) and equipment
+  toggles with dumbbell and kettlebell lists and bar configuration. After an
+  equipment change the screen says which exercises entered and left the plan.
+  Store changes are pure transforms in `src/store/transforms`, bound to the
+  store as `actions`. Numeric fields accept decimal commas and commit on blur or
+  Enter. 404 tests.

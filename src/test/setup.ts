@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/vitest';
 
 import { cleanup } from '@testing-library/react';
-import { afterEach, beforeEach } from 'vitest';
+import { afterEach, beforeEach, vi } from 'vitest';
 
 import { i18n, initI18n } from '@/i18n';
 import { initStore } from '@/store';
@@ -10,8 +10,11 @@ import { createMemoryPersistence } from '@/store/persistence';
 // Tests run in English unless they switch the language themselves.
 initI18n('en');
 
-/** The date tests run on unless they pass their own: a Wednesday. */
+/** The date tests run on: a Wednesday. */
 export const TEST_TODAY = '2026-10-14';
+
+// Only the clock is faked, so "today" is stable while timers keep running normally.
+vi.useFakeTimers({ toFake: ['Date'], now: new Date(2026, 9, 14, 12, 0) });
 
 beforeEach(async () => {
   localStorage.clear();
