@@ -2,10 +2,14 @@ import { type ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Banner } from '@/components/Banner';
+import { IconLink } from '@/components/Button';
 import { Icon } from '@/components/Icon';
 import { Logo } from '@/components/Logo';
 import { useFrameTicker } from '@/features/exercise/useFrameTicker';
+import { useFormat } from '@/i18n/useFormat';
+import { cx } from '@/lib/cx';
 import { type Route, routeHref, tabOf, useRoute } from '@/lib/router';
+import { useToday } from '@/lib/useToday';
 import { useAppStore } from '@/store';
 
 import styles from './AppShell.module.css';
@@ -25,6 +29,10 @@ export function AppShell({ children }: { children: (route: Route) => ReactNode }
   const route = useRoute();
   const storage = useAppStore((store) => store.storage);
   const saveFailed = useAppStore((store) => store.saveFailed);
+  const today = useToday();
+  const format = useFormat();
+  // During a workout the chrome steps back: no header, no tab bar.
+  const immersive = route.name === 'session';
   useScrollReset(route);
   useFrameTicker();
 
@@ -41,21 +49,25 @@ export function AppShell({ children }: { children: (route: Route) => ReactNode }
       >
         {t('shell.skip')}
       </a>
-      <div className={styles.frame}>
-        <header className={styles.header}>
-          <a className={styles.brand} href={routeHref({ name: 'plan' })}>
-            <Logo />
-            <span className={styles.wordmark}>{t('app.name').toLowerCase()}</span>
-          </a>
-          <a
-            className={styles.settings}
-            href={routeHref({ name: 'settings' })}
-            aria-label={t('nav.openSettings')}
-            aria-current={route.name === 'settings' ? 'page' : undefined}
-          >
-            <Icon name="settings" />
-          </a>
-        </header>
+      <div className={cx(styles.frame, immersive && styles.immersive)}>
+        {!immersive && (
+          <header className={styles.header}>
+            <a className={styles.brand} href={routeHref({ name: 'plan' })}>
+              <Logo />
+              <span className={styles.wordmark}>{t('app.name').toLowerCase()}</span>
+            </a>
+            <div className={styles.meta}>
+              <time dateTime={today}>{format.date(today)}</time>
+              <IconLink
+                href={routeHref({ name: 'settings' })}
+                label={t('nav.openSettings')}
+                aria-current={route.name === 'settings' ? 'page' : undefined}
+              >
+                <Icon name="settings" />
+              </IconLink>
+            </div>
+          </header>
+        )}
         {storage === 'memory' && <Banner role="alert">{t('shell.notSaved')}</Banner>}
         {saveFailed && (
           <Banner role="alert" tone="danger">
@@ -66,7 +78,7 @@ export function AppShell({ children }: { children: (route: Route) => ReactNode }
           {children(route)}
         </main>
       </div>
-      {route.name !== 'session' && <TabBar current={tabOf(route)} />}
+      {!immersive && <TabBar current={tabOf(route)} />}
     </>
   );
 }

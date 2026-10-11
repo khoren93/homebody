@@ -1,3 +1,4 @@
+/* Design system: TabBar. Bottom bar on phones, a left rail on wide screens. */
 .bar {
   position: fixed;
   inset-inline: 0;
@@ -5,17 +6,17 @@
   z-index: var(--z-tab-bar);
   display: flex;
   justify-content: center;
-  padding: var(--space-1) var(--space-2) calc(var(--space-1) + env(safe-area-inset-bottom, 0px));
-  border-top: var(--border-width) solid var(--color-border);
-  background: var(--color-surface);
+  height: calc(var(--tab-bar-height) + env(safe-area-inset-bottom, 0px));
+  padding: var(--space-2) var(--space-3) calc(18px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line);
+  background: var(--bg);
 }
 
 .list {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--space-1);
   width: 100%;
-  max-width: var(--content-width);
+  max-width: 30rem;
   padding: 0;
   list-style: none;
 }
@@ -29,17 +30,17 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-1);
-  border-radius: var(--radius-md);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-medium);
+  min-height: var(--control);
+  color: var(--ink-muted);
+  font-size: var(--text-tab);
+  font-weight: 500;
+  line-height: 14px;
   text-decoration: none;
 }
 
 .link[aria-current='page'] {
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  color: var(--accent-ink);
+  font-weight: 600;
 }
 
 .label {
@@ -47,4 +48,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@media (min-width: 56.25rem) {
+  .bar {
+    inset-block: 0;
+    inset-inline: 0 auto;
+    align-items: flex-start;
+    width: var(--rail-width);
+    height: auto;
+    padding: var(--space-8) var(--space-2);
+    border-top: 0;
+    border-inline-end: 1px solid var(--line);
+  }
+
+  .list {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
 }
