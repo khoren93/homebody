@@ -105,3 +105,8 @@ tightly related ones) that leaves the project building, linted and tested.
   scale, warm-up sets, plate breakdown and the next-block carry-over. Parity
   tests compare every prescription of the 23 scenarios with the prototype (211
   tests in total). The engine returns new objects instead of mutating the plan.
+- **2026-10-11 — Decision.** The visual design is delivered separately. Until
+  then UI steps are built functionally with minimal, token-driven styling and
+  small shared components, so the look can be replaced without touching logic
+  ([ADR 0002](adr/0002-deferred-visual-design.md)). Screenshots and the README
+  hero wait for the final design.

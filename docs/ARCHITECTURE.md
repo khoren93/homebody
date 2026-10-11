@@ -106,10 +106,16 @@ separate IndexedDB tables so the main document stays small:
 
 ## Styling
 
-CSS Modules with CSS custom properties. Design tokens (colors, type, radii)
-are defined once in `src/styles/tokens.css` for the light and dark themes; the
-theme follows the system preference unless the user overrides it. Fonts are
-bundled with the app and never loaded from a third-party host.
+CSS Modules with CSS custom properties. Design tokens (colors, type, spacing,
+radii) are defined once in `src/styles/tokens.css` for the light and dark
+themes; the theme follows the system preference unless the user overrides it.
+Fonts are bundled with the app and never loaded from a third-party host.
+
+Components use tokens only and contain no literal design values, and screens
+are composed from the shared building blocks in `src/components/`. This keeps
+the visual layer replaceable: the final design system is applied by changing
+tokens and component styles, without touching logic. See
+[ADR 0002](adr/0002-deferred-visual-design.md).
 
 ## Localization
 
