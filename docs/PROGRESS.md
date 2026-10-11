@@ -8,7 +8,7 @@ tightly related ones) that leaves the project building, linted and tested.
 ### Foundation
 
 - [x] 1. Initialize repository
-- [ ] 2. Architecture overview and stack ADR
+- [x] 2. Architecture overview and stack ADR
 - [ ] 3. Scaffold Vite + React + TypeScript app
 - [ ] 4. Lint, format and git hooks
 - [ ] 5. Makefile
@@ -56,3 +56,6 @@ tightly related ones) that leaves the project building, linted and tested.
 - **2026-10-11 — Step 1.** Repository initialized: ignore rules (the local
   `reference/` prototype bundle is never committed), editor config, Node
   version pin, MIT license, README stub and this plan.
+- **2026-10-11 — Step 2.** Architecture overview (`docs/ARCHITECTURE.md`) and
+  the stack decision record (`docs/adr/0001-stack.md`), including the two
+  version pins (TypeScript 6.0.x, ESLint 9.x) and the reasons for them.
