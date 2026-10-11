@@ -49,7 +49,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 28. Deploy demo to GitHub Pages
 - [x] 29. Full README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, templates
 - [x] 30. Screenshots and demo GIF
-- [ ] 31. Release v0.1.0
+- [x] 31. Release v0.1.0
 
 ## Log
 
@@ -259,3 +259,7 @@ screenshots`: the script plays two weeks of training through the UI, then
   template. TRAINING_SCIENCE gained a body metrics section. Every relative link,
   anchor and code path in the docs was checked by script, external links by
   request.
+- **2026-10-11 — Step 31.** Version 0.1.0 in package.json and the first
+  CHANGELOG entry. make check (605 tests) and make e2e (20 runs) pass. The
+  v0.1.0 tag is not created and nothing is pushed yet: both wait for the
+  maintainer.
