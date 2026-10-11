@@ -1,0 +1,12 @@
+.center {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: var(--page-gutter);
+  color: var(--color-text-muted);
+}
+
+.center > * {
+  max-width: 32rem;
+  color: var(--color-text);
+}

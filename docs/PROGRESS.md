@@ -26,7 +26,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 - [x] 12. i18n with English and Russian locales and a language switch
 - [x] 13. Persisted store, migrations and IndexedDB adapters
-- [ ] 14. Design tokens, theme and app shell with tab navigation
+- [x] 14. Design tokens, theme and app shell with tab navigation
 
 ### Features
 
@@ -131,3 +131,11 @@ tightly related ones) that leaves the project building, linted and tested.
   storage; the memoized derived plan (`usePlan`) and `useToday`. Feature actions
   are added as pure transforms with their screens. ADR 0003 records the model.
   339 tests.
+- **2026-10-11 — Step 14.** Provisional design tokens in `src/styles/tokens.css`
+  (one definition per token with `light-dark()`, system fonts for now), base
+  element styles, theme switching (system, light, dark) applied before first
+  paint by a CSP-friendly external script, the hash router, the app shell with
+  skip link, storage notices and a bottom tab bar, loading and unreadable-data
+  screens, and the first shared components (Button, Panel, Segmented, Chip,
+  Banner, Field, Stat, ProgressBar, Icon, layout primitives). Screens other than
+  Settings are placeholders until their steps. 376 tests.

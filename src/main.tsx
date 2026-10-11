@@ -1,14 +1,19 @@
+import './styles/tokens.css';
+import './styles/base.css';
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { App } from './App';
 import { toIsoDate } from './engine';
 import { initI18n } from './i18n';
+import { applyTheme, getTheme } from './lib/theme';
 import { flushStore, initStore } from './store';
 import { HomebodyDb } from './store/db';
 import { createDexiePersistence } from './store/persistence';
 
 initI18n();
+applyTheme(getTheme());
 
 void initStore({
   persistence: createDexiePersistence(new HomebodyDb()),

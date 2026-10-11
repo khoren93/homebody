@@ -136,12 +136,14 @@ fallback; Russian ships alongside it. Exercise names are part of the dataset
 
 ```
 src/
+  app/           shell: tab bar, routing switch, loading and error screens
   engine/        pure training logic and its tests
   data/          typed catalog loader, muscles, equipment
-  store/         state, actions, selectors, persistence, migrations
-  i18n/          i18next setup and locale files
-  components/    shared UI
+  store/         state, transforms, derived plan, persistence, migrations
+  i18n/          i18next setup, locale files, formatting
+  components/    shared UI building blocks
   features/      plan, session, calculator, muscles, body, settings
+  lib/           small utilities: router, theme, preferences, hooks
   styles/        tokens and base styles
 data/            source dataset
 public/          static assets, exercise photos

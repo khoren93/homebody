@@ -22,7 +22,8 @@
     "restore": "Restore",
     "loading": "Loading…",
     "today": "Today",
-    "yesterday": "Yesterday"
+    "yesterday": "Yesterday",
+    "comingSoon": "This screen is on its way."
   },
   "language": {
     "label": "Language"
@@ -116,27 +117,72 @@
   },
   "equipment": {
     "none": "no equipment",
-    "db": { "name": "Dumbbells", "inline": "dumbbells" },
-    "bench": { "name": "Bench", "inline": "bench" },
-    "bb": { "name": "Barbell", "inline": "barbell" },
-    "rack": { "name": "Squat rack", "inline": "squat rack" },
-    "ez": { "name": "EZ bar", "inline": "EZ bar" },
-    "kb": { "name": "Kettlebell", "inline": "kettlebell" },
-    "bar": { "name": "Pull-up bar", "inline": "pull-up bar" },
-    "dip": { "name": "Dip bars", "inline": "dip bars" },
-    "bands": { "name": "Resistance bands", "inline": "bands" },
-    "box": { "name": "Box, chair or step", "inline": "box or chair" },
-    "ball": { "name": "Exercise ball", "inline": "exercise ball" },
-    "medball": { "name": "Medicine ball", "inline": "medicine ball" }
+    "db": {
+      "name": "Dumbbells",
+      "inline": "dumbbells"
+    },
+    "bench": {
+      "name": "Bench",
+      "inline": "bench"
+    },
+    "bb": {
+      "name": "Barbell",
+      "inline": "barbell"
+    },
+    "rack": {
+      "name": "Squat rack",
+      "inline": "squat rack"
+    },
+    "ez": {
+      "name": "EZ bar",
+      "inline": "EZ bar"
+    },
+    "kb": {
+      "name": "Kettlebell",
+      "inline": "kettlebell"
+    },
+    "bar": {
+      "name": "Pull-up bar",
+      "inline": "pull-up bar"
+    },
+    "dip": {
+      "name": "Dip bars",
+      "inline": "dip bars"
+    },
+    "bands": {
+      "name": "Resistance bands",
+      "inline": "bands"
+    },
+    "box": {
+      "name": "Box, chair or step",
+      "inline": "box or chair"
+    },
+    "ball": {
+      "name": "Exercise ball",
+      "inline": "exercise ball"
+    },
+    "medball": {
+      "name": "Medicine ball",
+      "inline": "medicine ball"
+    }
   },
   "sex": {
     "male": "Male",
     "female": "Female"
   },
   "level": {
-    "beginner": { "name": "Beginner", "hint": "under 6 months" },
-    "intermediate": { "name": "Intermediate", "hint": "6 months to 2 years" },
-    "advanced": { "name": "Advanced", "hint": "2+ years" }
+    "beginner": {
+      "name": "Beginner",
+      "hint": "under 6 months"
+    },
+    "intermediate": {
+      "name": "Intermediate",
+      "hint": "6 months to 2 years"
+    },
+    "advanced": {
+      "name": "Advanced",
+      "hint": "2+ years"
+    }
   },
   "goal": {
     "hypertrophy": "Muscle gain",
@@ -149,19 +195,58 @@
     "expert": "advanced"
   },
   "templates": {
-    "FA": { "name": "Full body A", "focus": "Squat & chest press focus" },
-    "FB": { "name": "Full body B", "focus": "Hinge & overhead press focus" },
-    "FC": { "name": "Full body C", "focus": "Lunge & chest press focus" },
-    "UA": { "name": "Upper A", "focus": "Chest press & row focus" },
-    "UB": { "name": "Upper B", "focus": "Overhead press & pull-up focus" },
-    "LA": { "name": "Lower A", "focus": "Squat focus" },
-    "LB": { "name": "Lower B", "focus": "Hinge focus" },
-    "PA": { "name": "Push A", "focus": "Chest focus" },
-    "PB": { "name": "Push B", "focus": "Shoulder focus" },
-    "QA": { "name": "Pull A", "focus": "Lat focus" },
-    "QB": { "name": "Pull B", "focus": "Row focus" },
-    "GA": { "name": "Legs A", "focus": "Squat focus" },
-    "GB": { "name": "Legs B", "focus": "Hinge focus" }
+    "FA": {
+      "name": "Full body A",
+      "focus": "Squat & chest press focus"
+    },
+    "FB": {
+      "name": "Full body B",
+      "focus": "Hinge & overhead press focus"
+    },
+    "FC": {
+      "name": "Full body C",
+      "focus": "Lunge & chest press focus"
+    },
+    "UA": {
+      "name": "Upper A",
+      "focus": "Chest press & row focus"
+    },
+    "UB": {
+      "name": "Upper B",
+      "focus": "Overhead press & pull-up focus"
+    },
+    "LA": {
+      "name": "Lower A",
+      "focus": "Squat focus"
+    },
+    "LB": {
+      "name": "Lower B",
+      "focus": "Hinge focus"
+    },
+    "PA": {
+      "name": "Push A",
+      "focus": "Chest focus"
+    },
+    "PB": {
+      "name": "Push B",
+      "focus": "Shoulder focus"
+    },
+    "QA": {
+      "name": "Pull A",
+      "focus": "Lat focus"
+    },
+    "QB": {
+      "name": "Pull B",
+      "focus": "Row focus"
+    },
+    "GA": {
+      "name": "Legs A",
+      "focus": "Squat focus"
+    },
+    "GB": {
+      "name": "Legs B",
+      "focus": "Hinge focus"
+    }
   },
   "phase": {
     "intro": "Introduction",
@@ -170,15 +255,49 @@
     "deload": "Deload"
   },
   "rating": {
-    "easy": { "name": "Easy", "hint": "could do 3+ more" },
-    "ok": { "name": "As planned", "hint": "effort as prescribed" },
-    "hard": { "name": "Hard", "hint": "at the limit" },
-    "fail": { "name": "Failed", "hint": "fewer reps" }
+    "easy": {
+      "name": "Easy",
+      "hint": "could do 3+ more"
+    },
+    "ok": {
+      "name": "As planned",
+      "hint": "effort as prescribed"
+    },
+    "hard": {
+      "name": "Hard",
+      "hint": "at the limit"
+    },
+    "fail": {
+      "name": "Failed",
+      "hint": "fewer reps"
+    }
   },
   "notes": {
     "lightestTooHeavy": "Even the lightest weight is on the heavy side: do fewer reps and build up gradually.",
     "notEnoughWeight": "Not enough weight for the target rep range: slow the lowering phase down to 3 seconds.",
     "bigStep": "A big weight jump: fewer reps than usual for now, they will come back next week.",
     "tooManyReps": "That is a lot of reps: switch to a harder variation or slow down, 3 seconds on the way down."
+  },
+  "shell": {
+    "skip": "Skip to content",
+    "savedLocally": "Saved on this device",
+    "notSaved": "Storage is unavailable: changes will be lost when you close the page.",
+    "saveFailed": "The last change could not be saved."
+  },
+  "loadError": {
+    "title": "Your saved data could not be read",
+    "body": "Nothing was changed or deleted. You can start over with a clean profile, which erases the data saved on this device.",
+    "details": "Details: {{message}}",
+    "reset": "Erase data and start over",
+    "confirm": "Yes, erase everything"
+  },
+  "theme": {
+    "label": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "settings": {
+    "appearance": "Appearance"
   }
 }

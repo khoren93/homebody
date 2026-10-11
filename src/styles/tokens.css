@@ -1,0 +1,107 @@
+/*
+ * Design tokens. Components must take every color, size and radius from
+ * here and never hard-code design values (see docs/adr/0002).
+ *
+ * The values are provisional placeholders until the design system arrives.
+ * Colors are written as light-dark(<light>, <dark>); the active scheme
+ * follows the system unless the user picks one (data-theme on <html>).
+ */
+:root {
+  color-scheme: light dark;
+
+  /* Surfaces and text */
+  --color-bg: light-dark(#eef1f5, #0d1117);
+  --color-surface: light-dark(#ffffff, #161c25);
+  --color-sunken: light-dark(#e3e8ef, #1e2530);
+  --color-text: light-dark(#121821, #e7ecf3);
+  --color-text-muted: light-dark(#566170, #97a3b4);
+  --color-border: light-dark(#d6dce5, #2a323f);
+
+  /* Brand and feedback */
+  --color-accent: light-dark(#1f4fc9, #6f97ff);
+  --color-accent-soft: light-dark(#dfe7fa, #1c2a4a);
+  --color-on-accent: light-dark(#ffffff, #0b1020);
+  --color-success: light-dark(#1f7a44, #4cc07a);
+  --color-on-success: light-dark(#ffffff, #06210f);
+  --color-warning: light-dark(#8a5600, #e3a33b);
+  --color-warning-soft: light-dark(#fbf0d9, #33270f);
+  --color-danger: light-dark(#c2332a, #f0685c);
+  --color-danger-soft: light-dark(#fbe3e1, #3a1614);
+
+  /* Overlay that is dark in both themes (photo viewer) */
+  --color-overlay: #06090e;
+  --color-on-overlay: #ffffff;
+  --color-scrim: rgb(0 0 0 / 60%);
+
+  /* Barbell plates */
+  --color-plate-25: light-dark(#cf3a2e, #e2564a);
+  --color-plate-20: light-dark(#1f4fc9, #6f97ff);
+  --color-plate-15: light-dark(#e2b012, #e9bf3a);
+  --color-plate-10: light-dark(#2c9a52, #43b56b);
+  --color-plate-5: light-dark(#f6f6f2, #d9dad4);
+  --color-plate-small: light-dark(#2a2f36, #59616d);
+
+  /* Body map */
+  --color-body: light-dark(#d9dee6, #252d39);
+  --color-muscle: light-dark(#b8c1ce, #3a4657);
+  --color-heat-1: light-dark(#f7dcb9, #5b3d22);
+  --color-heat-2: light-dark(#f2b06b, #9b5b23);
+  --color-heat-3: light-dark(#e8772e, #dc792d);
+  --color-heat-4: light-dark(#c63c29, #f05d40);
+
+  /* Typography */
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-body);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 650;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.125rem;
+  --text-display: 3rem;
+  --leading-tight: 1.1;
+  --leading-normal: 1.45;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Shape */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --border-width: 1px;
+  --focus-ring: 2px solid var(--color-accent);
+  --shadow-raised: 0 8px 24px rgb(0 0 0 / 25%);
+
+  /* Layout */
+  --content-width: 65rem;
+  --page-gutter: var(--space-4);
+  --tab-bar-height: 3.875rem;
+  --control-height: 2.75rem;
+  --z-tab-bar: 5;
+  --z-timer: 6;
+  --z-overlay: 20;
+
+  /* Motion */
+  --duration-fast: 0.18s;
+  --duration-normal: 0.3s;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
