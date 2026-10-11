@@ -1,0 +1,83 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 30%) 1fr 2.5rem;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  font-size: var(--text-sm);
+}
+
+.button {
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-align: start;
+}
+
+.selected .label {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track {
+  position: relative;
+  height: var(--space-3);
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-sunken);
+}
+
+.zone {
+  position: absolute;
+  inset-block: 0;
+  background: color-mix(in srgb, var(--color-success) 25%, transparent);
+}
+
+.fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+}
+
+.tier0 {
+  background: var(--color-muscle);
+}
+
+.tier1 {
+  background: var(--color-heat-1);
+}
+
+.tier2 {
+  background: var(--color-heat-2);
+}
+
+.tier3 {
+  background: var(--color-heat-3);
+}
+
+.tier4 {
+  background: var(--color-heat-4);
+}
+
+.value {
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}

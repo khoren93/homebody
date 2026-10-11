@@ -251,3 +251,12 @@ export function buildPlan(input: EngineInput, catalog: Catalog): Plan {
 
   return { sessions, split, templates };
 }
+
+export type Phase = 'intro' | 'working' | 'peak' | 'deload';
+
+/** The phase of the block a session belongs to, derived from its prescribed effort. */
+export function sessionPhase(session: Pick<Session, 'deload' | 'rir'>): Phase {
+  if (session.deload) return 'deload';
+  if (session.rir >= 3) return 'intro';
+  return session.rir === 2 ? 'working' : 'peak';
+}

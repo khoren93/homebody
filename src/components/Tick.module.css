@@ -1,0 +1,45 @@
+.tick {
+  position: relative;
+  display: grid;
+  width: var(--control-height);
+  height: var(--control-height);
+  place-items: center;
+  cursor: pointer;
+}
+
+.input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.mark {
+  display: grid;
+  width: var(--space-6);
+  height: var(--space-6);
+  place-items: center;
+  border: calc(var(--border-width) * 2) solid var(--color-border);
+  border-radius: 50%;
+}
+
+.input:checked + .mark {
+  border-color: var(--color-success);
+  background: var(--color-success);
+}
+
+.input:checked + .mark::after {
+  width: var(--space-3);
+  height: var(--space-2);
+  border: calc(var(--border-width) * 2) solid var(--color-on-success);
+  border-top: 0;
+  border-right: 0;
+  transform: rotate(-45deg) translate(1px, -1px);
+  content: '';
+}
+
+.input:focus-visible + .mark {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}

@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -22,17 +22,14 @@ describe('App shell', () => {
   it('opens on the plan with the five sections in the navigation', () => {
     render(<App />);
     const nav = screen.getByRole('navigation', { name: 'Sections' });
-    expect(nav).toBeInTheDocument();
-    expect(screen.getAllByRole('link').map((link) => link.textContent)).toEqual([
-      'Skip to content',
-      'Plan',
-      'Calculator',
-      'Muscles',
-      'Body',
-      'Settings',
-    ]);
-    expect(screen.getByRole('link', { name: 'Plan' })).toHaveAttribute('aria-current', 'page');
-    expect(screen.getByRole('heading', { level: 1, name: 'Plan' })).toBeInTheDocument();
+    expect(
+      within(nav)
+        .getAllByRole('link')
+        .map((link) => link.textContent),
+    ).toEqual(['Plan', 'Calculator', 'Muscles', 'Body', 'Settings']);
+    expect(within(nav).getByRole('link', { name: 'Plan' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'Skip to content' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Plan for 4 weeks' })).toBeInTheDocument();
   });
 
   it('switches screens when the route changes', () => {

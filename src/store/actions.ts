@@ -1,4 +1,5 @@
 import { applyPatch } from './store';
+import * as sessions from './transforms/sessions';
 import * as settings from './transforms/settings';
 import type { Patch, Snapshot } from './types';
 
@@ -21,4 +22,7 @@ export const actions = {
   setPlanShape: bind(settings.setPlanShape),
   toggleEquipment: bind(settings.toggleEquipment),
   setEquipmentConfig: bind(settings.setEquipmentConfig),
+
+  toggleSessionDone: bind(sessions.toggleSessionDone),
+  startNextBlock: bind(sessions.startNextBlock),
 };

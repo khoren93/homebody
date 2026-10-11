@@ -31,7 +31,7 @@ tightly related ones) that leaves the project building, linted and tested.
 ### Features
 
 - [x] 15. Settings: profile, schedule, equipment, load scale
-- [ ] 16. Plan: overview, next-session hero, weeks list, next block
+- [x] 16. Plan: overview, next-session hero, weeks list, next block
 - [ ] 17. Session: workout screen with exercise cards, swap, exclude, edits
 - [ ] 18. Session: set tracker, rest timer, wake lock, rating
 - [ ] 19. Plan: missed-session move and skip
@@ -147,3 +147,10 @@ tightly related ones) that leaves the project building, linted and tested.
   Store changes are pure transforms in `src/store/transforms`, bound to the
   store as `actions`. Numeric fields accept decimal commas and commit on blur or
   Enter. 404 tests.
+- **2026-10-11 — Step 16.** Plan screen: sample-plan banner with a link to the
+  settings, next-session hero (template name with its focus, date, duration,
+  effort, exercises), key figures, weeks with their phase and sessions that can
+  be ticked off (which records history), next-block panel with confirmation, and
+  planned weekly volume against the optimal range with a link to the muscle map.
+  Session transforms (`toggleSessionDone`, `startNextBlock`) and session
+  selectors are covered by tests. 430 tests.
