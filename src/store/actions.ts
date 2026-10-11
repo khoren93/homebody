@@ -1,4 +1,5 @@
 import { applyPatch } from './store';
+import * as body from './transforms/body';
 import * as exercises from './transforms/exercises';
 import * as sessions from './transforms/sessions';
 import * as settings from './transforms/settings';
@@ -36,6 +37,9 @@ export const actions = {
   restoreExercise: bind(exercises.restoreExercise),
   editPrescription: bind(exercises.editPrescription),
   restoreCalculation: bind(exercises.restoreCalculation),
+
+  logMeasurement: bind(body.logMeasurement),
+  deleteMeasurement: bind(body.deleteMeasurement),
 
   toggleSet: bind(tracking.toggleSet),
   rateExercise: bind(tracking.rateExercise),

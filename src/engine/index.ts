@@ -1,4 +1,5 @@
 export * from './baseline';
+export * from './bodyMetrics';
 export * from './catalog';
 export * from './constants';
 export * from './dates';

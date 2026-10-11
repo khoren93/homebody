@@ -38,7 +38,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 20. Calculator: progression tables and charts
 - [x] 21. Muscles: body map with heat modes and muscle detail
 - [x] 22. Muscles: exercise library with search, filters and densities
-- [ ] 23. Body: weight, girths, body fat, charts
+- [x] 23. Body: weight, girths, body fat, charts
 - [ ] 24. Body: progress photos with compare
 - [ ] 25. Settings: backup export/import and reset
 
@@ -201,3 +201,9 @@ tightly related ones) that leaves the project building, linted and tested.
   (compact list, grid, detailed cards) remembered on the device. Detailed cards
   show muscles, equipment, type, difficulty, the next prescription, the current
   capacity, technique and exclude or restore. 546 tests.
+- **2026-10-11 — Step 23.** Body screen, built to the mockup: log form for
+  weight and six girths (decimal commas accepted, empty fields skipped),
+  headline figure with the change since the first entry, a chart with a metric
+  switch, tiles for body fat (US Navy formula, sex-specific), girths and BMI
+  with its category, and a journal with delete. Body-metric formulas live in the
+  engine with tests. 574 tests.

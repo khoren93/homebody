@@ -1,6 +1,13 @@
-import type { BodyWeightEntry, IsoDate, LoadedItem, LoadedPlan, LoadedSession } from '@/engine';
+import {
+  type BodyWeightEntry,
+  type IsoDate,
+  type LoadedItem,
+  type LoadedPlan,
+  type LoadedSession,
+  navyBodyFat,
+} from '@/engine';
 
-import type { AppState } from './schema';
+import type { AppState, Girth } from './schema';
 import type { SetLogs } from './types';
 
 /** The most recent body weight entry, if any. */
@@ -97,4 +104,36 @@ export function isBlockOver(
   const last = sessions.at(-1);
   if (!last) return false;
   return last.date < today || sessions.every((session) => isFinished(state, session.id));
+}
+
+/** A body metric that can be charted: weight, estimated body fat, or a girth. */
+export type BodyMetric = 'kg' | 'bf' | Girth;
+
+/** The logged values of a body metric, oldest first. */
+export function metricSeries(
+  state: Pick<AppState, 'bodyWeights' | 'measurements' | 'profile'>,
+  metric: BodyMetric,
+): [date: IsoDate, value: number][] {
+  const byDate = <T extends { date: IsoDate }>(entries: readonly T[]) =>
+    [...entries].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+
+  if (metric === 'kg') return byDate(state.bodyWeights).map((entry) => [entry.date, entry.kg]);
+
+  return byDate(state.measurements).flatMap((entry) => {
+    const value =
+      metric === 'bf'
+        ? navyBodyFat(state.profile.sex, state.profile.heightCm, entry)
+        : entry[metric];
+    return value != null ? [[entry.date, value] as [IsoDate, number]] : [];
+  });
+}
+
+/** The value of a series on a date: the last one logged on or before it. */
+export function valueOn(
+  series: readonly (readonly [IsoDate, number])[],
+  date: IsoDate,
+): number | null {
+  let value: number | null = null;
+  for (const [entryDate, entryValue] of series) if (entryDate <= date) value = entryValue;
+  return value;
 }

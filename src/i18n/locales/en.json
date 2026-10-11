@@ -721,5 +721,58 @@
       "exclude": "Do not suggest",
       "restore": "Back into the plan"
     }
+  },
+  "body": {
+    "log": "Log",
+    "closeForm": "Close",
+    "intro": "Weigh and measure yourself once a week, in the morning before eating, at the same spots. The weight on the plan start date sets your starting loads.",
+    "form": {
+      "title": "Add a measurement",
+      "date": "Date",
+      "weight": "Weight, kg",
+      "neck": "Neck, cm",
+      "chest": "Chest, cm",
+      "waist": "Waist, cm",
+      "hips": "Hips, cm",
+      "arm": "Arm, cm",
+      "thigh": "Thigh, cm",
+      "save": "Save",
+      "hint": "Fill in only what you measured. Use a tape without pulling it tight: waist at the navel, neck below the larynx, hips at the widest point of the glutes, arm and thigh at their widest point. Body fat is estimated with the US Navy formula from height, neck and waist; accuracy is about ±3–4%.",
+      "hintFemale": "Fill in only what you measured. Use a tape without pulling it tight: waist at the navel, neck below the larynx, hips at the widest point of the glutes, arm and thigh at their widest point. Body fat is estimated with the US Navy formula from height, neck, waist and hips; accuracy is about ±3–4%."
+    },
+    "metric": {
+      "label": "Metric",
+      "kg": "Weight",
+      "bf": "Body fat",
+      "neck": "Neck",
+      "chest": "Chest",
+      "waist": "Waist",
+      "hips": "Hips",
+      "arm": "Arm",
+      "thigh": "Thigh"
+    },
+    "noWeight": "No weight logged yet",
+    "since": "{{change}} · {{days}}",
+    "chartLabel": "{{metric}} over time",
+    "needTwo": "The chart needs at least two entries.",
+    "navy": "US Navy estimate",
+    "bmi": "BMI",
+    "bmiCategory": {
+      "under": "underweight",
+      "normal": "normal",
+      "over": "overweight",
+      "high": "obese"
+    },
+    "journal": {
+      "title": "Journal",
+      "empty": "No measurements yet.",
+      "delete": "Delete the entry of {{date}}",
+      "fat": "fat {{value}}%"
+    },
+    "unit": {
+      "kg": "kg",
+      "cm": "cm",
+      "bf": "%"
+    }
   }
 }
