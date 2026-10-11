@@ -12,7 +12,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 3. Scaffold Vite + React + TypeScript app
 - [x] 4. Lint, format and git hooks
 - [x] 5. Makefile
-- [ ] 6. Docker and compose setup
+- [x] 6. Docker and compose setup
 - [ ] 7. CI workflow and Dependabot
 
 ### Data and engine
@@ -72,3 +72,9 @@ tightly related ones) that leaves the project building, linted and tested.
   build, preview, test, coverage, lint, format, typecheck, check and clean
   targets. Docker, data and e2e targets are added in the steps that introduce
   them.
+- **2026-10-11 — Step 6.** Multi-stage `Dockerfile` (deps, build, unprivileged
+  nginx runtime with a health check), `nginx.conf` (SPA fallback, immutable
+  caching for hashed assets, no-cache for the shell and service worker, gzip,
+  security headers including a CSP), `docker-compose.yml` with the `app` and
+  `dev` services, and the `docker-*` Makefile targets. Verified: image builds,
+  runs as uid 101, health check passes, dev server serves with hot reload.

@@ -1,0 +1,42 @@
+# Two services:
+#   app  production image (nginx, static files) on http://localhost:8080
+#   dev  Vite dev server with hot reload on http://localhost:5173
+# Neither needs Node on the host. See the docker-* targets in the Makefile.
+
+name: homebody
+
+services:
+  app:
+    build:
+      context: .
+      target: runtime
+    image: homebody:local
+    ports:
+      - '8080:8080'
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  dev:
+    build:
+      context: .
+      target: base
+    image: homebody-dev:local
+    profiles: [dev]
+    working_dir: /app
+    command: sh -c "pnpm install --frozen-lockfile --ignore-scripts && pnpm dev --host 0.0.0.0"
+    ports:
+      - '5173:5173'
+    volumes:
+      - .:/app
+      - dev_node_modules:/app/node_modules
+      - dev_pnpm_store:/pnpm/store
+
+volumes:
+  dev_node_modules:
+  dev_pnpm_store:

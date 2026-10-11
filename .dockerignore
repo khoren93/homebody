@@ -1,0 +1,23 @@
+# Keep the build context small: only sources and manifests are needed.
+.git
+.github
+.vscode
+.idea
+node_modules
+dist
+dev-dist
+coverage
+playwright-report
+test-results
+reference
+docs
+e2e
+*.md
+!README.md
+.env
+.env.*
+.DS_Store
+Dockerfile
+docker-compose.yml
+.dockerignore
+lefthook.yml
