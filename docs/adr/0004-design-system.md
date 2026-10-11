@@ -41,9 +41,10 @@ map, Progress, Library, Body, plus a README hero) in both themes.
    shows one phone screen; features required by the product that a mockup
    does not show (editing a prescription, technique, replacement lists, the
    settings screen) are built with the same components and tokens.
-7. **Restyling is done screen by screen** in `style:` commits that do not
-   change application logic. Until every screen is migrated, the token file
-   keeps aliases for the provisional names.
+7. **Restyling was done screen by screen** in `style:` commits that do not
+   change application logic. A test now checks that every custom property a
+   stylesheet uses is defined in the token file and that raw colors appear
+   nowhere else.
 
 ## Consequences
 
