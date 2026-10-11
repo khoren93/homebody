@@ -40,7 +40,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 22. Muscles: exercise library with search, filters and densities
 - [x] 23. Body: weight, girths, body fat, charts
 - [x] 24. Body: progress photos with compare
-- [ ] 25. Settings: backup export/import and reset
+- [x] 25. Settings: backup export/import and reset
 
 ### Release
 
@@ -213,3 +213,11 @@ tightly related ones) that leaves the project building, linted and tested.
   of a pose with the days, weight and waist change between them; thumbnails; a
   full-screen viewer with a delete that asks twice. Photos are loaded lazily and
   never leave the device. 583 tests.
+- **2026-10-11 — Step 25.** Backup and reset in the settings. Export writes
+  everything (state, history, set logs, photos) to
+  `homebody-backup-YYYY-MM-DD.json` through a normal browser download; import
+  validates the file, shows a preview with counts and replaces the data only
+  after confirmation. Backups of the earlier prototype are recognised and
+  converted. "Restore the automatic calculation" clears edits, replacements,
+  carried capacities and the load scale; "Erase all data" wipes the device; both
+  ask first. This completes feature parity with the prototype. 601 tests.

@@ -1,4 +1,14 @@
 export { actions } from './actions';
+export {
+  BACKUP_FORMAT,
+  BackupError,
+  type BackupFile,
+  backupFilename,
+  createBackup,
+  parseBackup,
+  type ParsedBackup,
+  restoreBackup,
+} from './backup';
 export { CATALOG } from './catalog';
 export { createSampleSnapshot, createSampleState } from './defaults';
 export { type DerivedPlan, derivePlan, usePlan } from './derived';

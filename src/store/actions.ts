@@ -25,6 +25,7 @@ export const actions = {
   setPlanShape: bind(settings.setPlanShape),
   toggleEquipment: bind(settings.toggleEquipment),
   setEquipmentConfig: bind(settings.setEquipmentConfig),
+  resetAdjustments: bind(settings.resetAdjustments),
 
   toggleSessionDone: bind(sessions.toggleSessionDone),
   startNextBlock: bind(sessions.startNextBlock),

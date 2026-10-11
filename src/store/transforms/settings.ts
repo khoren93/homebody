@@ -73,3 +73,12 @@ export function toggleEquipment({ state }: Snapshot, id: EquipmentId): Patch {
 export function setEquipmentConfig({ state }: Snapshot, changes: Partial<EquipmentConfig>): Patch {
   return personal(state, { equipmentConfig: { ...state.equipmentConfig, ...changes } });
 }
+
+/**
+ * Returns to the automatic calculation: drops manual edits and ratings,
+ * replaced exercises and capacities carried over from earlier blocks, and
+ * resets the load scale. Finished sessions and their history stay.
+ */
+export function resetAdjustments({ state }: Snapshot): Patch {
+  return { state: { ...state, overrides: {}, swaps: {}, carried: {}, loadScale: 1 } };
+}

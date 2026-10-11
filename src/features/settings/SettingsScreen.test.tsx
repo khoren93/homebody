@@ -1,9 +1,9 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { i18n } from '@/i18n';
-import { actions, useAppStore } from '@/store';
+import { actions, createBackup, useAppStore } from '@/store';
 
 import { SettingsScreen } from './SettingsScreen';
 
@@ -211,5 +211,116 @@ describe('SettingsScreen: excluded exercises', () => {
 
     await userEvent.click(within(excluded).getByRole('button', { name: 'Restore Plank' }));
     expect(state().excluded).toEqual({ Goblet_Squat: true });
+  });
+});
+
+describe('SettingsScreen: backup', () => {
+  const backupFile = (content: unknown) =>
+    new File([typeof content === 'string' ? content : JSON.stringify(content)], 'backup.json', {
+      type: 'application/json',
+    });
+
+  it('saves a backup file named after today', async () => {
+    const clicks: string[] = [];
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (
+      this: HTMLAnchorElement,
+    ) {
+      clicks.push(this.download);
+    });
+    URL.createObjectURL = vi.fn(() => 'blob:backup');
+    URL.revokeObjectURL = vi.fn();
+
+    render(<SettingsScreen />);
+    await userEvent.click(screen.getByRole('button', { name: 'Save a backup file' }));
+    expect(await screen.findByText('Backup saved.')).toBeInTheDocument();
+    expect(clicks).toEqual(['homebody-backup-2026-10-14.json']);
+  });
+
+  it('previews a backup and restores it only after confirmation', async () => {
+    actions.setProfile({ age: 44 });
+    actions.toggleSessionDone('2026-10-19');
+    const backup = await createBackup();
+    actions.setProfile({ age: 20 });
+
+    render(<SettingsScreen />);
+    await userEvent.upload(screen.getByLabelText('Load from a file'), backupFile(backup));
+    const preview = await screen.findByRole('alert');
+    expect(preview).toHaveTextContent('Restore the backup from Wed, Oct 14, 2026?');
+    expect(preview).toHaveTextContent('1 finished session, 1 measurement and 0 photos');
+    expect(state().profile.age).toBe(20);
+
+    await userEvent.click(within(preview).getByRole('button', { name: 'Yes, restore' }));
+    expect(await screen.findByText('Your data was restored.')).toBeInTheDocument();
+    expect(state().profile.age).toBe(44);
+    expect(screen.getByLabelText('Age')).toHaveValue('44');
+  });
+
+  it('can cancel the restore', async () => {
+    const backup = await createBackup();
+    actions.setProfile({ age: 20 });
+    render(<SettingsScreen />);
+    await userEvent.upload(screen.getByLabelText('Load from a file'), backupFile(backup));
+    await userEvent.click(await screen.findByRole('button', { name: 'Cancel' }));
+    expect(screen.queryByText(/Restore the backup from/)).not.toBeInTheDocument();
+    expect(state().profile.age).toBe(20);
+  });
+
+  it('rejects files that are not backups', async () => {
+    render(<SettingsScreen />);
+    await userEvent.upload(screen.getByLabelText('Load from a file'), backupFile('not json'));
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'This is not a Homebody backup file.',
+    );
+  });
+
+  it('says that a prototype backup will be converted', async () => {
+    render(<SettingsScreen />);
+    const prototype = { app: 'home-trainer', state: { profile: { age: 51 }, sched: {} } };
+    await userEvent.upload(screen.getByLabelText('Load from a file'), backupFile(prototype));
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'This file comes from the earlier prototype and will be converted.',
+    );
+  });
+});
+
+describe('SettingsScreen: reset', () => {
+  it('has nothing to reset on a fresh profile', () => {
+    render(<SettingsScreen />);
+    expect(
+      screen.getByRole('button', { name: 'Restore the automatic calculation' }),
+    ).toBeDisabled();
+  });
+
+  it('resets edits, replacements and the load scale after a confirmation', async () => {
+    actions.editPrescription('Goblet_Squat', '2026-10-19', { weight: 20, reps: 10 });
+    actions.swapExercise('FA|1', 'Pushups');
+    actions.setLoadScale(0.8);
+    actions.toggleSessionDone('2026-10-19');
+    render(<SettingsScreen />);
+    const reset = section('Reset');
+    expect(reset).toHaveTextContent('Edited sessions: 1. Replaced exercises: 1.');
+    expect(reset).toHaveTextContent('Finished sessions: 1.');
+
+    await userEvent.click(
+      within(reset).getByRole('button', { name: 'Restore the automatic calculation' }),
+    );
+    await userEvent.click(within(reset).getByRole('button', { name: 'Yes, reset' }));
+
+    expect(state()).toMatchObject({ overrides: {}, swaps: {}, carried: {}, loadScale: 1 });
+    expect(state().done).toEqual({ '2026-10-19': true });
+  });
+
+  it('erases everything only after a confirmation', async () => {
+    actions.setProfile({ age: 44 });
+    render(<SettingsScreen />);
+    const reset = section('Reset');
+    await userEvent.click(within(reset).getByRole('button', { name: 'Erase all data' }));
+    await userEvent.click(within(reset).getByRole('button', { name: 'Cancel' }));
+    expect(state().profile.age).toBe(44);
+
+    await userEvent.click(within(reset).getByRole('button', { name: 'Erase all data' }));
+    await userEvent.click(within(reset).getByRole('button', { name: 'Yes, erase everything' }));
+    await waitFor(() => expect(state().setupDone).toBe(false));
+    expect(state().profile.age).toBe(30);
   });
 });

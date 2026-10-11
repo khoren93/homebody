@@ -805,5 +805,38 @@
     "delete": "Delete photo",
     "confirmDelete": "Really delete? Press again",
     "deleteFailed": "Could not delete"
+  },
+  "backup": {
+    "title": "Backup",
+    "about": "One file with everything: profile, plan, edits, results, measurements and photos. Use it to move your data to another device or to restore it.",
+    "export": "Save a backup file",
+    "import": "Load from a file",
+    "exported": "Backup saved.",
+    "exportFailed": "The backup could not be saved. Try again.",
+    "invalid": "This is not a Homebody backup file.",
+    "tooNew": "This backup was made by a newer version of Homebody. Update the app and try again.",
+    "previewTitle": "Restore the backup from {{date}}?",
+    "previewUnknownDate": "an unknown date",
+    "previewBody": "It contains {{sessions}}, {{measurements}} and {{photos}}. Your current data will be replaced; photos from the backup are added to the ones you have.",
+    "sessions_one": "{{count}} finished session",
+    "sessions_other": "{{count}} finished sessions",
+    "measurements_one": "{{count}} measurement",
+    "measurements_other": "{{count}} measurements",
+    "photos_one": "{{count}} photo",
+    "photos_other": "{{count}} photos",
+    "legacy": "This file comes from the earlier prototype and will be converted.",
+    "confirm": "Yes, restore",
+    "restored": "Your data was restored.",
+    "restoreFailed": "The backup could not be restored. Nothing was changed."
+  },
+  "reset": {
+    "title": "Reset",
+    "counts": "Edited sessions: {{edits}}. Replaced exercises: {{swaps}}. Capacities carried from earlier blocks: {{carried}}. Finished sessions: {{done}}.",
+    "about": "A reset removes your edits, replacements and carried capacities and returns the overall load to 100%. Everything is calculated again from your profile. Finished sessions stay.",
+    "action": "Restore the automatic calculation",
+    "confirm": "Yes, reset",
+    "eraseAbout": "Erasing removes everything stored on this device, including results, measurements and photos. Save a backup first if you may want it back.",
+    "erase": "Erase all data",
+    "eraseConfirm": "Yes, erase everything"
   }
 }
