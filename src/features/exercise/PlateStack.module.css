@@ -1,0 +1,55 @@
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.drawing {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: var(--space-8);
+}
+
+.bar {
+  width: var(--space-5);
+  height: var(--space-1);
+  border-radius: var(--radius-sm);
+  background: var(--color-text-muted);
+}
+
+.plate {
+  width: var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 2px;
+}
+
+.p25 {
+  background: var(--color-plate-25);
+}
+
+.p20 {
+  background: var(--color-plate-20);
+}
+
+.p15 {
+  background: var(--color-plate-15);
+}
+
+.p10 {
+  background: var(--color-plate-10);
+}
+
+.p5 {
+  background: var(--color-plate-5);
+}
+
+.small {
+  background: var(--color-plate-small);
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}

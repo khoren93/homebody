@@ -1,0 +1,30 @@
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+}
+
+.dots {
+  display: flex;
+  flex: none;
+  gap: var(--space-1);
+  padding-top: var(--space-1);
+}
+
+.dot {
+  width: var(--space-3);
+  height: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-sunken);
+}
+
+.on {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}

@@ -1,4 +1,5 @@
 import { applyPatch } from './store';
+import * as exercises from './transforms/exercises';
 import * as sessions from './transforms/sessions';
 import * as settings from './transforms/settings';
 import type { Patch, Snapshot } from './types';
@@ -25,4 +26,10 @@ export const actions = {
 
   toggleSessionDone: bind(sessions.toggleSessionDone),
   startNextBlock: bind(sessions.startNextBlock),
+
+  swapExercise: bind(exercises.swapExercise),
+  excludeExercise: bind(exercises.excludeExercise),
+  restoreExercise: bind(exercises.restoreExercise),
+  editPrescription: bind(exercises.editPrescription),
+  restoreCalculation: bind(exercises.restoreCalculation),
 };

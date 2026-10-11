@@ -25,7 +25,8 @@
     "yesterday": "Yesterday",
     "comingSoon": "This screen is on its way.",
     "quote": "“{{text}}”",
-    "andMore": "and {{count}} more"
+    "andMore": "and {{count}} more",
+    "or": "or"
   },
   "language": {
     "label": "Language"
@@ -349,7 +350,12 @@
       "unchanged": "The exercises in the plan did not change.",
       "unchangedAdded": "The exercises in the plan did not change: what is already there fits better, but new options are available for swapping and in the library."
     },
-    "about": "Exercises, photos and instructions come from the open Free Exercise DB (Unlicense). The calculation uses the Epley formula for the estimated one-rep max, prescribes effort as reps in reserve (RIR) and progresses weekly according to your training level. Homebody is not medical advice."
+    "about": "Exercises, photos and instructions come from the open Free Exercise DB (Unlicense). The calculation uses the Epley formula for the estimated one-rep max, prescribes effort as reps in reserve (RIR) and progresses weekly according to your training level. Homebody is not medical advice.",
+    "excluded": {
+      "title": "Excluded exercises",
+      "about": "They are not used in any workout. Press one to bring it back.",
+      "restore": "Restore {{name}}"
+    }
   },
   "plan": {
     "title_one": "Plan for {{count}} week",
@@ -406,5 +412,96 @@
       "map": "Muscle map",
       "about": "Working sets per muscle; secondary work counts as half a set. The marked zone is {{min}}–{{max}} sets, the optimal range for the “{{goal}}” goal."
     }
+  },
+  "exercise": {
+    "compound": "compound",
+    "isolation": "isolation",
+    "setsReps": "{{sets}} × {{reps}}",
+    "setsSeconds": "{{sets}} × {{seconds}} s",
+    "pairLoad": "2 × {{weight}} kg",
+    "load": "{{weight}} kg",
+    "perHand": {
+      "db": "a dumbbell in each hand",
+      "kb": "a kettlebell in each hand"
+    },
+    "single": {
+      "db": "one dumbbell",
+      "kb": "one kettlebell"
+    },
+    "perSide": "each side",
+    "photoShows": {
+      "kb": "The photos show a kettlebell and you have a dumbbell: the movement and technique are the same.",
+      "db": "The photos show a dumbbell and you have a kettlebell: the movement and technique are the same."
+    },
+    "photo": {
+      "open": "Open the photos of “{{name}}” full screen",
+      "start": "Start",
+      "end": "End",
+      "startAlt": "Start of the movement",
+      "endAlt": "End of the movement",
+      "play": "Animate",
+      "pause": "Pause"
+    },
+    "instructions": "Technique",
+    "source": "{{name}} · instructions from the open Free Exercise DB"
+  },
+  "session": {
+    "back": "Back to the plan",
+    "eyebrow": "Week {{week}} · {{phase}}",
+    "doneMark": "done",
+    "meta": "{{date}} · about {{minutes}} min · {{sets}}",
+    "workingSets_one": "{{count}} working set",
+    "workingSets_other": "{{count}} working sets",
+    "rir": {
+      "title_one": "{{count}} rep in reserve.",
+      "title_other": "{{count}} reps in reserve.",
+      "body": "The weight is chosen so that after the last rep you could still do {{count}} more. If it felt easier or harder, enter the real numbers below.",
+      "deloadTitle": "Deload.",
+      "deloadBody": "Fewer sets and about 90% of the calculated weight. Finish every set with 4 reps in reserve: your joints and nervous system recover before the next block."
+    },
+    "warmup": "Warm up for 5 minutes: skip rope or march on the spot, circle your joints, then do 10 squats and 10 incline push-ups.",
+    "card": {
+      "position": "{{index}} · {{kind}}",
+      "rest": "rest {{time}}",
+      "reserve": "{{count}} in reserve",
+      "e1rm": "≈1RM {{weight}} kg",
+      "e1rmPerHand": "≈1RM {{weight}} kg per hand",
+      "e1rmHelp": "What is this?",
+      "limitReps": "limit ≈{{value}} reps",
+      "limitSeconds": "limit ≈{{value}} s",
+      "edited": "edited by you",
+      "rated": "rating applied",
+      "warmupSets": "Warm-up sets: {{sets}}",
+      "warmupSet": "{{weight}} kg × {{reps}}",
+      "warmupSetPair": "2 × {{weight}} kg × {{reps}}",
+      "explain": "≈1RM is the estimated one-rep max: the heaviest weight you could lift once in this exercise with good form{{perHand}}. You never have to test it. It is calculated with the Epley formula from the weight, the reps and the reps in reserve: weight × (1 + (reps + reserve) / 30). Today: {{weight}} × (1 + ({{reps}} + {{rir}}) / 30) ≈ {{result}} kg. This number shows your strength growing even when the weights and reps change, and the calculator uses it to pick the weights for your next sessions.",
+      "explainPerHand": " (per hand here)"
+    },
+    "plates": {
+      "label": "Plates on each side",
+      "barOnly": "bar only, {{bar}} kg",
+      "loading": "bar {{bar}} kg + {{plates}} on each side"
+    },
+    "edit": {
+      "weight": "Weight, kg",
+      "weightPerHand": "Weight per hand, kg",
+      "reps": "Reps",
+      "seconds": "Seconds",
+      "restore": "Restore the calculation",
+      "hint": "Change the weight or the reps to match what you do: every later session of this exercise is recalculated."
+    },
+    "swap": {
+      "random": "Another exercise",
+      "options_one": "{{count}} option",
+      "options_other": "{{count}} options",
+      "none": "No other options",
+      "done": "Replaced {{from}} in every {{session}} session. Weights were recalculated.",
+      "details": "Technique and replacement",
+      "choose": "Replace in this template",
+      "auto": "Automatic",
+      "exclude": "Remove from all workouts",
+      "excludeHint": "For exercises that are uncomfortable or painful. You can bring them back in the settings."
+    },
+    "missing": "This session is no longer in the plan."
   }
 }

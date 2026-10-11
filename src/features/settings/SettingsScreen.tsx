@@ -7,6 +7,7 @@ import { Section } from '@/components/Section';
 import { ThemeSwitch } from '@/components/ThemeSwitch';
 
 import { EquipmentPanel } from './EquipmentPanel';
+import { ExcludedPanel } from './ExcludedPanel';
 import { LoadScalePanel } from './LoadScalePanel';
 import { ProfilePanel } from './ProfilePanel';
 import { SchedulePanel } from './SchedulePanel';
@@ -20,6 +21,7 @@ export function SettingsScreen() {
       <LoadScalePanel />
       <SchedulePanel />
       <EquipmentPanel />
+      <ExcludedPanel />
       <Section title={t('settings.appearance')}>
         <LanguageSwitch />
         <ThemeSwitch />

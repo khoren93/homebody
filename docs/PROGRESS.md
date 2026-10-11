@@ -32,7 +32,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 - [x] 15. Settings: profile, schedule, equipment, load scale
 - [x] 16. Plan: overview, next-session hero, weeks list, next block
-- [ ] 17. Session: workout screen with exercise cards, swap, exclude, edits
+- [x] 17. Session: workout screen with exercise cards, swap, exclude, edits
 - [ ] 18. Session: set tracker, rest timer, wake lock, rating
 - [ ] 19. Plan: missed-session move and skip
 - [ ] 20. Calculator: progression tables and charts
@@ -154,3 +154,11 @@ tightly related ones) that leaves the project building, linted and tested.
   planned weekly volume against the optimal range with a link to the muscle map.
   Session transforms (`toggleSessionDone`, `startNextBlock`) and session
   selectors are covered by tests. 430 tests.
+- **2026-10-11 — Step 17.** Workout screen: session header with focus and effort
+  explanation, exercise cards (animated start/end photos with a full-screen
+  viewer, localized and implement-aware names, muscles, sets and reps, load with
+  per-hand and per-side hints, plate breakdown, rest, RIR, e1RM with an
+  on-demand explanation, warm-up sets, notes), editing of weight and reps with
+  "restore calculation", manual and random replacement with undo, and exclusion
+  with a restore list in the settings. Edits to a finished session rewrite its
+  recorded result. Shared Dialog and Disclosure components. 458 tests.

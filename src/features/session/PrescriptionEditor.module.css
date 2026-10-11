@@ -1,0 +1,17 @@
+.editor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+  background: var(--color-sunken);
+}
+
+.field {
+  width: 6.5rem;
+}
+
+.hint {
+  flex: 1 1 11rem;
+}

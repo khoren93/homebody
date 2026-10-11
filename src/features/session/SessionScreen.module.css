@@ -1,0 +1,22 @@
+.back {
+  align-self: flex-start;
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.eyebrow {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.undo {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+}

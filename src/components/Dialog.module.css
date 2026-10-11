@@ -1,0 +1,36 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: calc(var(--space-3) + env(safe-area-inset-top, 0px)) var(--space-4)
+    calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  background: var(--color-overlay);
+  color: var(--color-on-overlay);
+  color-scheme: dark;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.title {
+  min-width: 0;
+}
+
+.close {
+  display: grid;
+  flex: none;
+  width: var(--control-height);
+  height: var(--control-height);
+  place-items: center;
+  border: var(--border-width) solid currentcolor;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+}

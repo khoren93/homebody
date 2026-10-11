@@ -14,7 +14,7 @@ function Screen({ route }: { route: Route }) {
     case 'plan':
       return <PlanScreen />;
     case 'session':
-      return <SessionScreen />;
+      return <SessionScreen sessionId={route.sessionId} />;
     case 'calculator':
       return <CalculatorScreen />;
     case 'muscles':

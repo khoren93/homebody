@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import { i18n } from '@/i18n';
-import { useAppStore } from '@/store';
+import { actions, useAppStore } from '@/store';
 
 import { SettingsScreen } from './SettingsScreen';
 
@@ -193,5 +193,23 @@ describe('SettingsScreen: Russian', () => {
     expect(state().equipmentConfig.db).toEqual([2.5, 5, 7.5]);
     expect(list).toHaveValue('2,5; 5; 7,5');
     expect(screen.getByText(/3 дня в неделю/)).toBeInTheDocument();
+  });
+});
+
+describe('SettingsScreen: excluded exercises', () => {
+  it('is hidden while nothing is excluded', () => {
+    render(<SettingsScreen />);
+    expect(screen.queryByRole('region', { name: 'Excluded exercises' })).not.toBeInTheDocument();
+  });
+
+  it('lists excluded exercises and restores them', async () => {
+    actions.excludeExercise('Plank');
+    actions.excludeExercise('Goblet_Squat');
+    render(<SettingsScreen />);
+    const excluded = section('Excluded exercises');
+    expect(within(excluded).getAllByRole('button')).toHaveLength(2);
+
+    await userEvent.click(within(excluded).getByRole('button', { name: 'Restore Plank' }));
+    expect(state().excluded).toEqual({ Goblet_Squat: true });
   });
 });

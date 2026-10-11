@@ -1,0 +1,44 @@
+.stage {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  cursor: pointer;
+}
+
+.image {
+  max-height: 100%;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.control {
+  min-height: var(--control-height);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid currentcolor;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: inherit;
+  font-weight: var(--font-weight-bold);
+}
+
+.control[aria-pressed='true'] {
+  border-color: var(--color-on-overlay);
+  background: var(--color-on-overlay);
+  color: var(--color-overlay);
+}
+
+.tip {
+  max-width: 35rem;
+  margin-inline: auto;
+  font-size: var(--text-sm);
+  text-align: center;
+}

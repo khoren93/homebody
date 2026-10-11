@@ -2,6 +2,7 @@ import { type ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Banner } from '@/components/Banner';
+import { useFrameTicker } from '@/features/exercise/useFrameTicker';
 import { type Route, tabOf, useRoute } from '@/lib/router';
 import { useAppStore } from '@/store';
 
@@ -23,6 +24,7 @@ export function AppShell({ children }: { children: (route: Route) => ReactNode }
   const storage = useAppStore((store) => store.storage);
   const saveFailed = useAppStore((store) => store.saveFailed);
   useScrollReset(route);
+  useFrameTicker();
 
   return (
     <>
