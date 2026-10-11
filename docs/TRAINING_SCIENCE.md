@@ -225,3 +225,47 @@ The first heavy compound exercise of a session gets two ramp-up sets: 8 reps
 at about 50 % and 3 reps at about 75 % of the working weight, rounded down to
 weights you own. For barbell exercises the app shows which plates go on each
 side, using standard plates from 25 kg down to 0.5 kg.
+
+## 3. Weekly volume and the muscle map
+
+### 3.1 Counting sets
+
+Training volume is counted in **hard sets per muscle per week**. A set counts
+in full for the primary muscles of an exercise and as half a set for its
+secondary muscles: three sets of goblet squats are 3 sets for the quads and
+1.5 each for the glutes, hamstrings and calves.
+
+- **Planned volume** is taken from the first week of the plan (a regular,
+  non-deload week).
+- **Performed volume** is taken from the sets you ticked off, over the last
+  7 days, the last 30 days (as a weekly average) or all time (averaged over
+  the span since your first session, at least one week).
+
+### 3.2 Volume landmarks
+
+Each goal has a weekly range that is considered optimal for a large muscle:
+
+| Goal        | Sets per week |
+| ----------- | ------------- |
+| Hypertrophy | 10–20         |
+| Strength    | 8–15          |
+| Endurance   | 10–20         |
+
+Small muscles get enough indirect work from compound movements, so their
+range is scaled down: calves × 0.8, traps and lower back × 0.6, forearms,
+adductors and abductors × 0.5, neck × 0.4.
+
+The muscle map colours every muscle by where its weekly volume falls:
+
+| Tier | Volume                    | Meaning            |
+| ---- | ------------------------- | ------------------ |
+| 0    | none                      | Not trained        |
+| 1    | below half of the minimum | Very low           |
+| 2    | below the minimum         | Below optimal      |
+| 3    | within the range          | Optimal            |
+| 4    | above the maximum         | More than you need |
+
+### 3.3 Recovery
+
+A muscle that was trained as a primary mover less than 48 hours ago is marked
+as still recovering.

@@ -1,4 +1,4 @@
-import type { EquipmentId, Exercise, PatternId } from '@/data/schema';
+import type { EquipmentId, Exercise, MuscleId, PatternId } from '@/data/schema';
 
 /** A calendar date as `YYYY-MM-DD`. Compares correctly as a string. */
 export type IsoDate = string;
@@ -195,4 +195,35 @@ export type LoadedPlan = Omit<Plan, 'sessions'> & {
   sessions: LoadedSession[];
   /** The latest estimate per exercise id after walking the whole plan. */
   capacity: Record<string, Capacity>;
+};
+
+/** What was actually achieved for one exercise in one finished session. */
+export type HistoryEntry = {
+  sessionId: IsoDate;
+  exerciseId: string;
+  /** The date the session was done on. */
+  date: IsoDate;
+  /** Load in kg (per hand for pairs); null for bodyweight and timed exercises. */
+  weight: number | null;
+  /** Repetitions per set, or seconds for timed exercises. */
+  reps: number;
+  /** Number of sets completed. */
+  sets: number;
+  /** Capacity estimate after this session (e1RM, max reps or max seconds). */
+  capacity: number;
+  rating: Rating | null;
+};
+
+/** Heat level of a muscle relative to its optimal weekly volume, 0 (none) to 4 (above). */
+export type VolumeTier = 0 | 1 | 2 | 3 | 4;
+
+export type MuscleLoad = {
+  /** Average sets per week in the window, by muscle. */
+  perWeek: Partial<Record<MuscleId, number>>;
+  /** Total sets in the window, by muscle. */
+  total: Partial<Record<MuscleId, number>>;
+  /** Last date each muscle was trained as a primary mover, regardless of the window. */
+  last: Partial<Record<MuscleId, IsoDate>>;
+  /** Length of the window in weeks. */
+  weeks: number;
 };

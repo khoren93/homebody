@@ -20,7 +20,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 8. Exercise dataset, schema and validation
 - [x] 9. Engine: plan builder
 - [x] 10. Engine: load calculator, e1RM and progression
-- [ ] 11. Engine: volume and muscle-load analytics
+- [x] 11. Engine: volume and muscle-load analytics
 
 ### Application core
 
@@ -110,3 +110,8 @@ tightly related ones) that leaves the project building, linted and tested.
   small shared components, so the look can be replaced without touching logic
   ([ADR 0002](adr/0002-deferred-visual-design.md)). Screenshots and the README
   hero wait for the final design.
+- **2026-10-11 — Step 11.** Analytics added to the engine: planned weekly volume
+  per muscle (parity-tested against the prototype), performed muscle load over 7
+  days, 30 days or all time, optimal ranges with small-muscle scaling, heat
+  tiers, history entries and per-exercise history summaries. 265 tests; engine
+  coverage 98 % statements, 95 % branches.

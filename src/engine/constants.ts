@@ -1,4 +1,4 @@
-import type { PatternId } from '@/data/schema';
+import type { MuscleId, PatternId } from '@/data/schema';
 
 import type { Goal, Level, Rating, RepRange, TemplateId } from './types';
 
@@ -248,3 +248,23 @@ export const DELOAD_LOAD = 0.9;
 
 /** Plate sizes in kg, heaviest first, used to load a bar. */
 export const PLATES = [25, 20, 15, 10, 5, 2.5, 1.25, 0.5] as const;
+
+/** A set counts in full for primary muscles and as this fraction for secondary ones. */
+export const SECONDARY_SET_VALUE = 0.5;
+
+/**
+ * Small muscles need less direct volume: their optimal weekly range is the
+ * goal's range multiplied by this factor.
+ */
+export const SMALL_MUSCLE_SCALE: Partial<Record<MuscleId, number>> = {
+  neck: 0.4,
+  forearms: 0.5,
+  adductors: 0.5,
+  abductors: 0.5,
+  traps: 0.6,
+  lower_back: 0.6,
+  calves: 0.8,
+};
+
+/** Hours a muscle needs before the next hard session. */
+export const RECOVERY_HOURS = 48;
