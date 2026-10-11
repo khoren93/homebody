@@ -24,7 +24,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 ### Application core
 
-- [ ] 12. i18n with English and Russian locales and a language switch
+- [x] 12. i18n with English and Russian locales and a language switch
 - [ ] 13. Persisted store, migrations and IndexedDB adapters
 - [ ] 14. Design tokens, theme and app shell with tab navigation
 
@@ -115,3 +115,11 @@ tightly related ones) that leaves the project building, linted and tested.
   days, 30 days or all time, optimal ranges with small-muscle scaling, heat
   tiers, history entries and per-exercise history summaries. 265 tests; engine
   coverage 98 % statements, 95 % branches.
+- **2026-10-11 — Step 12.** i18next with English (fallback) and Russian
+  resources, type-checked translation keys, language detection (saved choice,
+  then browser languages, then English), a language switch that remembers the
+  choice and updates the document language, Russian plural forms, and
+  `Intl`-based number and date formatting. Base strings (navigation, muscles,
+  equipment, templates with their focus, phases, ratings, engine notes) are in;
+  feature strings are added with each screen. Tests keep the locales in sync:
+  same keys, same interpolation variables, all plural forms.

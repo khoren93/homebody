@@ -1,8 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
+import { LanguageSwitch } from '@/components/LanguageSwitch';
+
 export function App() {
+  const { t } = useTranslation();
+
   return (
     <main>
-      <h1>Homebody</h1>
-      <p>Home workout planner and load calculator.</p>
+      <h1>{t('app.name')}</h1>
+      <p>{t('app.tagline')}</p>
+      <LanguageSwitch />
     </main>
   );
 }

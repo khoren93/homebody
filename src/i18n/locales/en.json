@@ -1,0 +1,184 @@
+{
+  "app": {
+    "name": "Homebody",
+    "tagline": "Home workout planner and load calculator"
+  },
+  "nav": {
+    "label": "Sections",
+    "plan": "Plan",
+    "calculator": "Calculator",
+    "muscles": "Muscles",
+    "body": "Body",
+    "settings": "Settings"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "back": "Back",
+    "open": "Open",
+    "undo": "Undo",
+    "restore": "Restore",
+    "loading": "Loading…",
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "units": {
+    "kg": "{{value}} kg",
+    "cm": "{{value}} cm",
+    "seconds": "{{value}} s",
+    "minutes": "{{value}} min",
+    "percent": "{{value}}%",
+    "reps_one": "{{count}} rep",
+    "reps_other": "{{count}} reps",
+    "sets_one": "{{count}} set",
+    "sets_other": "{{count}} sets",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "weeks_one": "{{count}} week",
+    "weeks_other": "{{count}} weeks",
+    "exercises_one": "{{count}} exercise",
+    "exercises_other": "{{count}} exercises"
+  },
+  "muscles": {
+    "chest": {
+      "name": "chest",
+      "about": "The pectoralis major. Brings the arms together in front of the body: presses, push-ups, flyes."
+    },
+    "shoulders": {
+      "name": "shoulders",
+      "about": "The deltoids: front, middle and rear heads. Overhead presses, lateral raises and bent-over raises."
+    },
+    "traps": {
+      "name": "traps",
+      "about": "Upper back and neck. Lift and squeeze the shoulder blades: shrugs, upright rows."
+    },
+    "neck": {
+      "name": "neck",
+      "about": "The neck muscles hold the head and protect the cervical spine. Train them smoothly, without jerking."
+    },
+    "biceps": {
+      "name": "biceps",
+      "about": "The two-headed muscle of the upper arm. Bends the elbow: curls, chin-ups."
+    },
+    "triceps": {
+      "name": "triceps",
+      "about": "The three-headed muscle of the upper arm, about two thirds of its size. Straightens the elbow: close-grip presses, dips, skull crushers."
+    },
+    "forearms": {
+      "name": "forearms",
+      "about": "The forearm muscles are responsible for grip. They work in almost every pull and in wrist exercises."
+    },
+    "abs": {
+      "name": "abs",
+      "about": "The rectus abdominis and the obliques. They flex and rotate the torso and keep it rigid in a plank."
+    },
+    "lats": {
+      "name": "lats",
+      "about": "The widest muscles of the back, the ones that create a V shape. Pull the arms down and towards the body: pull-ups, rows."
+    },
+    "middle_back": {
+      "name": "middle back",
+      "about": "The rhomboids and the middle traps. Squeeze the shoulder blades together: bent-over rows, reverse flyes."
+    },
+    "lower_back": {
+      "name": "lower back",
+      "about": "The spinal erectors. Keep the spine straight in deadlifts, good mornings and back extensions."
+    },
+    "glutes": {
+      "name": "glutes",
+      "about": "The gluteus maximus, the strongest muscle in the body. Extends the hip: bridges, squats, lunges."
+    },
+    "abductors": {
+      "name": "abductors",
+      "about": "The gluteus medius and the hip abductors. Stabilize the pelvis and knees and move the leg out to the side."
+    },
+    "adductors": {
+      "name": "adductors",
+      "about": "The inner thigh. Bring the legs together and assist in squats and lunges."
+    },
+    "quads": {
+      "name": "quads",
+      "about": "The front of the thigh. Straightens the knee: squats, lunges, step-ups."
+    },
+    "hamstrings": {
+      "name": "hamstrings",
+      "about": "The back of the thigh. Bends the knee and extends the hip: Romanian deadlifts, bridges."
+    },
+    "calves": {
+      "name": "calves",
+      "about": "The gastrocnemius and the soleus. Calf raises, jumps, walking."
+    }
+  },
+  "equipment": {
+    "none": "no equipment",
+    "db": { "name": "Dumbbells", "inline": "dumbbells" },
+    "bench": { "name": "Bench", "inline": "bench" },
+    "bb": { "name": "Barbell", "inline": "barbell" },
+    "rack": { "name": "Squat rack", "inline": "squat rack" },
+    "ez": { "name": "EZ bar", "inline": "EZ bar" },
+    "kb": { "name": "Kettlebell", "inline": "kettlebell" },
+    "bar": { "name": "Pull-up bar", "inline": "pull-up bar" },
+    "dip": { "name": "Dip bars", "inline": "dip bars" },
+    "bands": { "name": "Resistance bands", "inline": "bands" },
+    "box": { "name": "Box, chair or step", "inline": "box or chair" },
+    "ball": { "name": "Exercise ball", "inline": "exercise ball" },
+    "medball": { "name": "Medicine ball", "inline": "medicine ball" }
+  },
+  "sex": {
+    "male": "Male",
+    "female": "Female"
+  },
+  "level": {
+    "beginner": { "name": "Beginner", "hint": "under 6 months" },
+    "intermediate": { "name": "Intermediate", "hint": "6 months to 2 years" },
+    "advanced": { "name": "Advanced", "hint": "2+ years" }
+  },
+  "goal": {
+    "hypertrophy": "Muscle gain",
+    "strength": "Strength",
+    "endurance": "Endurance and definition"
+  },
+  "difficulty": {
+    "beginner": "beginner",
+    "intermediate": "intermediate",
+    "expert": "advanced"
+  },
+  "templates": {
+    "FA": { "name": "Full body A", "focus": "Squat & chest press focus" },
+    "FB": { "name": "Full body B", "focus": "Hinge & overhead press focus" },
+    "FC": { "name": "Full body C", "focus": "Lunge & chest press focus" },
+    "UA": { "name": "Upper A", "focus": "Chest press & row focus" },
+    "UB": { "name": "Upper B", "focus": "Overhead press & pull-up focus" },
+    "LA": { "name": "Lower A", "focus": "Squat focus" },
+    "LB": { "name": "Lower B", "focus": "Hinge focus" },
+    "PA": { "name": "Push A", "focus": "Chest focus" },
+    "PB": { "name": "Push B", "focus": "Shoulder focus" },
+    "QA": { "name": "Pull A", "focus": "Lat focus" },
+    "QB": { "name": "Pull B", "focus": "Row focus" },
+    "GA": { "name": "Legs A", "focus": "Squat focus" },
+    "GB": { "name": "Legs B", "focus": "Hinge focus" }
+  },
+  "phase": {
+    "intro": "Introduction",
+    "working": "Working",
+    "peak": "Peak",
+    "deload": "Deload"
+  },
+  "rating": {
+    "easy": { "name": "Easy", "hint": "could do 3+ more" },
+    "ok": { "name": "As planned", "hint": "effort as prescribed" },
+    "hard": { "name": "Hard", "hint": "at the limit" },
+    "fail": { "name": "Failed", "hint": "fewer reps" }
+  },
+  "notes": {
+    "lightestTooHeavy": "Even the lightest weight is on the heavy side: do fewer reps and build up gradually.",
+    "notEnoughWeight": "Not enough weight for the target rep range: slow the lowering phase down to 3 seconds.",
+    "bigStep": "A big weight jump: fewer reps than usual for now, they will come back next week.",
+    "tooManyReps": "That is a lot of reps: switch to a harder variation or slow down, 3 seconds on the way down."
+  }
+}
