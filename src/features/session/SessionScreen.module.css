@@ -1,22 +1,35 @@
-.back {
-  align-self: flex-start;
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
-.eyebrow {
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.titles {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--text-title);
+  font-stretch: normal;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.375;
+}
+
+.summary {
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
 }
 
 .undo {
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--color-accent);
-  font-weight: var(--font-weight-bold);
+  color: var(--accent-ink);
+  font-weight: 600;
   text-decoration: underline;
 }

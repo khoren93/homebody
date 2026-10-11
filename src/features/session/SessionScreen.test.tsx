@@ -20,9 +20,10 @@ describe('SessionScreen: overview', () => {
   it('introduces the session and explains the prescribed effort', () => {
     render(<SessionScreen sessionId={FIRST} />);
     expect(screen.getByRole('heading', { level: 1, name: 'Full body A' })).toBeInTheDocument();
-    expect(screen.getByText('Week 1 · Introduction')).toBeInTheDocument();
-    expect(screen.getByText('Squat & chest press focus')).toBeInTheDocument();
-    expect(screen.getByText('Mon, Oct 19 · about 45 min · 17 working sets')).toBeInTheDocument();
+    expect(screen.getByText('Week 1 · Introduction · 17 working sets')).toBeInTheDocument();
+    expect(
+      screen.getByText('Squat & chest press focus · Mon, Oct 19 · about 45 min'),
+    ).toBeInTheDocument();
     expect(screen.getByText('3 reps in reserve.')).toBeInTheDocument();
     expect(screen.getByText(/Warm up for 5 minutes/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Back to the plan/ })).toHaveAttribute(
@@ -33,7 +34,7 @@ describe('SessionScreen: overview', () => {
 
   it('explains a deload session differently', () => {
     render(<SessionScreen sessionId="2026-11-09" />);
-    expect(screen.getByText('Week 4 · Deload')).toBeInTheDocument();
+    expect(screen.getByText('Week 4 · Deload · 12 working sets')).toBeInTheDocument();
     expect(screen.getByText('Deload.')).toBeInTheDocument();
     expect(screen.getByText(/about 90% of the calculated weight/)).toBeInTheDocument();
   });
@@ -48,14 +49,13 @@ describe('SessionScreen: exercise card', () => {
   it('shows what to do for a weighted exercise', () => {
     render(<SessionScreen sessionId={FIRST} />);
     const squat = card('Dumbbell Goblet Squat');
-    expect(squat).toHaveTextContent('1 · compound');
-    expect(squat).toHaveTextContent('quads · calves, glutes, hamstrings');
+    expect(squat).toHaveTextContent('01 · compound');
+    expect(squat).toHaveTextContent('quads · calves, glutes, hamstrings · one dumbbell');
     expect(squat).toHaveTextContent('3 × 12');
     expect(squat).toHaveTextContent('24 kg');
-    expect(squat).toHaveTextContent('one dumbbell');
     expect(squat).toHaveTextContent('The photos show a kettlebell and you have a dumbbell');
-    expect(squat).toHaveTextContent('rest 1:45');
-    expect(squat).toHaveTextContent('3 in reserve');
+    expect(squat).toHaveTextContent('Rest 1:45');
+    expect(squat).toHaveTextContent('RIR 3');
     expect(squat).toHaveTextContent('≈1RM 36 kg');
     expect(squat).toHaveTextContent('Warm-up sets: 12 kg × 8, 18 kg × 3');
     expect(squat).toHaveTextContent('Not enough weight for the target rep range');
@@ -67,13 +67,13 @@ describe('SessionScreen: exercise card', () => {
     expect(press).toHaveTextContent('2 × 22 kg');
     expect(press).toHaveTextContent('a dumbbell in each hand');
     expect(press).toHaveTextContent('≈1RM 30.5 kg per hand');
-    expect(card('One-Arm Dumbbell Row')).toHaveTextContent('one dumbbell, each side');
+    expect(card('One-Arm Dumbbell Row')).toHaveTextContent('one dumbbell · each side');
   });
 
   it('shows holds in seconds with their limit', () => {
     render(<SessionScreen sessionId={FIRST} />);
     const plank = card('Plank');
-    expect(plank).toHaveTextContent('6 · isolation');
+    expect(plank).toHaveTextContent('06 · isolation');
     expect(plank).toHaveTextContent('2 × 55 s');
     expect(plank).toHaveTextContent('limit ≈75 s');
     expect(within(plank).queryByLabelText(/Weight/)).not.toBeInTheDocument();
@@ -199,7 +199,7 @@ describe('SessionScreen: replacing exercises', () => {
 
     expect(state().swaps).toEqual({ 'FA|0': 'Dumbbell_Squat' });
     const replaced = card('Dumbbell Squat');
-    expect(replaced).toHaveTextContent('1 · compound');
+    expect(replaced).toHaveTextContent('01 · compound');
 
     await userEvent.click(within(replaced).getByRole('button', { name: 'Automatic' }));
     expect(state().swaps).toEqual({});
@@ -210,7 +210,7 @@ describe('SessionScreen: replacing exercises', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
     render(<SessionScreen sessionId={FIRST} />);
     const button = within(card('Dumbbell Goblet Squat')).getByRole('button', {
-      name: /Another exercise · 6 options/,
+      name: 'Swap for another exercise, 6 options',
     });
     await userEvent.click(button);
 
@@ -230,7 +230,7 @@ describe('SessionScreen: replacing exercises', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
     render(<SessionScreen sessionId={FIRST} />);
     const again = () =>
-      userEvent.click(screen.getAllByRole('button', { name: /Another exercise/ })[0]!);
+      userEvent.click(screen.getAllByRole('button', { name: /Swap for another exercise/ })[0]!);
 
     await again();
     const afterFirst = state().swaps['FA|0'];
@@ -251,7 +251,7 @@ describe('SessionScreen: replacing exercises', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
     render(<SessionScreen sessionId={FIRST} />);
 
-    await userEvent.click(screen.getAllByRole('button', { name: /Another exercise/ })[0]!);
+    await userEvent.click(screen.getAllByRole('button', { name: /Swap for another exercise/ })[0]!);
     expect(state().swaps['FA|0']).not.toBe('Bodyweight_Squat');
     await userEvent.click(screen.getByRole('button', { name: 'Undo' }));
     expect(state().swaps).toEqual({ 'FA|0': 'Bodyweight_Squat' });
@@ -262,7 +262,7 @@ describe('SessionScreen: replacing exercises', () => {
     for (const exercise of ['Calf_Raises_-_With_Bands']) actions.excludeExercise(exercise);
     render(<SessionScreen sessionId={FIRST} />);
     const calves = card('Standing Calf Raise');
-    expect(within(calves).getByRole('button', { name: 'No other options' })).toBeDisabled();
+    expect(within(calves).getByRole('button', { name: 'No swaps' })).toBeDisabled();
   });
 
   it('removes an exercise from all workouts', async () => {
@@ -280,11 +280,13 @@ describe('SessionScreen: Russian', () => {
     await i18n.changeLanguage('ru');
     render(<SessionScreen sessionId={FIRST} />);
     const squat = card('Гоблет-присед с гантелью');
-    expect(squat).toHaveTextContent('1 · базовое');
-    expect(squat).toHaveTextContent('квадрицепс · икры, ягодицы, бицепс бедра');
-    expect(squat).toHaveTextContent('отдых 1:45');
+    expect(squat).toHaveTextContent('01 · базовое');
+    expect(squat).toHaveTextContent('квадрицепс · икры, ягодицы, бицепс бедра · одна гантель');
+    expect(squat).toHaveTextContent('Отдых 1:45');
     expect(squat).toHaveTextContent('≈1ПМ 36 кг');
-    expect(squat).toHaveTextContent('Другое упражнение · 6 вариантов');
+    expect(
+      within(squat).getByRole('button', { name: 'Заменить другим упражнением, 6 вариантов' }),
+    ).toHaveTextContent('Замена · 6');
     expect(within(squat).getByRole('list')).toHaveAttribute('lang', 'en');
     expect(card('Жим гантелей лёжа')).toHaveTextContent('2 × 22 кг');
     expect(card('Жим гантелей лёжа')).toHaveTextContent('≈1ПМ 30,5 кг на руку');

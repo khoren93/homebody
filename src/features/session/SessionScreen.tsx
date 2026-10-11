@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Banner } from '@/components/Banner';
-import { Muted, Page, Stack } from '@/components/Layout';
+import { IconLink } from '@/components/Button';
+import { Icon } from '@/components/Icon';
+import { Muted, Page } from '@/components/Layout';
 import type { IsoDate, LoadedSession } from '@/engine';
 import { useExerciseText } from '@/features/exercise/useExerciseText';
 import { useSessionLabels } from '@/features/plan/useSessionLabels';
@@ -38,26 +40,27 @@ function Workout({ session }: { session: LoadedSession }) {
 
   return (
     <Page>
-      <a className={styles.back} href={routeHref({ name: 'plan' })}>
-        ← {t('session.back')}
-      </a>
+      <header className={styles.header}>
+        <IconLink href={routeHref({ name: 'plan' })} label={t('session.back')}>
+          <Icon name="back" />
+        </IconLink>
+        <div className={styles.titles}>
+          <h1 className={styles.title}>{labels.name(session)}</h1>
+          <p className={styles.summary}>
+            {t('session.summary', {
+              week: session.week + 1,
+              phase: labels.phase(session),
+              sets: t('session.workingSets', { count: totalSets }),
+            })}
+            {done && ` · ${t('session.doneMark')}`}
+          </p>
+        </div>
+      </header>
 
-      <Stack gap={1} as="header">
-        <span className={styles.eyebrow}>
-          {t('session.eyebrow', { week: session.week + 1, phase: labels.phase(session) })}
-          {done && ` · ${t('session.doneMark')}`}
-        </span>
-        <h1>{labels.name(session)}</h1>
-        <p>{labels.focus(session)}</p>
-        <Muted>
-          {t('session.meta', {
-            date: format.date(session.date),
-            minutes: session.minutes,
-            sets: t('session.workingSets', { count: totalSets }),
-          })}
-        </Muted>
-      </Stack>
-
+      <Muted small>
+        {labels.focus(session)} · {format.date(session.date)} ·{' '}
+        {t('plan.hero.about', { minutes: session.minutes })}
+      </Muted>
       <EffortNote session={session} />
       <Muted small>{t('session.warmup')}</Muted>
 
@@ -74,28 +77,29 @@ function Workout({ session }: { session: LoadedSession }) {
             session={session}
             index={index + 1}
             swap={
-              <>
-                {undo && replaced && (
-                  <Banner
-                    role="status"
-                    tone="info"
-                    actions={
-                      <button type="button" className={styles.undo} onClick={randomSwap.undo}>
-                        {t('common.undo')}
-                      </button>
-                    }
-                  >
-                    {t('session.swap.done', {
-                      from: t('common.quote', { text: text.name(replaced) }),
-                      session: t('common.quote', { text: labels.name(session) }),
-                    })}
-                  </Banner>
-                )}
-                <RandomSwapButton
-                  options={randomSwap.optionCount(item)}
-                  onClick={() => randomSwap.swap(item)}
-                />
-              </>
+              <RandomSwapButton
+                options={randomSwap.optionCount(item)}
+                onClick={() => randomSwap.swap(item)}
+              />
+            }
+            notice={
+              undo &&
+              replaced && (
+                <Banner
+                  role="status"
+                  tone="info"
+                  actions={
+                    <button type="button" className={styles.undo} onClick={randomSwap.undo}>
+                      {t('common.undo')}
+                    </button>
+                  }
+                >
+                  {t('session.swap.done', {
+                    from: t('common.quote', { text: text.name(replaced) }),
+                    session: t('common.quote', { text: labels.name(session) }),
+                  })}
+                </Banner>
+              )
             }
           />
         );

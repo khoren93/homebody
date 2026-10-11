@@ -3,28 +3,31 @@
   align-items: flex-start;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  font-size: var(--text-sm);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+  color: var(--ink-muted);
+  font-size: var(--text-body-s);
+}
+
+.note strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 .dots {
   display: flex;
   flex: none;
   gap: var(--space-1);
-  padding-top: var(--space-1);
+  padding-top: 5px;
 }
 
 .dot {
-  width: var(--space-3);
-  height: var(--space-3);
-  border: var(--border-width) solid var(--color-border);
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--color-sunken);
+  background: var(--line);
 }
 
 .on {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
+  background: var(--accent);
 }

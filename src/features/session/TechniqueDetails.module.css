@@ -1,7 +1,7 @@
 .steps {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 6px;
   padding-inline-start: var(--space-5);
-  font-size: var(--text-sm);
+  font-size: var(--text-body-s);
 }

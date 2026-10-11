@@ -29,7 +29,7 @@ export function ExercisePhoto({ exercise, still = false, className }: Props) {
     <>
       <button
         type="button"
-        className={cx(styles.photo, className)}
+        className={cx(styles.photo, still && styles.still, className)}
         aria-label={t('exercise.photo.open', { name: text.name(exercise) })}
         onClick={() => setOpen(true)}
       >
@@ -47,10 +47,10 @@ export function ExercisePhoto({ exercise, still = false, className }: Props) {
               alt=""
               loading="lazy"
             />
-            <span className={cx(styles.caption, styles.startCaption)} aria-hidden="true">
+            <span className={styles.pill} aria-hidden="true">
+              <span className={cx(styles.dot, styles.startDot)} />
               {t('exercise.photo.start')}
-            </span>
-            <span className={cx(styles.caption, styles.endCaption)} aria-hidden="true">
+              <span className={cx(styles.dot, styles.endDot)} />
               {t('exercise.photo.end')}
             </span>
             <span className={styles.zoom} aria-hidden="true">

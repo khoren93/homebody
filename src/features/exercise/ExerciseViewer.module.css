@@ -9,7 +9,8 @@
 
 .image {
   max-height: 100%;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-l);
+  background: var(--photo-plate);
   object-fit: contain;
 }
 
@@ -17,28 +18,30 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-2);
+  gap: 6px;
 }
 
 .control {
-  min-height: var(--control-height);
-  padding: var(--space-2) var(--space-4);
-  border: var(--border-width) solid currentcolor;
+  min-height: var(--control);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
   border-radius: var(--radius-pill);
   background: transparent;
-  color: inherit;
-  font-weight: var(--font-weight-bold);
+  color: var(--ink);
+  font-size: var(--text-body-s);
 }
 
 .control[aria-pressed='true'] {
-  border-color: var(--color-on-overlay);
-  background: var(--color-on-overlay);
-  color: var(--color-overlay);
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
 }
 
 .tip {
   max-width: 35rem;
   margin-inline: auto;
-  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  font-size: var(--text-body-s);
   text-align: center;
 }

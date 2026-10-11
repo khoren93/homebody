@@ -460,9 +460,7 @@
   },
   "session": {
     "back": "Back to the plan",
-    "eyebrow": "Week {{week}} · {{phase}}",
     "doneMark": "done",
-    "meta": "{{date}} · about {{minutes}} min · {{sets}}",
     "workingSets_one": "{{count}} working set",
     "workingSets_other": "{{count}} working sets",
     "rir": {
@@ -475,8 +473,8 @@
     "warmup": "Warm up for 5 minutes: skip rope or march on the spot, circle your joints, then do 10 squats and 10 incline push-ups.",
     "card": {
       "position": "{{index}} · {{kind}}",
-      "rest": "rest {{time}}",
-      "reserve": "{{count}} in reserve",
+      "rest": "Rest {{time}}",
+      "reserve": "RIR {{count}}",
       "e1rm": "≈1RM {{weight}} kg",
       "e1rmPerHand": "≈1RM {{weight}} kg per hand",
       "e1rmHelp": "What is this?",
@@ -504,18 +502,19 @@
       "hint": "Change the weight or the reps to match what you do: every later session of this exercise is recalculated."
     },
     "swap": {
-      "random": "Another exercise",
-      "options_one": "{{count}} option",
-      "options_other": "{{count}} options",
-      "none": "No other options",
+      "random": "Swap",
+      "none": "No swaps",
       "done": "Replaced {{from}} in every {{session}} session. Weights were recalculated.",
       "details": "Technique and replacement",
       "choose": "Replace in this template",
       "auto": "Automatic",
       "exclude": "Remove from all workouts",
-      "excludeHint": "For exercises that are uncomfortable or painful. You can bring them back in the settings."
+      "excludeHint": "For exercises that are uncomfortable or painful. You can bring them back in the settings.",
+      "randomLabel_one": "Swap for another exercise, {{count}} option",
+      "randomLabel_other": "Swap for another exercise, {{count}} options"
     },
-    "missing": "This session is no longer in the plan."
+    "missing": "This session is no longer in the plan.",
+    "summary": "Week {{week}} · {{phase}} · {{sets}}"
   },
   "phaseShort": {
     "intro": "Intro",
