@@ -43,16 +43,37 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: 14px;
   min-width: 0;
 }
 
 .muted {
-  color: var(--color-text-muted);
+  color: var(--ink-muted);
 }
 
 .small {
-  font-size: var(--text-sm);
+  font-size: var(--text-body-s);
+  line-height: 1.4;
+}
+
+.eyebrow {
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.eyebrowAccent {
+  color: var(--accent-ink);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--text-body-s);
+  font-variant-numeric: tabular-nums;
 }
 
 .visuallyHidden {

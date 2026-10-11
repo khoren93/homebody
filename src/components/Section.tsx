@@ -20,7 +20,9 @@ export function Section({ title, description, aside, children, id }: Props) {
     <Panel aria-labelledby={headingId} id={id}>
       <Stack gap={1}>
         <div className={styles.head}>
-          <h2 id={headingId}>{title}</h2>
+          <h2 id={headingId} className={styles.title}>
+            {title}
+          </h2>
           {aside}
         </div>
         {description != null && <Muted small>{description}</Muted>}

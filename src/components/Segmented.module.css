@@ -1,3 +1,8 @@
+/*
+ * Design system: SegmentedControl and filter chips.
+ * `pills` are outlined chips whose selection inverts to ink on bg;
+ * `tabs` is the mode switch on a surface track with an accent selection.
+ */
 .group {
   min-width: 0;
   margin: 0;
@@ -8,10 +13,11 @@
 .legend {
   margin-bottom: var(--space-2);
   padding: 0;
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
 }
 
@@ -27,7 +33,7 @@
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: 6px;
 }
 
 .option {
@@ -46,31 +52,71 @@
 
 .label {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-2) var(--space-3);
-  border: var(--border-width) solid var(--color-border);
+  justify-content: center;
+  min-height: var(--control-s);
+  padding: 4px 14px;
+  border: 1px solid var(--line);
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  color: var(--ink-muted);
+  font-size: var(--text-body-s);
   text-align: center;
 }
 
 .hint {
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
+  font-size: var(--text-eyebrow);
+  opacity: 0.8;
 }
 
 .input:checked + .label {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-}
-
-.input:checked + .label .hint {
-  color: inherit;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
 }
 
 .input:focus-visible + .label {
   outline: var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: var(--focus-offset);
+}
+
+/* Mode switch */
+.tabs .options {
+  flex-wrap: nowrap;
+  gap: 0;
+  padding: 4px;
+  border-radius: var(--radius-m);
+  background: var(--tabs-track, var(--surface));
+}
+
+.tabs .option {
+  flex: 1;
+  min-width: 0;
+}
+
+.tabs .label {
+  min-height: 34px;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-s);
+}
+
+.tabs .input:checked + .label {
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+}
+
+/* Equal columns, for short scales such as the effort rating */
+.even .options {
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+}
+
+.even .label {
+  padding-inline: 4px;
+  border-radius: var(--radius-s);
+  color: var(--ink);
 }

@@ -4,7 +4,7 @@ import { BarList } from '@/components/BarList';
 import { ButtonLink } from '@/components/Button';
 import { Section } from '@/components/Section';
 import type { MuscleId } from '@/data';
-import { GOALS } from '@/engine';
+import { GOALS, volumeTier } from '@/engine';
 import { useFormat } from '@/i18n/useFormat';
 import { routeHref } from '@/lib/router';
 import { useAppStore } from '@/store';
@@ -23,6 +23,7 @@ export function VolumePanel({ volume }: { volume: Partial<Record<MuscleId, numbe
     .sort((a, b) => b[1] - a[1])
     .map(([muscle, sets]) => ({
       id: muscle,
+      tier: volumeTier(muscle, sets, goal),
       label: format.capitalize(t(`muscles.${muscle}.name`)),
       value: sets,
       valueText: format.number(sets),
@@ -42,7 +43,7 @@ export function VolumePanel({ volume }: { volume: Partial<Record<MuscleId, numbe
         </ButtonLink>
       }
     >
-      <BarList rows={rows} max={SCALE_MAX} zone={[min, max]} />
+      <BarList rows={rows} max={SCALE_MAX} />
     </Section>
   );
 }

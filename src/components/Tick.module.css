@@ -1,8 +1,9 @@
 .tick {
   position: relative;
   display: grid;
-  width: var(--control-height);
-  height: var(--control-height);
+  flex: none;
+  width: var(--control);
+  height: var(--control);
   place-items: center;
   cursor: pointer;
 }
@@ -17,22 +18,22 @@
 
 .mark {
   display: grid;
-  width: var(--space-6);
-  height: var(--space-6);
+  width: 26px;
+  height: 26px;
   place-items: center;
-  border: calc(var(--border-width) * 2) solid var(--color-border);
+  border: 2px solid var(--line);
   border-radius: 50%;
 }
 
 .input:checked + .mark {
-  border-color: var(--color-success);
-  background: var(--color-success);
+  border-color: var(--good);
+  background: var(--good);
 }
 
 .input:checked + .mark::after {
-  width: var(--space-3);
-  height: var(--space-2);
-  border: calc(var(--border-width) * 2) solid var(--color-on-success);
+  width: 11px;
+  height: 6px;
+  border: 2.4px solid var(--on-good);
   border-top: 0;
   border-right: 0;
   transform: rotate(-45deg) translate(1px, -1px);
@@ -41,5 +42,5 @@
 
 .input:focus-visible + .mark {
   outline: var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: var(--focus-offset);
 }

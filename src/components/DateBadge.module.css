@@ -1,20 +1,25 @@
 .badge {
   display: flex;
+  flex: none;
   flex-direction: column;
   align-items: center;
-  min-width: 3rem;
-  line-height: var(--leading-tight);
+  gap: 2px;
+  min-width: 2.75rem;
 }
 
 .day {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--display-s);
+  font-stretch: var(--display-stretch);
   font-variant-numeric: tabular-nums;
+  font-weight: var(--display-weight);
+  line-height: 1;
 }
 
 .small {
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }

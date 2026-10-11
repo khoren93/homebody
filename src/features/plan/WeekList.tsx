@@ -31,7 +31,7 @@ export function WeekList({
           <Stack key={week} gap={2} as="section" aria-labelledby={headingId}>
             <Row justify="between" align="baseline">
               <h3 id={headingId}>{t('plan.week', { week: week + 1 })}</h3>
-              <Chip tone={first.deload ? 'accent' : first.rir === 1 ? 'danger' : 'neutral'}>
+              <Chip tone={first.deload ? 'good' : first.rir === 1 ? 'accent' : 'neutral'}>
                 {labels.effort(first)}
               </Chip>
             </Row>

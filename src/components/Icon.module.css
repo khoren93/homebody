@@ -1,7 +1,8 @@
+/* 24px stroke icons, 1.8px stroke, round caps and joins. */
 .icon {
   flex: none;
-  width: 1.375em;
-  height: 1.375em;
+  width: 1.5em;
+  height: 1.5em;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;

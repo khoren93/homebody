@@ -19,22 +19,14 @@ type Props = {
   rows: readonly BarListRow[];
   /** The value that fills the whole track. */
   max: number;
-  /** A highlighted range on the track, for example the optimal zone. */
-  zone?: readonly [from: number, to: number];
   /** Makes rows selectable. */
   onSelect?: (id: string) => void;
 };
 
-function Bar({ row, max, zone }: { row: BarListRow; max: number; zone: Props['zone'] }) {
+function Bar({ row, max }: { row: BarListRow; max: number }) {
   const percent = (value: number) => `${Math.min(100, Math.max(0, (value / max) * 100))}%`;
   return (
     <span className={styles.track} aria-hidden="true">
-      {zone && (
-        <span
-          className={styles.zone}
-          style={{ insetInlineStart: percent(zone[0]), inlineSize: percent(zone[1] - zone[0]) }}
-        />
-      )}
       <span
         className={cx(styles.fill, row.tier !== undefined && styles[`tier${row.tier}`])}
         style={{ inlineSize: percent(row.value) }}
@@ -43,15 +35,15 @@ function Bar({ row, max, zone }: { row: BarListRow; max: number; zone: Props['zo
   );
 }
 
-/** A ranked list of labelled horizontal bars. */
-export function BarList({ rows, max, zone, onSelect }: Props) {
+/** Design system: HeatScale bars. A ranked list of labelled horizontal bars. */
+export function BarList({ rows, max, onSelect }: Props) {
   return (
     <ul className={styles.list}>
       {rows.map((row) => {
         const content = (
           <>
             <span className={styles.label}>{row.label}</span>
-            <Bar row={row} max={max} zone={zone} />
+            <Bar row={row} max={max} />
             <span className={styles.value}>{row.valueText}</span>
           </>
         );

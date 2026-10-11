@@ -1,4 +1,4 @@
-import { type ReactNode, useId } from 'react';
+import { type CSSProperties, type ReactNode, useId } from 'react';
 
 import { cx } from '@/lib/cx';
 
@@ -19,6 +19,10 @@ type Props<T> = {
   options: readonly SegmentedOption<T>[];
   value: T;
   onChange: (value: T) => void;
+  /** `pills` are separate chips, `tabs` a joined mode switch. */
+  look?: 'pills' | 'tabs';
+  /** Gives every option the same width. */
+  even?: boolean;
   className?: string;
 };
 
@@ -32,12 +36,17 @@ export function Segmented<T extends string | number | boolean>({
   options,
   value,
   onChange,
+  look = 'pills',
+  even = false,
   className,
 }: Props<T>) {
   const name = useId();
 
   return (
-    <fieldset className={cx(styles.group, className)}>
+    <fieldset
+      className={cx(styles.group, look === 'tabs' && styles.tabs, even && styles.even, className)}
+      style={{ '--count': options.length } as CSSProperties}
+    >
       <legend className={showLegend ? styles.legend : styles.hiddenLegend}>{legend}</legend>
       <div className={styles.options}>
         {options.map((option) => (

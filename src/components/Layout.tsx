@@ -64,3 +64,20 @@ export function Muted({
 export function VisuallyHidden({ className, ...rest }: HTMLAttributes<HTMLSpanElement>) {
   return <span className={cx(styles.visuallyHidden, className)} {...rest} />;
 }
+
+/** A mono, uppercase caption above a title or a group. */
+export function Eyebrow({
+  accent,
+  className,
+  as: Tag = 'span',
+  ...rest
+}: HTMLAttributes<HTMLElement> & { accent?: boolean; as?: ElementType }) {
+  return (
+    <Tag className={cx(styles.eyebrow, accent && styles.eyebrowAccent, className)} {...rest} />
+  );
+}
+
+/** Figures in the data face: weights, dates, timers. */
+export function Num({ className, ...rest }: HTMLAttributes<HTMLSpanElement>) {
+  return <span className={cx(styles.num, className)} {...rest} />;
+}

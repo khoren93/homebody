@@ -1,15 +1,19 @@
+/* Design system: Button. Secondary by default; one primary per screen. */
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: var(--control-height);
-  padding: var(--space-2) var(--space-4);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-weight: var(--font-weight-medium);
+  min-height: var(--control);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
   text-decoration: none;
 }
 
@@ -17,23 +21,50 @@
   opacity: 0.5;
 }
 
-.sm {
-  min-height: 0;
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--text-sm);
-}
-
 .primary {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  min-height: var(--control-l);
+  border-color: transparent;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .ghost {
+  border-color: transparent;
   background: transparent;
+  color: var(--accent-ink);
 }
 
 .danger {
-  border-color: var(--color-danger);
-  color: var(--color-danger);
+  border-color: var(--danger);
+  background: transparent;
+  color: var(--danger);
+}
+
+.sm {
+  min-height: var(--control-s);
+  padding: 0 14px;
+  border-radius: var(--radius-s);
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+
+.block {
+  width: 100%;
+}
+
+/* Icon button: a circle on a surface. Always labelled for assistive technology. */
+.icon {
+  display: inline-grid;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.icon[aria-current='page'] {
+  color: var(--accent-ink);
 }

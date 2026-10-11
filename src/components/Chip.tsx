@@ -5,10 +5,14 @@ import { cx } from '@/lib/cx';
 import styles from './Chip.module.css';
 
 type Props = HTMLAttributes<HTMLSpanElement> & {
-  tone?: 'neutral' | 'accent' | 'warning' | 'danger';
+  /**
+   * `tag` is an uppercase status label, `data` a figure such as a rest time.
+   */
+  kind?: 'tag' | 'data';
+  tone?: 'neutral' | 'accent' | 'good' | 'danger' | 'heat1' | 'heat2' | 'heat3' | 'heat4';
 };
 
-/** A small label for a status or a category. */
-export function Chip({ tone = 'neutral', className, ...rest }: Props) {
-  return <span className={cx(styles.chip, styles[tone], className)} {...rest} />;
+/** Design system: Chip. A compact pill that labels a state or shows a figure. */
+export function Chip({ kind = 'tag', tone = 'neutral', className, ...rest }: Props) {
+  return <span className={cx(styles.chip, styles[kind], styles[tone], className)} {...rest} />;
 }

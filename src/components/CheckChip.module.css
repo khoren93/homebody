@@ -1,3 +1,4 @@
+/* A toggle in the language of the filter chip: selected inverts to ink on bg. */
 .chip {
   position: relative;
   display: flex;
@@ -19,35 +20,36 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: var(--control-height);
-  padding: var(--space-2) var(--space-3);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  font-weight: var(--font-weight-medium);
+  min-height: var(--control);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  color: var(--ink-muted);
+  font-size: var(--text-body-s);
 }
 
 .withMarker::before {
   flex: none;
-  width: var(--space-3);
-  height: var(--space-3);
-  border: var(--border-width) solid var(--color-text-muted);
-  border-radius: var(--radius-sm);
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--ink-muted);
+  border-radius: 5px;
   content: '';
 }
 
 .input:checked + .label {
-  border-color: var(--color-accent);
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
 }
 
 .input:checked + .withMarker::before {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
+  border-color: var(--bg);
+  background: var(--bg);
 }
 
 .input:focus-visible + .label {
   outline: var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: var(--focus-offset);
 }

@@ -46,7 +46,7 @@ export function SessionRow({ session, today }: { session: LoadedSession; today: 
           <span className={styles.title}>
             <strong>{labels.name(session)}</strong>
             {missed && (
-              <Chip tone="warning">
+              <Chip tone="accent">
                 {t(started ? 'plan.session.unfinished' : 'plan.session.missed')}
               </Chip>
             )}

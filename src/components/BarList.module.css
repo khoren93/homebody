@@ -1,31 +1,33 @@
+/* Design system: HeatScale bars. 8px on line, value in mono. */
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 6px;
   padding: 0;
   list-style: none;
 }
 
 .row {
   display: grid;
-  grid-template-columns: minmax(6.5rem, 30%) 1fr 2.5rem;
+  grid-template-columns: minmax(5.125rem, 30%) minmax(0, 1fr) 2.125rem;
   align-items: center;
-  gap: var(--space-3);
+  gap: 10px;
   width: 100%;
-  font-size: var(--text-sm);
+  font-size: var(--text-body-s);
 }
 
 .button {
+  min-height: 28px;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-s);
   background: transparent;
   text-align: start;
 }
 
 .selected .label {
-  color: var(--color-accent);
-  font-weight: var(--font-weight-bold);
+  color: var(--accent-ink);
+  font-weight: 600;
 }
 
 .label {
@@ -37,47 +39,42 @@
 
 .track {
   position: relative;
-  height: var(--space-3);
+  height: 8px;
   overflow: hidden;
-  border-radius: var(--radius-pill);
-  background: var(--color-sunken);
-}
-
-.zone {
-  position: absolute;
-  inset-block: 0;
-  background: color-mix(in srgb, var(--color-success) 25%, transparent);
+  border-radius: 4px;
+  background: var(--line);
 }
 
 .fill {
   position: absolute;
   inset-block: 0;
   inset-inline-start: 0;
-  border-radius: var(--radius-pill);
-  background: var(--color-accent);
+  border-radius: 4px;
+  background: var(--accent);
 }
 
 .tier0 {
-  background: var(--color-muscle);
+  background: var(--heat-0);
 }
 
 .tier1 {
-  background: var(--color-heat-1);
+  background: var(--heat-1);
 }
 
 .tier2 {
-  background: var(--color-heat-2);
+  background: var(--heat-2);
 }
 
 .tier3 {
-  background: var(--color-heat-3);
+  background: var(--heat-3);
 }
 
 .tier4 {
-  background: var(--color-heat-4);
+  background: var(--heat-4);
 }
 
 .value {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   text-align: end;
 }
