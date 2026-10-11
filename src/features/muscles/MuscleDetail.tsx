@@ -14,7 +14,6 @@ import {
   type VolumeTier,
 } from '@/engine';
 import { useFormat } from '@/i18n/useFormat';
-import { routeHref } from '@/lib/router';
 import { CATALOG } from '@/store';
 
 import styles from './MuscleDetail.module.css';
@@ -32,12 +31,15 @@ type Props = {
   sets30: number;
   planned: number;
   lastTrained: IsoDate | undefined;
+  /** Jumps to the exercises of the muscle, when they are not right below the sheet. */
+  onBrowse?: (() => void) | undefined;
   onClose: () => void;
 };
 
 /** The sheet for one muscle: what it does, how much it got, and where to find its exercises. */
 export function MuscleDetail(props: Props) {
-  const { muscle, goal, today, tier, sets7, sets30, planned, lastTrained, onClose } = props;
+  const { muscle, goal, today, tier, sets7, sets30, planned, lastTrained, onBrowse, onClose } =
+    props;
   const { t } = useTranslation();
   const format = useFormat();
   const name = t(`muscles.${muscle}.name`);
@@ -91,10 +93,12 @@ export function MuscleDetail(props: Props) {
       )}
       {planned === 0 && <Banner className={styles.note}>{t('map.detail.notInPlan')}</Banner>}
 
-      <a className={styles.browse} href={routeHref({ name: 'library', muscle })}>
-        <span>{t('map.detail.exercises', { count, muscle: name })}</span>
-        <span className={styles.arrow}>{t('map.detail.browse')}</span>
-      </a>
+      {onBrowse && (
+        <button type="button" className={styles.browse} onClick={onBrowse}>
+          <span>{t('map.detail.exercises', { count, muscle: name })}</span>
+          <span className={styles.arrow}>{t('map.detail.browse')}</span>
+        </button>
+      )}
     </section>
   );
 }

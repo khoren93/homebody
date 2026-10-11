@@ -1,0 +1,99 @@
+/* The header is a scroll target: leave some air above it. */
+.head {
+  scroll-margin-top: var(--space-4);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.count {
+  color: var(--ink-muted);
+  font-size: var(--text-caption);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--ink-muted);
+}
+
+.search:focus-within {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.input::placeholder {
+  color: var(--ink-muted);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filters {
+  flex: 1;
+}
+
+.density {
+  display: flex;
+  flex: none;
+  padding: 3px;
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.densityButton {
+  display: grid;
+  width: 36px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: var(--text-caption);
+}
+
+.densityButton[aria-pressed='true'] {
+  background: var(--line);
+  color: var(--ink);
+}
+
+.results {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.grid {
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+}
+
+.compact {
+  gap: var(--space-2);
+}
+
+.cards {
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: var(--space-3);
+}

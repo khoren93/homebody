@@ -1,0 +1,91 @@
+/* A single-choice menu. The trigger has the size and the look of a text field. */
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 48px;
+  padding: 0 10px 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--field-bg, var(--surface));
+  font-size: 15px;
+  text-align: start;
+}
+
+.value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  color: var(--ink-muted);
+  font-size: var(--text-caption);
+  transition: rotate var(--duration-fast);
+}
+
+.trigger[aria-expanded='true'] .chevron {
+  rotate: 180deg;
+}
+
+/* The list floats above the page: a raised surface, and one of the few things with a shadow. */
+.list {
+  position: fixed;
+  z-index: var(--z-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: calc(100vw - var(--space-3));
+  margin: 0;
+  padding: var(--space-1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--surface-2);
+  box-shadow: var(--shadow-float);
+  font-size: 15px;
+  list-style: none;
+}
+
+.option {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 40px;
+  padding: 0 6px 0 10px;
+  border-radius: var(--radius-s);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.option[data-active] {
+  background: var(--line);
+}
+
+.option[aria-selected='true'] {
+  font-weight: 600;
+}
+
+.check {
+  color: var(--accent-ink);
+  font-size: var(--text-caption);
+}
+
+.sm {
+  font-size: var(--text-body-s);
+}
+
+.sm.trigger {
+  min-height: var(--control-s);
+  padding-inline: var(--space-3) var(--space-2);
+}
+
+.sm .option {
+  min-height: 34px;
+}

@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { MUSCLE_IDS } from '@/data';
 import type { HistoryEntry } from '@/engine';
@@ -94,10 +94,6 @@ describe('MusclesScreen: overview', () => {
       '9.5',
     );
     expect(within(detail).getByText('since trained').previousElementSibling).toHaveTextContent('—');
-    expect(within(detail).getByRole('link', { name: /17 chest exercises/ })).toHaveAttribute(
-      'href',
-      '#/library?muscle=chest',
-    );
     expect(
       within(screen.getByRole('group', { name: /front view/ })).getByRole('button', {
         name: 'Chest',
@@ -106,6 +102,28 @@ describe('MusclesScreen: overview', () => {
 
     await userEvent.click(within(detail).getByRole('button', { name: 'Close chest' }));
     expect(window.location.hash).toBe('#/muscles');
+  });
+
+  it('lists every exercise below the map, and only those of the chosen muscle', async () => {
+    const view = renderRoute();
+    const all = screen.getByRole('list', { name: 'All exercises' });
+    expect(within(all).getAllByRole('listitem')).toHaveLength(141);
+
+    await userEvent.click(
+      within(screen.getByRole('group', { name: /front view/ })).getByRole('button', {
+        name: 'Chest',
+      }),
+    );
+    view.unmount();
+    renderRoute();
+    expect(window.location.hash).toBe('#/muscles?muscle=chest');
+    expect(screen.getByRole('heading', { level: 2, name: 'Chest exercises' })).toBeInTheDocument();
+    const chest = within(screen.getByRole('list', { name: 'Chest exercises' }));
+    expect(chest.getAllByRole('listitem')).toHaveLength(28);
+    expect(chest.getByRole('button', { name: 'Open the photos of Push-Up' })).toBeInTheDocument();
+    expect(
+      chest.queryByRole('button', { name: 'Open the photos of Dumbbell Goblet Squat' }),
+    ).not.toBeInTheDocument();
   });
 
   it('says when a muscle gets no direct work in the plan', () => {
@@ -186,12 +204,29 @@ describe('MusclesScreen: done mode', () => {
     expect(within(front).getByRole('button', { name: 'Quads: none' })).toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'Sets in the last 7 days' })).toBeInTheDocument();
 
-    await userEvent.selectOptions(screen.getByLabelText('Period'), '30');
+    await userEvent.click(
+      within(screen.getByRole('group', { name: 'Period' })).getByRole('radio', { name: '30 days' }),
+    );
     expect(
       screen.getByRole('region', { name: 'Sets per week, 30-day average' }),
     ).toBeInTheDocument();
     expect(within(front).getByRole('button', { name: 'Quads: light' })).toBeInTheDocument();
     expect(screen.getByText('4 workouts')).toBeInTheDocument();
+  });
+
+  it('lists the exercises of a chosen muscle under the ranking and jumps to them', async () => {
+    const scrollIntoView = vi.spyOn(Element.prototype, 'scrollIntoView');
+    const view = renderRoute();
+    expect(screen.queryByRole('searchbox', { name: 'Search exercises' })).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: /^Chest:/ }));
+    view.unmount();
+    renderRoute();
+    const heading = screen.getByRole('heading', { level: 2, name: 'Chest exercises' });
+    const detail = screen.getByRole('region', { name: 'Chest details' });
+    await userEvent.click(within(detail).getByRole('button', { name: /17 chest exercises/ }));
+    expect(scrollIntoView.mock.contexts).toContain(heading.parentElement);
+    expect(window.location.hash).toBe('#/muscles?mode=done&muscle=chest');
   });
 
   it('warns that a muscle trained yesterday is still recovering', () => {

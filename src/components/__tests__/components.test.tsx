@@ -7,6 +7,7 @@ import { Button } from '../Button';
 import { Field, Input } from '../Field';
 import { ProgressBar } from '../ProgressBar';
 import { Segmented } from '../Segmented';
+import { Select } from '../Select';
 import { Stat, StatGrid } from '../Stat';
 
 describe('Button', () => {
@@ -61,6 +62,78 @@ describe('Field', () => {
     );
     const input = screen.getByLabelText('Age');
     expect(input).toHaveAccessibleDescription('In years');
+  });
+});
+
+describe('Select', () => {
+  const options = [
+    { value: 'front', label: 'Front' },
+    { value: 'side', label: 'Side' },
+    { value: 'back', label: 'Back' },
+  ];
+  const renderSelect = (onChange = vi.fn()) => {
+    render(
+      <Field label="Pose">
+        {(control) => <Select {...control} options={options} value="side" onChange={onChange} />}
+      </Field>,
+    );
+    return { onChange, trigger: screen.getByRole('combobox', { name: 'Pose' }) };
+  };
+
+  it('shows the current option and keeps the list closed', () => {
+    const { trigger } = renderSelect();
+    expect(trigger).toHaveTextContent('Side');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+
+  it('reports the option picked with the pointer and closes', async () => {
+    const { onChange, trigger } = renderSelect();
+    await userEvent.click(trigger);
+    expect(screen.getByRole('option', { name: 'Side' })).toHaveAttribute('aria-selected', 'true');
+    await userEvent.click(screen.getByRole('option', { name: 'Back' }));
+    expect(onChange).toHaveBeenCalledWith('back');
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it('can be operated with the keyboard', async () => {
+    const { onChange, trigger } = renderSelect();
+    await userEvent.tab();
+    await userEvent.keyboard('{ArrowDown}');
+    expect(trigger).toHaveAttribute(
+      'aria-activedescendant',
+      screen.getByRole('option', { name: 'Side' }).id,
+    );
+    await userEvent.keyboard('{ArrowDown}');
+    expect(trigger).toHaveAttribute(
+      'aria-activedescendant',
+      screen.getByRole('option', { name: 'Back' }).id,
+    );
+    await userEvent.keyboard('{Home}{Enter}');
+    expect(onChange).toHaveBeenCalledExactlyOnceWith('front');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('finds an option by typing and leaves the value alone on Escape', async () => {
+    const { onChange, trigger } = renderSelect();
+    await userEvent.tab();
+    await userEvent.keyboard('b');
+    expect(trigger).toHaveAttribute(
+      'aria-activedescendant',
+      screen.getByRole('option', { name: 'Back' }).id,
+    );
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('closes when the user clicks elsewhere', async () => {
+    const { onChange, trigger } = renderSelect();
+    await userEvent.click(trigger);
+    await userEvent.click(document.body);
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    expect(onChange).not.toHaveBeenCalled();
   });
 });
 

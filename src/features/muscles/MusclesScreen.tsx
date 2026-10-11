@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { BarList } from '@/components/BarList';
-import { Field, Select } from '@/components/Field';
 import { Eyebrow, Muted, Num, Page } from '@/components/Layout';
 import { Panel } from '@/components/Panel';
 import { Section } from '@/components/Section';
 import { Segmented } from '@/components/Segmented';
 import { MUSCLE_IDS, type MuscleId } from '@/data';
 import { addDays, GOALS, muscleLoad, volumeTier } from '@/engine';
+import { ExerciseBrowser } from '@/features/library/ExerciseBrowser';
 import { useFormat } from '@/i18n/useFormat';
 import { MUSCLE_MODES, type MuscleMode, navigate } from '@/lib/router';
 import { useToday } from '@/lib/useToday';
@@ -21,6 +21,7 @@ import styles from './MusclesScreen.module.css';
 
 const PERIODS = [7, 30, 0] as const;
 type Period = (typeof PERIODS)[number];
+const EXERCISES_ID = 'muscle-exercises';
 
 type Props = { mode?: MuscleMode | undefined; muscle?: MuscleId | undefined };
 
@@ -88,33 +89,21 @@ export function MusclesScreen({ mode = 'overview', muscle }: Props) {
         )}
       </header>
 
-      <div className={styles.controls}>
+      <Segmented
+        look="tabs"
+        legend={t('map.mode.label')}
+        value={mode}
+        onChange={(next) => go({ mode: next })}
+        options={MUSCLE_MODES.map((value) => ({ value, label: t(`map.mode.${value}`) }))}
+      />
+      {mode === 'done' && (
         <Segmented
-          className={styles.modes}
-          look="tabs"
-          legend={t('map.mode.label')}
-          value={mode}
-          onChange={(next) => go({ mode: next })}
-          options={MUSCLE_MODES.map((value) => ({ value, label: t(`map.mode.${value}`) }))}
+          legend={t('map.period.label')}
+          value={period}
+          onChange={setPeriod}
+          options={PERIODS.map((days) => ({ value: days, label: t(`map.period.${days}`) }))}
         />
-        {mode === 'done' && (
-          <Field label={t('map.period.label')} className={styles.period}>
-            {(control) => (
-              <Select
-                {...control}
-                value={period}
-                onChange={(event) => setPeriod(Number(event.target.value) as Period)}
-              >
-                {PERIODS.map((days) => (
-                  <option key={days} value={days}>
-                    {t(`map.period.${days}`)}
-                  </option>
-                ))}
-              </Select>
-            )}
-          </Field>
-        )}
-      </div>
+      )}
       <Muted small>{t(`map.intro.${mode}`)}</Muted>
 
       <Panel>
@@ -146,6 +135,10 @@ export function MusclesScreen({ mode = 'overview', muscle }: Props) {
           sets30={month.total[muscle] ?? 0}
           planned={volume[muscle] ?? 0}
           lastTrained={week.last[muscle]}
+          // In the load modes the ranking sits between the sheet and the exercises.
+          onBrowse={
+            heated ? () => document.getElementById(EXERCISES_ID)?.scrollIntoView() : undefined
+          }
           onClose={() => go({ muscle: undefined })}
         />
       )}
@@ -173,6 +166,22 @@ export function MusclesScreen({ mode = 'overview', muscle }: Props) {
             }))}
           />
         </Section>
+      )}
+
+      {/* The overview doubles as the library; the load modes list one muscle at a time. */}
+      {(!heated || muscle) && (
+        <ExerciseBrowser
+          id={EXERCISES_ID}
+          level={2}
+          muscle={muscle}
+          title={
+            muscle
+              ? format.capitalize(
+                  t('map.exercises.muscle', { muscle: t(`muscles.${muscle}.name`) }),
+                )
+              : t('map.exercises.all')
+          }
+        />
       )}
     </Page>
   );

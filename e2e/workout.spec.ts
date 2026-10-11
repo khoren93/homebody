@@ -25,7 +25,8 @@ test.describe('workout', () => {
     await expect(squat).toContainText('Next time, Mon, Oct 26');
 
     // Editing the load re-anchors the calculation.
-    await squat.getByLabel('Weight, kg').selectOption('20');
+    await squat.getByLabel('Weight, kg').click();
+    await page.getByRole('option', { name: '20', exact: true }).click();
     await expect(squat).toContainText('edited by you');
 
     await page.getByRole('button', { name: 'Mark as done' }).click();

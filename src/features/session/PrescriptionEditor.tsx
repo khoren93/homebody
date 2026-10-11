@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/Button';
-import { Field, Select } from '@/components/Field';
+import { Field } from '@/components/Field';
 import { Muted } from '@/components/Layout';
 import { NumberInput } from '@/components/NumberInput';
+import { Select } from '@/components/Select';
 import type { Exercise } from '@/data';
 import type { IsoDate, LoadedItem } from '@/engine';
 import { useFormat } from '@/i18n/useFormat';
@@ -40,19 +41,11 @@ export function PrescriptionEditor({ exercise, item, sessionId }: Props) {
             <Select
               {...control}
               value={p.weight}
-              onChange={(event) =>
-                actions.editPrescription(exercise.id, sessionId, {
-                  weight: Number(event.target.value),
-                  reps: p.reps,
-                })
+              onChange={(weight) =>
+                actions.editPrescription(exercise.id, sessionId, { weight, reps: p.reps })
               }
-            >
-              {options.map((weight) => (
-                <option key={weight} value={weight}>
-                  {format.number(weight)}
-                </option>
-              ))}
-            </Select>
+              options={options.map((weight) => ({ value: weight, label: format.number(weight) }))}
+            />
           )}
         </Field>
       )}

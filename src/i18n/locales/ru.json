@@ -678,6 +678,10 @@
     "workouts_few": "{{count}} тренировки",
     "workouts_many": "{{count}} тренировок",
     "workouts_other": "{{count}} тренировки",
+    "exercises": {
+      "all": "Все упражнения",
+      "muscle": "Упражнения: {{muscle}}"
+    },
     "regularWeek": "обычная неделя",
     "ranked": {
       "plan": "Подходов в неделю по плану",
@@ -701,7 +705,7 @@
       "exercises_few": "{{count}} упражнения: {{muscle}}",
       "exercises_many": "{{count}} упражнений: {{muscle}}",
       "exercises_other": "{{count}} упражнения: {{muscle}}",
-      "browse": "Смотреть →",
+      "browse": "Показать ↓",
       "close": "Закрыть: {{muscle}}"
     }
   },

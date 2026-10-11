@@ -148,7 +148,8 @@ describe('SessionScreen: edits', () => {
     render(<SessionScreen sessionId={FIRST} />);
     const squat = card('Dumbbell Goblet Squat');
 
-    await userEvent.selectOptions(within(squat).getByLabelText('Weight, kg'), '20');
+    await userEvent.click(within(squat).getByLabelText('Weight, kg'));
+    await userEvent.click(screen.getByRole('option', { name: '20' }));
     expect(state().overrides[`Goblet_Squat|${FIRST}`]).toEqual({ weight: 20, reps: 12 });
     expect(squat).toHaveTextContent('edited by you');
 

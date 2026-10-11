@@ -7,6 +7,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Screens are wider on large displays, so a week of three sessions fits on one row of the plan.
+  Charts gain width instead of growing taller, and the muscle chips of the library wrap.
+- **Muscles.** The exercises are listed below the map: the whole catalog in the overview, and the
+  exercises of the chosen muscle in every mode. The period of the “Done” mode is a row of chips
+  under the mode switch.
+- Menus are drawn in the app's own style and have the same height as the other form fields.
+
 ## [0.1.0] - 2026-10-11
 
 The first release.

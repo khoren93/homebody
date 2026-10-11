@@ -20,10 +20,14 @@
   font-size: var(--text-caption);
 }
 
+/* Two portraits side by side; on a wide screen they stay small enough to see whole. */
 .compare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
 }
 
 .figure {
@@ -70,11 +74,6 @@
 .placeholder.latest {
   border-color: var(--accent);
   color: var(--ink);
-}
-
-.pick {
-  min-height: var(--control-s);
-  font-size: var(--text-body-s);
 }
 
 .thumbs {

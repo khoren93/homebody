@@ -652,6 +652,10 @@
     "noHistory": "There are no finished exercises in this period yet: tick your sets during a workout and the map lights up.",
     "workouts_one": "{{count}} workout",
     "workouts_other": "{{count}} workouts",
+    "exercises": {
+      "all": "All exercises",
+      "muscle": "{{muscle}} exercises"
+    },
     "regularWeek": "a regular week",
     "ranked": {
       "plan": "Sets per week in the plan",
@@ -673,7 +677,7 @@
       "notInPlan": "Your plan has no direct work for this muscle. You can swap an exercise in a workout under “Technique and replacement”.",
       "exercises_one": "{{count}} {{muscle}} exercise",
       "exercises_other": "{{count}} {{muscle}} exercises",
-      "browse": "Browse →",
+      "browse": "Show ↓",
       "close": "Close {{muscle}}"
     }
   },

@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import { Banner } from '@/components/Banner';
 import { Dialog } from '@/components/Dialog';
-import { Field, Input, Select } from '@/components/Field';
+import { Field, Input } from '@/components/Field';
 import { Icon } from '@/components/Icon';
 import { Muted, Num } from '@/components/Layout';
 import { Panel } from '@/components/Panel';
 import { Segmented } from '@/components/Segmented';
+import { Select } from '@/components/Select';
 import { diffDays, isIsoDate } from '@/engine';
 import { useFormat } from '@/i18n/useFormat';
 import { compressImage } from '@/lib/compressImage';
@@ -131,17 +132,12 @@ export function PhotosPanel({ compress = compressImage }: Props) {
       </button>
       <figcaption>
         <Select
-          className={styles.pick}
+          size="sm"
           aria-label={t(`photos.${slot}`)}
           value={photo.id}
-          onChange={(event) => setPick((current) => ({ ...current, [slot]: event.target.value }))}
-        >
-          {list.map((option) => (
-            <option key={option.id} value={option.id}>
-              {label(option)}
-            </option>
-          ))}
-        </Select>
+          onChange={(id) => setPick((current) => ({ ...current, [slot]: id }))}
+          options={list.map((option) => ({ value: option.id, label: label(option) }))}
+        />
       </figcaption>
     </figure>
   );
@@ -224,14 +220,9 @@ export function PhotosPanel({ compress = compressImage }: Props) {
             <Select
               {...control}
               value={newPose}
-              onChange={(e) => setNewPose(e.target.value as Pose)}
-            >
-              {POSES.map((value) => (
-                <option key={value} value={value}>
-                  {poseName(value)}
-                </option>
-              ))}
-            </Select>
+              onChange={setNewPose}
+              options={POSES.map((value) => ({ value, label: poseName(value) }))}
+            />
           )}
         </Field>
         <label className={styles.file} htmlFor={fileId}>

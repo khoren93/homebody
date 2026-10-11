@@ -39,7 +39,8 @@ describe('PhotosPanel', () => {
     render(<PhotosPanel compress={compress} />);
     await screen.findByRole('region', { name: 'Progress photos' });
     fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-10-10' } });
-    await userEvent.selectOptions(screen.getByLabelText('Pose'), 'side');
+    await userEvent.click(screen.getByLabelText('Pose'));
+    await userEvent.click(screen.getByRole('option', { name: 'Side' }));
     await userEvent.upload(screen.getByLabelText('Add photo'), file());
 
     expect(
@@ -58,10 +59,11 @@ describe('PhotosPanel', () => {
     render(<PhotosPanel compress={compress} />);
     const panel = await screen.findByRole('region', { name: 'Progress photos · front' });
     expect(panel).toHaveTextContent('39 days apart · weight −1.2 kg · waist −2 cm');
-    expect(within(panel).getByLabelText('First photo')).toHaveDisplayValue('Tue, Sep 1, 2026');
-    expect(within(panel).getByLabelText('Second photo')).toHaveDisplayValue('Sat, Oct 10, 2026');
+    expect(within(panel).getByLabelText('First photo')).toHaveTextContent('Tue, Sep 1, 2026');
+    expect(within(panel).getByLabelText('Second photo')).toHaveTextContent('Sat, Oct 10, 2026');
 
-    await userEvent.selectOptions(within(panel).getByLabelText('First photo'), 'Sun, Sep 20, 2026');
+    await userEvent.click(within(panel).getByLabelText('First photo'));
+    await userEvent.click(screen.getByRole('option', { name: 'Sun, Sep 20, 2026' }));
     expect(panel).toHaveTextContent('20 days apart · weight −1.2 kg');
   });
 

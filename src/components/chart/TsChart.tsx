@@ -1,6 +1,9 @@
+import { useRef } from 'react';
+
 import type { IsoDate } from '@/engine';
 import { useFormat } from '@/i18n/useFormat';
 import { cx } from '@/lib/cx';
+import { useElementWidth } from '@/lib/useElementWidth';
 
 import { type ChartBox, chartScale, linePath } from './scale';
 import styles from './TsChart.module.css';
@@ -29,25 +32,30 @@ const BOXES: Record<'md' | 'sm', ChartBox> = {
   sm: { width: 350, height: 96, left: 30, right: 8, top: 8, bottom: 20 },
 };
 
+/**
+ * The boxes are drawn for a phone. A wider container may enlarge the chart up
+ * to this factor; beyond that the chart gains width instead of growing taller.
+ */
+const MAX_ZOOM = 1.5;
+
 const time = (date: IsoDate) => Date.parse(`${date}T00:00:00Z`);
 
 /**
  * A small time-series chart: solid line for what happened, dashed line for
  * the plan. Hand-written SVG, sized by its container.
  */
-export function TsChart({
-  series,
-  label,
-  tone = 'accent',
-  area = false,
-  marker,
-  size = 'md',
-}: Props) {
-  const format = useFormat();
-  const all = series.flatMap((s) => s.points);
-  if (all.length === 0) return null;
+export function TsChart(props: Props) {
+  return props.series.some((s) => s.points.length > 0) ? <Chart {...props} /> : null;
+}
 
-  const box = BOXES[size];
+function Chart({ series, label, tone = 'accent', area = false, marker, size = 'md' }: Props) {
+  const format = useFormat();
+  const svg = useRef<SVGSVGElement>(null);
+  const width = useElementWidth(svg);
+  const all = series.flatMap((s) => s.points);
+
+  const base = BOXES[size];
+  const box = { ...base, width: Math.max(base.width, Math.round(width / MAX_ZOOM)) };
   const scale = chartScale(
     all.map(([date]) => time(date)),
     all.map(([, value]) => value),
@@ -60,6 +68,7 @@ export function TsChart({
 
   return (
     <svg
+      ref={svg}
       className={cx(styles.chart, styles[tone])}
       viewBox={`0 0 ${box.width} ${box.height}`}
       role="img"

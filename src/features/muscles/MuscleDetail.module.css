@@ -38,11 +38,12 @@
   justify-content: space-between;
   gap: var(--space-3);
   min-height: var(--control);
-  padding-top: var(--space-3);
+  padding: var(--space-3) 0 0;
+  border: 0;
   border-top: 1px solid var(--line);
-  color: var(--ink);
+  background: transparent;
   font-weight: 600;
-  text-decoration: none;
+  text-align: start;
 }
 
 .arrow {
