@@ -146,7 +146,7 @@ async function main(): Promise<void> {
   if (added.length > 0) {
     console.log(
       `\nFill in the curated fields of ${added.join(', ')} in data/exercises.json\n` +
-        '(name.ru, patterns, equipment, type, loadMode, baseline, unilateral),\n' +
+        '(name.ru, instructions.ru, patterns, equipment, type, loadMode, baseline, unilateral),\n' +
         'then run `make data-validate`.',
     );
   }

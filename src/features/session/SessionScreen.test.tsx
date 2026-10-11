@@ -279,7 +279,7 @@ describe('SessionScreen: replacing exercises', () => {
 });
 
 describe('SessionScreen: Russian', () => {
-  it('translates the card and keeps the English technique marked as English', async () => {
+  it('translates the card and its technique', async () => {
     await i18n.changeLanguage('ru');
     render(<SessionScreen sessionId={FIRST} />);
     const squat = card('Гоблет-присед с гантелью');
@@ -290,7 +290,9 @@ describe('SessionScreen: Russian', () => {
     expect(
       within(squat).getByRole('button', { name: 'Заменить другим упражнением, 6 вариантов' }),
     ).toHaveTextContent('Замена · 6');
-    expect(within(squat).getByRole('list')).toHaveAttribute('lang', 'en');
+    const steps = within(squat).getByRole('list');
+    expect(steps).toHaveAttribute('lang', 'ru');
+    expect(steps).toHaveTextContent('Встань и держи лёгкую гирю за дужку у груди.');
     expect(card('Жим гантелей лёжа')).toHaveTextContent('2 × 22 кг');
     expect(card('Жим гантелей лёжа')).toHaveTextContent('≈1ПМ 30,5 кг на руку');
   });

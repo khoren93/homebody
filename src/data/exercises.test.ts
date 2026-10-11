@@ -40,6 +40,12 @@ describe('exercise catalog', () => {
     }
   });
 
+  it('has the technique in Russian, step for step, for every exercise', () => {
+    for (const e of EXERCISES) {
+      expect(e.instructions.ru?.length, e.id).toBe(e.instructions.en.length);
+    }
+  });
+
   it('looks exercises up by id', () => {
     expect(getExercise('Goblet_Squat')?.name.en).toBe('Goblet Squat');
     expect(getExercise('nope')).toBeUndefined();

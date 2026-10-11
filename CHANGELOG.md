@@ -7,6 +7,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- **Exercises.** The technique of all 141 exercises is translated into Russian, step for step.
+  In the Russian interface the steps no longer fall back to English.
+
 ### Changed
 
 - **Exercises.** The Muscles and Library screens are one screen now, so the app has four tabs.
