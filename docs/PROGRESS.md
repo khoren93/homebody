@@ -17,7 +17,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 ### Data and engine
 
-- [ ] 8. Exercise dataset, schema and validation
+- [x] 8. Exercise dataset, schema and validation
 - [ ] 9. Engine: plan builder
 - [ ] 10. Engine: load calculator, e1RM and progression
 - [ ] 11. Engine: volume and muscle-load analytics
@@ -83,3 +83,11 @@ tightly related ones) that leaves the project building, linted and tested.
   pushes to `main` and on pull requests; Dependabot for npm (grouped), GitHub
   Actions and Docker. The workflow has not run yet because nothing has been
   pushed.
+- **2026-10-11 — Step 8.** Exercise dataset migrated to `data/exercises.json`:
+  stable English muscle ids, readable pattern ids, localized names (awkward
+  upstream English names cleaned up), implement-specific names and the fixed rep
+  range moved into data, instructions written for the two exercises that had
+  none. Zod schema in `src/data/schema.ts`, typed loader, 282 photos under
+  `public/exercises/<id>/`, `make data-validate` (schema + photo integrity, also
+  in CI) and `make data-build` (sync photos and draft records from
+  free-exercise-db).

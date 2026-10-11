@@ -104,6 +104,12 @@ export default defineConfig(
     },
   },
   {
+    files: ['scripts/**/*.{js,mjs,ts}'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
     files: ['**/*.{js,mjs,cjs}'],
     extends: [tseslint.configs.disableTypeChecked],
   },
