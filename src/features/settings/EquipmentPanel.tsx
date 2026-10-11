@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Banner } from '@/components/Banner';
 import { CheckChip } from '@/components/CheckChip';
 import { Field, Input } from '@/components/Field';
 import { Grid } from '@/components/Grid';
@@ -122,7 +123,11 @@ function ChangeSummary({ change }: { change: Change }) {
     );
   }
 
-  return <p role="status">{parts.join(' ')}</p>;
+  return (
+    <Banner role="status" tone="info">
+      {parts.join(' ')}
+    </Banner>
+  );
 }
 
 export function EquipmentPanel() {

@@ -42,12 +42,7 @@ export function LoadScalePanel() {
             {percentText(Math.abs(Math.round(delta * 100)))}
           </Button>
         ))}
-        <Button
-          size="sm"
-          variant={percent === 100 ? 'primary' : 'default'}
-          aria-pressed={percent === 100}
-          onClick={() => actions.setLoadScale(1)}
-        >
+        <Button size="sm" aria-pressed={percent === 100} onClick={() => actions.setLoadScale(1)}>
           {t('settings.scale.reset')}
         </Button>
       </Row>
