@@ -774,5 +774,36 @@
       "cm": "cm",
       "bf": "%"
     }
+  },
+  "photos": {
+    "title": "Progress photos",
+    "titlePose": "Progress photos · {{pose}}",
+    "about": "Take one every 2–4 weeks in the same light, pose and clothes. Photos are stored only on this device.",
+    "pose": {
+      "label": "Pose",
+      "front": "Front",
+      "side": "Side",
+      "back": "Back"
+    },
+    "date": "Date",
+    "add": "Add photo",
+    "saving": "Saving the photo…",
+    "loading": "Loading photos…",
+    "errorLoad": "The photos could not be loaded. Reload the page.",
+    "errorSave": "The photo could not be saved. Try another file (JPEG or PNG).",
+    "errorSpace": "This device has run out of space for photos.",
+    "empty": "Your photo",
+    "apart": "{{days}} apart",
+    "first": "First photo",
+    "second": "Second photo",
+    "alt": "{{pose}} photo, {{date}}",
+    "open": "Open the photo of {{date}}",
+    "delta": {
+      "weight": "weight {{change}}",
+      "waist": "waist {{change}}"
+    },
+    "delete": "Delete photo",
+    "confirmDelete": "Really delete? Press again",
+    "deleteFailed": "Could not delete"
   }
 }

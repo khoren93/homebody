@@ -16,6 +16,7 @@ import { actions, type BodyMetric, GIRTHS, metricSeries, useAppStore } from '@/s
 
 import styles from './BodyScreen.module.css';
 import { MeasurementForm } from './MeasurementForm';
+import { PhotosPanel } from './PhotosPanel';
 
 const METRICS: readonly BodyMetric[] = ['kg', 'bf', ...GIRTHS];
 
@@ -145,6 +146,8 @@ export function BodyScreen() {
             .join(' · ')}
         />
       </StatGrid>
+
+      <PhotosPanel />
 
       <Section title={t('body.journal.title')}>
         {dates.length === 0 ? (

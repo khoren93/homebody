@@ -3,6 +3,7 @@ export { CATALOG } from './catalog';
 export { createSampleSnapshot, createSampleState } from './defaults';
 export { type DerivedPlan, derivePlan, usePlan } from './derived';
 export { migrateState, StateFormatError } from './migrations';
+export { addPhoto, loadPhotos, removePhoto, resetPhotos, usePhotoStore } from './photos';
 export * from './schema';
 export * from './selectors';
 export {

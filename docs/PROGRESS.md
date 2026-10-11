@@ -39,7 +39,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 21. Muscles: body map with heat modes and muscle detail
 - [x] 22. Muscles: exercise library with search, filters and densities
 - [x] 23. Body: weight, girths, body fat, charts
-- [ ] 24. Body: progress photos with compare
+- [x] 24. Body: progress photos with compare
 - [ ] 25. Settings: backup export/import and reset
 
 ### Release
@@ -207,3 +207,9 @@ tightly related ones) that leaves the project building, linted and tested.
   switch, tiles for body fat (US Navy formula, sex-specific), girths and BMI
   with its category, and a journal with delete. Body-metric formulas live in the
   engine with tests. 574 tests.
+- **2026-10-11 — Step 24.** Progress photos: add a photo for a date and pose
+  (front, side, back), compressed in the browser to at most 900 px before it is
+  stored in its own IndexedDB table; side-by-side comparison of any two photos
+  of a pose with the days, weight and waist change between them; thumbnails; a
+  full-screen viewer with a delete that asks twice. Photos are loaded lazily and
+  never leave the device. 583 tests.

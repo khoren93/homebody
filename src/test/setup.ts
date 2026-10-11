@@ -4,7 +4,7 @@ import { cleanup } from '@testing-library/react';
 import { afterEach, beforeEach, vi } from 'vitest';
 
 import { i18n, initI18n } from '@/i18n';
-import { initStore } from '@/store';
+import { initStore, resetPhotos } from '@/store';
 import { createMemoryPersistence } from '@/store/persistence';
 
 // Tests run in English unless they switch the language themselves.
@@ -21,6 +21,7 @@ beforeEach(async () => {
   if (i18n.language !== 'en') await i18n.changeLanguage('en');
   // Every test starts from a fresh first launch: the sample profile, kept in memory.
   await initStore({ persistence: createMemoryPersistence(), today: TEST_TODAY });
+  resetPhotos();
 });
 
 afterEach(() => {
