@@ -10,7 +10,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 1. Initialize repository
 - [x] 2. Architecture overview and stack ADR
 - [x] 3. Scaffold Vite + React + TypeScript app
-- [ ] 4. Lint, format and git hooks
+- [x] 4. Lint, format and git hooks
 - [ ] 5. Makefile
 - [ ] 6. Docker and compose setup
 - [ ] 7. CI workflow and Dependabot
@@ -57,9 +57,14 @@ tightly related ones) that leaves the project building, linted and tested.
   `reference/` prototype bundle is never committed), editor config, Node
   version pin, MIT license, README stub and this plan.
 - **2026-10-11 — Step 2.** Architecture overview (`docs/ARCHITECTURE.md`) and
-  the stack decision record (`docs/adr/0001-stack.md`), including the two
-  version pins (TypeScript 6.0.x, ESLint 9.x) and the reasons for them.
+  the stack decision record (`docs/adr/0001-stack.md`), including the
+  version pins and the reasons for them.
 - **2026-10-11 — Step 3.** Vite + React + TypeScript scaffold with strict
   compiler options (including `noUncheckedIndexedAccess`), the `@/` path alias,
   Vitest with Testing Library and a smoke test. pnpm is pinned to the 10.x
   line through `packageManager`.
+- **2026-10-11 — Step 4.** ESLint 10 flat config (typescript-eslint type-checked
+  rules, react-hooks, jsx-a11y, import sorting, purity rules for `src/engine`),
+  Prettier, and lefthook hooks: lint and format staged files on commit,
+  commitlint for Conventional Commits. ESLint 9 turned out to be unsupported,
+  so the ADR was updated: the only remaining language pin is TypeScript 6.0.x.

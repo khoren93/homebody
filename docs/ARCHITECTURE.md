@@ -38,14 +38,14 @@ flowchart TD
 Dependencies point downwards only. The engine imports nothing from React, the
 store or the browser; the store knows nothing about components.
 
-| Layer | Location | Responsibility |
-|---|---|---|
-| Engine | `src/engine/` | Plan builder, load calculator, e1RM, progression, volume and muscle-load analytics, body metrics. Pure functions. |
-| Data | `src/data/`, `data/exercises.json` | The exercise catalog with its Zod schema, plus muscle and equipment ids. |
-| Store | `src/store/` | The single app state document, actions that change it, selectors that derive the plan, persistence and migrations. |
-| i18n | `src/i18n/` | i18next setup and one JSON resource file per locale. |
-| Components | `src/components/` | Shared presentational building blocks (buttons, panels, charts, lightbox). |
-| Features | `src/features/<name>/` | One folder per screen: plan, session, calculator, muscles, body, settings. |
+| Layer      | Location                           | Responsibility                                                                                                     |
+| ---------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Engine     | `src/engine/`                      | Plan builder, load calculator, e1RM, progression, volume and muscle-load analytics, body metrics. Pure functions.  |
+| Data       | `src/data/`, `data/exercises.json` | The exercise catalog with its Zod schema, plus muscle and equipment ids.                                           |
+| Store      | `src/store/`                       | The single app state document, actions that change it, selectors that derive the plan, persistence and migrations. |
+| i18n       | `src/i18n/`                        | i18next setup and one JSON resource file per locale.                                                               |
+| Components | `src/components/`                  | Shared presentational building blocks (buttons, panels, charts, lightbox).                                         |
+| Features   | `src/features/<name>/`             | One folder per screen: plan, session, calculator, muscles, body, settings.                                         |
 
 ## The engine
 
@@ -79,12 +79,12 @@ There is one versioned state document. It holds the profile, schedule,
 equipment and every decision the user made. Bulky or append-only data lives in
 separate IndexedDB tables so the main document stays small:
 
-| Table | Content |
-|---|---|
-| `state` | The single app state document (`version` + data). |
+| Table     | Content                                                                           |
+| --------- | --------------------------------------------------------------------------------- |
+| `state`   | The single app state document (`version` + data).                                 |
 | `history` | One row per exercise per finished session: the result that was actually achieved. |
-| `setLogs` | Which sets of which session are ticked. |
-| `photos` | Progress photos (compressed in the browser before saving). |
+| `setLogs` | Which sets of which session are ticked.                                           |
+| `photos`  | Progress photos (compressed in the browser before saving).                        |
 
 - Every read from storage and every imported backup is validated with Zod and
   run through the migration chain before it reaches the store.
@@ -118,12 +118,12 @@ fallback; Russian ships alongside it. Exercise names are part of the dataset
 
 ## Testing
 
-| Level | Tool | What it covers |
-|---|---|---|
-| Unit | Vitest | The engine (coverage gate of 90 %), state migrations, formatting helpers. |
-| Component | Vitest + Testing Library | Interactive components and screens against an in-memory store. |
-| End-to-end | Playwright | Critical flows on phone and desktop viewports. |
-| Data | Zod validation script | The exercise dataset, in CI. |
+| Level      | Tool                     | What it covers                                                            |
+| ---------- | ------------------------ | ------------------------------------------------------------------------- |
+| Unit       | Vitest                   | The engine (coverage gate of 90 %), state migrations, formatting helpers. |
+| Component  | Vitest + Testing Library | Interactive components and screens against an in-memory store.            |
+| End-to-end | Playwright               | Critical flows on phone and desktop viewports.                            |
+| Data       | Zod validation script    | The exercise dataset, in CI.                                              |
 
 ## Repository layout
 

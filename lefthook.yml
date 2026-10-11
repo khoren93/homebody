@@ -1,0 +1,17 @@
+# Git hooks. Installed automatically by `pnpm install` (the `prepare` script).
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: '*.{js,mjs,cjs,ts,tsx}'
+      run: pnpm exec eslint --fix --no-warn-ignored {staged_files}
+      stage_fixed: true
+    format:
+      glob: '*.{js,mjs,cjs,ts,tsx,json,md,css,html,yml,yaml}'
+      run: pnpm exec prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}
