@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest an idea for Homebody
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the situation you are in, not only the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Fit with the project
+      options:
+        - label: It works without an account, a backend or third-party services.

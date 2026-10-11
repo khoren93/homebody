@@ -47,7 +47,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 26. PWA install and offline support
 - [x] 27. End-to-end tests (onboarding, workout, swap, backup)
 - [x] 28. Deploy demo to GitHub Pages
-- [ ] 29. Full README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, templates
+- [x] 29. Full README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, templates
 - [x] 30. Screenshots and demo GIF
 - [ ] 31. Release v0.1.0
 
@@ -252,3 +252,10 @@ screenshots`: the script plays two weeks of training through the UI, then
   composes the hero image from three of them after the design mockup
   (`hero-dark.png`, `hero-light.png`) and records a short demo GIF. Done before
   step 29 so that the README can reference files that exist.
+- **2026-10-11 — Step 29.** Full README (hero, features with screenshots, quick
+  start, formulas, stack, structure, localization, dataset, roadmap, credits,
+  disclaimer), CONTRIBUTING, Contributor Covenant 2.1, SECURITY, CHANGELOG
+  skeleton, issue forms (bug, feature, new exercise) and a pull request
+  template. TRAINING_SCIENCE gained a body metrics section. Every relative link,
+  anchor and code path in the docs was checked by script, external links by
+  request.

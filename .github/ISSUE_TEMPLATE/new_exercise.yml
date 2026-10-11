@@ -1,0 +1,45 @@
+name: New exercise
+description: Propose an exercise for the dataset
+labels: [dataset]
+body:
+  - type: input
+    id: upstream
+    attributes:
+      label: free-exercise-db id
+      description: The id of the exercise in https://github.com/yuhonas/free-exercise-db
+      placeholder: Dumbbell_Bench_Press
+    validations:
+      required: true
+  - type: input
+    id: name-ru
+    attributes:
+      label: Russian name
+  - type: input
+    id: pattern
+    attributes:
+      label: Movement pattern
+      description: One of the patterns in src/data/schema.ts, for example push_horizontal.
+    validations:
+      required: true
+  - type: input
+    id: equipment
+    attributes:
+      label: Equipment
+      description: What is needed, and any alternatives.
+      placeholder: dumbbells + bench
+    validations:
+      required: true
+  - type: input
+    id: baseline
+    attributes:
+      label: Baseline
+      description: >
+        Estimated one-rep max divided by body weight for an intermediate male (per hand for pairs),
+        or max reps, or max seconds. Say how you arrived at it.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why add it?
+      description: What does it offer that the existing exercises for this pattern do not?

@@ -269,3 +269,25 @@ The muscle map colours every muscle by where its weekly volume falls:
 
 A muscle that was trained as a primary mover less than 48 hours ago is marked
 as still recovering.
+
+## 4. Body metrics
+
+### 4.1 Body fat
+
+Body fat is estimated with the **US Navy circumference method**, from
+measurements in centimetres:
+
+```
+men:    495 / (1.0324 − 0.19077 × log10(waist − neck) + 0.15456 × log10(height)) − 450
+women:  495 / (1.29579 − 0.35004 × log10(waist + hips − neck) + 0.221 × log10(height)) − 450
+```
+
+The method is accurate to about ±3–4 percentage points, which is enough to
+follow a trend. Results outside 2–60 % are discarded as measurement errors.
+
+### 4.2 Body mass index
+
+`BMI = weight (kg) / height (m)²`, with the WHO categories for adults: below
+18.5 underweight, 18.5–25 normal, 25–30 overweight, 30 and above obese. BMI
+does not distinguish muscle from fat, so for people who train it is a rough
+indicator at best.
