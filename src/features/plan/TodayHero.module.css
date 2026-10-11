@@ -32,6 +32,10 @@
   color: var(--ink-muted);
 }
 
+/*
+ * Square tiles that shrink to share a narrow row. TodayHero counts how many
+ * fit from the smallest side it allows and from the gap: keep the two in step.
+ */
 .thumbs {
   display: flex;
   gap: var(--space-2);
@@ -39,10 +43,16 @@
   list-style: none;
 }
 
+.thumbs li {
+  flex: 1 1 0;
+  max-width: 62px;
+  aspect-ratio: 1;
+}
+
 .thumb,
 .more {
-  width: 62px;
-  height: 62px;
+  width: 100%;
+  height: 100%;
   border-radius: var(--radius-m);
 }
 

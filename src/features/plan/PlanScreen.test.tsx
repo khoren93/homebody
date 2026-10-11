@@ -26,6 +26,17 @@ describe('PlanScreen', () => {
     expect(screen.queryByText('This is a sample plan.')).not.toBeInTheDocument();
   });
 
+  it('shows the photo of every exercise of the next session when the row has room', () => {
+    const rect = vi
+      .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
+      .mockReturnValue({ width: 480 } as DOMRect);
+    render(<PlanScreen />);
+    const hero = screen.getByRole('region', { name: 'Full body A' });
+    expect(within(hero).getAllByRole('img')).toHaveLength(6);
+    expect(hero).not.toHaveTextContent('+');
+    rect.mockRestore();
+  });
+
   it('presents the next session with its focus, gear, size and a way to start it', () => {
     render(<PlanScreen />);
     const hero = screen.getByRole('region', { name: 'Full body A' });

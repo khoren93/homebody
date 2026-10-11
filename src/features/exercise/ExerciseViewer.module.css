@@ -1,6 +1,23 @@
-.stage {
+/* Photos above the technique; the photos stay put and the steps scroll. */
+.layout {
   display: flex;
   flex: 1;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 0;
+}
+
+.media {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  min-height: 0;
+}
+
+.stage {
+  display: flex;
   align-items: center;
   justify-content: center;
   min-height: 0;
@@ -8,7 +25,7 @@
 }
 
 .image {
-  max-height: 100%;
+  max-height: 40dvh;
   border-radius: var(--radius-l);
   background: var(--photo-plate);
   object-fit: contain;
@@ -38,10 +55,51 @@
   font-weight: 600;
 }
 
-.tip {
+.technique {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
   max-width: 35rem;
+  min-height: 0;
   margin-inline: auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-inline-start: var(--space-5);
+}
+
+.steps li::marker {
   color: var(--ink-muted);
-  font-size: var(--text-body-s);
-  text-align: center;
+}
+
+/* With room to the side, the technique sits next to the photos. */
+@media (orientation: landscape) and (min-width: 40rem) {
+  .layout {
+    flex-direction: row;
+    gap: var(--space-6);
+  }
+
+  .media {
+    flex: 1;
+  }
+
+  .stage {
+    flex: 1;
+  }
+
+  .image {
+    max-height: 100%;
+  }
+
+  .technique {
+    flex: 0 1 26rem;
+    margin-inline: 0;
+  }
 }

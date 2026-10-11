@@ -24,7 +24,7 @@ make e2e         # Playwright end-to-end tests
 2. Create a branch from `main`: `feat/<topic>`, `fix/<topic>`, `docs/<topic>` or `chore/<topic>`.
 3. Make small, focused commits using [Conventional Commits](https://www.conventionalcommits.org):
    `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `perf:`, `style:`, `build:`, `ci:`, `chore:`.
-   The subject is imperative, lower case and at most 72 characters; the body says why.
+   The subject is imperative and lower case; the body says why.
    A git hook checks the message, and formats and lints the staged files.
 4. Add or update tests. `make check` and `make e2e` must pass.
 5. Open a pull request and fill in the template.

@@ -233,7 +233,10 @@ describe('ExercisesScreen: catalog', () => {
   it('opens the photos of an exercise', async () => {
     renderRoute();
     await userEvent.click(screen.getByRole('button', { name: 'Open the photos of Plank' }));
-    expect(screen.getByRole('dialog', { name: 'Plank' })).toBeInTheDocument();
+    const viewer = within(screen.getByRole('dialog', { name: 'Plank' }));
+    expect(
+      within(viewer.getByRole('region', { name: 'Technique' })).getAllByRole('listitem'),
+    ).toHaveLength(2);
     await userEvent.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
