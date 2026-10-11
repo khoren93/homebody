@@ -11,7 +11,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 2. Architecture overview and stack ADR
 - [x] 3. Scaffold Vite + React + TypeScript app
 - [x] 4. Lint, format and git hooks
-- [ ] 5. Makefile
+- [x] 5. Makefile
 - [ ] 6. Docker and compose setup
 - [ ] 7. CI workflow and Dependabot
 
@@ -68,3 +68,7 @@ tightly related ones) that leaves the project building, linted and tested.
   Prettier, and lefthook hooks: lint and format staged files on commit,
   commitlint for Conventional Commits. ESLint 9 turned out to be unsupported,
   so the ADR was updated: the only remaining language pin is TypeScript 6.0.x.
+- **2026-10-11 — Step 5.** Self-documenting `Makefile` with the install, dev,
+  build, preview, test, coverage, lint, format, typecheck, check and clean
+  targets. Docker, data and e2e targets are added in the steps that introduce
+  them.
