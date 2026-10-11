@@ -123,17 +123,22 @@ async function captureScreens(browser: Browser, theme: Theme): Promise<Record<st
   await page.getByRole('link', { name: 'Start workout' }).waitFor();
   shots.plan = await shoot(page, 'plan', theme);
 
-  await page.goto(`${URL}/#/muscles?mode=done&muscle=chest`);
+  await page.goto(`${URL}/#/exercises?mode=done&muscle=chest`);
   await page.getByRole('region', { name: 'Chest details' }).waitFor();
-  shots.muscles = await shoot(page, 'muscles', theme);
+  shots.map = await shoot(page, 'map', theme);
+
+  // The catalog sits below the map: scroll to the muscle chips above it.
+  await page.goto(`${URL}/#/exercises`);
+  const chips = page.getByRole('group', { name: 'Filter by muscle' });
+  await chips.waitFor();
+  await settle(page);
+  await chips.evaluate((row) => row.scrollIntoView());
+  await page.evaluate(() => window.scrollBy(0, -12));
+  shots.exercises = await shoot(page, 'exercises', theme);
 
   await page.goto(`${URL}/#/progress`);
   await page.getByRole('table').first().waitFor();
   shots.progress = await shoot(page, 'progress', theme);
-
-  await page.goto(`${URL}/#/library?muscle=chest`);
-  await page.getByRole('searchbox').waitFor();
-  shots.library = await shoot(page, 'library', theme);
 
   await page.goto(`${URL}/#/body`);
   await page.getByRole('img', { name: 'Weight over time' }).waitFor();
@@ -216,7 +221,7 @@ function heroHtml(theme: Theme, shots: Record<string, Buffer>): string {
       <div style="display:flex;flex-wrap:wrap;gap:10px">${pill(c.accent, 'Load calculator')}${pill(c.heat, 'Muscle heat map')}${pill(c.good, 'Offline · no sign-up')}</div>
       <div style="display:flex;gap:22px;font-family:'Geist Mono',monospace;font-size:14px;color:${c.muted};letter-spacing:0.04em"><span>141 exercises</span><span>EN · RU</span><span>PWA</span><span>MIT</span></div>
     </div>
-    ${phone('plan', 706, 118, 226)}${phone('workout', 1032, 118, 226)}${phone('muscles', 846, 56, 265, true)}
+    ${phone('plan', 706, 118, 226)}${phone('workout', 1032, 118, 226)}${phone('map', 846, 56, 265, true)}
   </div></body></html>`;
 }
 
@@ -274,7 +279,7 @@ async function captureDemo(browser: Browser): Promise<void> {
   await page.getByRole('button', { name: 'Skip' }).click();
   await card.getByRole('button', { name: 'Easy' }).click();
   await pause(1300);
-  await page.goto(`${URL}/#/muscles?mode=done`);
+  await page.goto(`${URL}/#/exercises?mode=done`);
   await pause(1200);
   // The chest is two mirrored shapes, so it is picked with the keyboard instead of a click
   // at the centre of the pair.

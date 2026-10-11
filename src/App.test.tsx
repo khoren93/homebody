@@ -20,14 +20,14 @@ function go(route: Route): void {
 }
 
 describe('App shell', () => {
-  it('opens on the plan with the five sections in the navigation', () => {
+  it('opens on the plan with the four sections in the navigation', () => {
     render(<App />);
     const nav = screen.getByRole('navigation', { name: 'Sections' });
     expect(
       within(nav)
         .getAllByRole('link')
         .map((link) => link.textContent),
-    ).toEqual(['Plan', 'Progress', 'Muscles', 'Body', 'Library']);
+    ).toEqual(['Plan', 'Progress', 'Exercises', 'Body']);
     expect(within(nav).getByRole('link', { name: 'Plan' })).toHaveAttribute('aria-current', 'page');
     expect(screen.getByRole('link', { name: 'Open settings' })).toHaveAttribute(
       'href',
@@ -48,8 +48,8 @@ describe('App shell', () => {
     const nav = screen.getByRole('navigation', { name: 'Sections' });
     expect(within(nav).queryByRole('link', { current: 'page' })).not.toBeInTheDocument();
 
-    go({ name: 'library' });
-    expect(within(nav).getByRole('link', { name: 'Library' })).toHaveAttribute(
+    go({ name: 'exercises' });
+    expect(within(nav).getByRole('link', { name: 'Exercises' })).toHaveAttribute(
       'aria-current',
       'page',
     );

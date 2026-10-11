@@ -45,7 +45,7 @@ store or the browser; the store knows nothing about components.
 | Store      | `src/store/`                       | The single app state document, actions that change it, selectors that derive the plan, persistence and migrations. |
 | i18n       | `src/i18n/`                        | i18next setup and one JSON resource file per locale.                                                               |
 | Components | `src/components/`                  | Shared presentational building blocks (buttons, panels, charts, lightbox).                                         |
-| Features   | `src/features/<name>/`             | One folder per screen: plan, session, calculator, muscles, body, settings.                                         |
+| Features   | `src/features/<name>/`             | One folder per screen: plan, session, progress, exercises, body, settings.                                         |
 
 ## The engine
 
@@ -142,7 +142,7 @@ src/
   store/         state, transforms, derived plan, persistence, migrations
   i18n/          i18next setup, locale files, formatting
   components/    shared UI building blocks
-  features/      plan, session, calculator, muscles, body, settings
+  features/      plan, session, progress, exercises, body, settings
   lib/           small utilities: router, theme, preferences, hooks
   styles/        tokens and base styles
 data/            source dataset

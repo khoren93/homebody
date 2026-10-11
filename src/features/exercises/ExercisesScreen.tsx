@@ -8,24 +8,29 @@ import { Section } from '@/components/Section';
 import { Segmented } from '@/components/Segmented';
 import { MUSCLE_IDS, type MuscleId } from '@/data';
 import { addDays, GOALS, muscleLoad, volumeTier } from '@/engine';
-import { ExerciseBrowser } from '@/features/library/ExerciseBrowser';
 import { useFormat } from '@/i18n/useFormat';
 import { MUSCLE_MODES, type MuscleMode, navigate } from '@/lib/router';
 import { useToday } from '@/lib/useToday';
 import { CATALOG, useAppStore, usePlan } from '@/store';
 
 import { BodyFigure } from './BodyFigure';
+import { ExerciseBrowser } from './ExerciseBrowser';
+import styles from './ExercisesScreen.module.css';
 import { HeatLegend } from './HeatLegend';
+import { MuscleChips } from './MuscleChips';
 import { MuscleDetail } from './MuscleDetail';
-import styles from './MusclesScreen.module.css';
 
 const PERIODS = [7, 30, 0] as const;
 type Period = (typeof PERIODS)[number];
-const EXERCISES_ID = 'muscle-exercises';
+const EXERCISES_ID = 'exercise-list';
 
 type Props = { mode?: MuscleMode | undefined; muscle?: MuscleId | undefined };
 
-export function MusclesScreen({ mode = 'overview', muscle }: Props) {
+/**
+ * The exercise catalog behind a body map: the map and the chips pick a muscle,
+ * and the load modes heat the map by what was done or what is planned.
+ */
+export function ExercisesScreen({ mode = 'overview', muscle }: Props) {
   const { t } = useTranslation();
   const format = useFormat();
   const today = useToday();
@@ -52,7 +57,7 @@ export function MusclesScreen({ mode = 'overview', muscle }: Props) {
     const nextMuscle = 'muscle' in next ? next.muscle : muscle;
     navigate(
       {
-        name: 'muscles',
+        name: 'exercises',
         ...(nextMode !== 'overview' && { mode: nextMode }),
         ...(nextMuscle && { muscle: nextMuscle }),
       },
@@ -79,7 +84,7 @@ export function MusclesScreen({ mode = 'overview', muscle }: Props) {
   return (
     <Page>
       <header className={styles.head}>
-        <h1>{t('nav.muscles')}</h1>
+        <h1>{t('nav.exercises')}</h1>
         {heated && (
           <Num className={styles.meta}>
             {mode === 'plan'
@@ -124,6 +129,7 @@ export function MusclesScreen({ mode = 'overview', muscle }: Props) {
         </div>
         {heated && <HeatLegend current={detailTier} />}
       </Panel>
+      <MuscleChips selected={muscle} onSelect={select} />
 
       {muscle && (
         <MuscleDetail
@@ -168,21 +174,15 @@ export function MusclesScreen({ mode = 'overview', muscle }: Props) {
         </Section>
       )}
 
-      {/* The overview doubles as the library; the load modes list one muscle at a time. */}
-      {(!heated || muscle) && (
-        <ExerciseBrowser
-          id={EXERCISES_ID}
-          level={2}
-          muscle={muscle}
-          title={
-            muscle
-              ? format.capitalize(
-                  t('map.exercises.muscle', { muscle: t(`muscles.${muscle}.name`) }),
-                )
-              : t('map.exercises.all')
-          }
-        />
-      )}
+      <ExerciseBrowser
+        id={EXERCISES_ID}
+        muscle={muscle}
+        title={
+          muscle
+            ? format.capitalize(t('map.exercises.muscle', { muscle: t(`muscles.${muscle}.name`) }))
+            : t('map.exercises.all')
+        }
+      />
     </Page>
   );
 }

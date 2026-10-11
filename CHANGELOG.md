@@ -9,11 +9,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- **Exercises.** The Muscles and Library screens are one screen now, so the app has four tabs.
+  The body map stays on top and picks a muscle; the chips with the number of exercises per muscle
+  sit under it and do the same. Below them is the whole catalog with its search, filters and
+  three levels of detail, in every map mode. The period of the “Done” mode is a row of chips under
+  the mode switch. The screen lives at `#/exercises`; `#/muscles` and `#/library` are gone.
 - Screens are wider on large displays, so a week of three sessions fits on one row of the plan.
-  Charts gain width instead of growing taller, and the muscle chips of the library wrap.
-- **Muscles.** The exercises are listed below the map: the whole catalog in the overview, and the
-  exercises of the chosen muscle in every mode. The period of the “Done” mode is a row of chips
-  under the mode switch.
+  Charts gain width instead of growing taller, and the muscle chips wrap.
 - Menus are drawn in the app's own style and have the same height as the other form fields.
 
 ## [0.1.0] - 2026-10-11

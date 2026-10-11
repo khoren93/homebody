@@ -179,7 +179,7 @@ describe('PlanScreen', () => {
     expect(rows[0]).toHaveTextContent('17.5');
     expect(within(volume).getByRole('link', { name: 'Muscle map →' })).toHaveAttribute(
       'href',
-      '#/muscles?mode=plan',
+      '#/exercises?mode=plan',
     );
   });
 

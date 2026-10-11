@@ -7,12 +7,11 @@ describe('router', () => {
     { name: 'plan' },
     { name: 'session', sessionId: '2026-10-12' },
     { name: 'progress' },
-    { name: 'muscles' },
-    { name: 'muscles', mode: 'plan' },
-    { name: 'muscles', mode: 'done', muscle: 'middle_back' },
+    { name: 'exercises' },
+    { name: 'exercises', mode: 'plan' },
+    { name: 'exercises', muscle: 'chest' },
+    { name: 'exercises', mode: 'done', muscle: 'middle_back' },
     { name: 'body' },
-    { name: 'library' },
-    { name: 'library', muscle: 'chest' },
     { name: 'settings' },
   ];
 
@@ -23,8 +22,8 @@ describe('router', () => {
   it('builds readable hrefs', () => {
     expect(routeHref({ name: 'plan' })).toBe('#/plan');
     expect(routeHref({ name: 'session', sessionId: '2026-10-12' })).toBe('#/session/2026-10-12');
-    expect(routeHref({ name: 'muscles', mode: 'plan', muscle: 'chest' })).toBe(
-      '#/muscles?mode=plan&muscle=chest',
+    expect(routeHref({ name: 'exercises', mode: 'plan', muscle: 'chest' })).toBe(
+      '#/exercises?mode=plan&muscle=chest',
     );
   });
 
@@ -36,13 +35,12 @@ describe('router', () => {
   );
 
   it('ignores unknown query values', () => {
-    expect(parseRoute('#/muscles?mode=hot&muscle=wings')).toEqual({ name: 'muscles' });
-    expect(parseRoute('#/library?muscle=wings')).toEqual({ name: 'library' });
+    expect(parseRoute('#/exercises?mode=hot&muscle=wings')).toEqual({ name: 'exercises' });
   });
 
   it('maps every route to its tab', () => {
     expect(tabOf({ name: 'session', sessionId: '2026-10-12' })).toBe('plan');
-    expect(tabOf({ name: 'muscles', mode: 'plan' })).toBe('muscles');
+    expect(tabOf({ name: 'exercises', mode: 'plan' })).toBe('exercises');
     expect(tabOf({ name: 'settings' })).toBeUndefined();
   });
 

@@ -10,7 +10,7 @@ const PATHS = {
     </>
   ),
   progress: <path d="M2.5 12h3M18.5 12h3M5.5 8v8M18.5 8v8M8 6.5v11M16 6.5v11M8 12h8" />,
-  muscles: (
+  exercises: (
     <>
       <circle cx="12" cy="4.5" r="2.2" />
       <path d="M7 8.5Q12 7 17 8.5L15.5 14 14 21M8.5 14 10 21M7 8.5 5 14M17 8.5 19 14M8.5 14Q12 15 15.5 14" />

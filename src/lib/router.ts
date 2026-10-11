@@ -10,9 +10,8 @@ import { isIsoDate } from '@/engine';
  *   #/plan                      plan overview (default)
  *   #/session/2026-10-12        one workout
  *   #/progress
- *   #/muscles?mode=plan&muscle=chest
+ *   #/exercises?mode=plan&muscle=chest
  *   #/body
- *   #/library?muscle=chest
  *   #/settings                  opened from the header, not a tab
  */
 export const MUSCLE_MODES = ['overview', 'done', 'plan'] as const;
@@ -22,14 +21,13 @@ export type Route =
   | { name: 'plan' }
   | { name: 'session'; sessionId: string }
   | { name: 'progress' }
-  | { name: 'muscles'; mode?: MuscleMode; muscle?: MuscleId }
+  | { name: 'exercises'; mode?: MuscleMode; muscle?: MuscleId }
   | { name: 'body' }
-  | { name: 'library'; muscle?: MuscleId }
   | { name: 'settings' };
 
-export type TabName = 'plan' | 'progress' | 'muscles' | 'body' | 'library';
+export type TabName = 'plan' | 'progress' | 'exercises' | 'body';
 
-export const TABS: readonly TabName[] = ['plan', 'progress', 'muscles', 'body', 'library'];
+export const TABS: readonly TabName[] = ['plan', 'progress', 'exercises', 'body'];
 
 /** The tab a route belongs to, if any. A session is part of the plan; settings have no tab. */
 export function tabOf(route: Route): TabName | undefined {
@@ -53,12 +51,8 @@ export function parseRoute(hash: string): Route {
     case 'body':
     case 'settings':
       return { name };
-    case 'library': {
-      const muscle = oneOf(MUSCLE_IDS, params.get('muscle'));
-      return muscle ? { name: 'library', muscle } : { name: 'library' };
-    }
-    case 'muscles': {
-      const route: Route = { name: 'muscles' };
+    case 'exercises': {
+      const route: Route = { name: 'exercises' };
       const mode = oneOf(MUSCLE_MODES, params.get('mode'));
       const muscle = oneOf(MUSCLE_IDS, params.get('muscle'));
       if (mode) route.mode = mode;
@@ -74,15 +68,13 @@ export function routeHref(route: Route): string {
   switch (route.name) {
     case 'session':
       return `#/session/${encodeURIComponent(route.sessionId)}`;
-    case 'muscles': {
+    case 'exercises': {
       const params = new URLSearchParams();
       if (route.mode) params.set('mode', route.mode);
       if (route.muscle) params.set('muscle', route.muscle);
       const query = params.toString();
-      return query ? `#/muscles?${query}` : '#/muscles';
+      return query ? `#/exercises?${query}` : '#/exercises';
     }
-    case 'library':
-      return route.muscle ? `#/library?muscle=${route.muscle}` : '#/library';
     default:
       return `#/${route.name}`;
   }

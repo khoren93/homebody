@@ -263,3 +263,9 @@ screenshots`: the script plays two weeks of training through the UI, then
   CHANGELOG entry. make check (605 tests) and make e2e (20 runs) pass. The
   v0.1.0 tag is not created and nothing is pushed yet: both wait for the
   maintainer.
+- **2026-10-11 — After 0.1.0.** The Muscles and Library screens are merged into
+  one Exercises screen (`#/exercises`, `src/features/exercises/`): the body map
+  and the muscle chips both pick a muscle, and the catalog with search, filters
+  and densities is always listed below. Four tabs instead of five. The README
+  images were captured again. The repository is public, so the Pages workflow
+  from step 28 now runs on every push to `main`.

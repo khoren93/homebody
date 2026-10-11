@@ -93,7 +93,6 @@
   padding: var(--space-4);
 }
 
-/* The same display title at either heading level. */
 .title {
   font-family: var(--font-display);
   font-size: var(--display-s);

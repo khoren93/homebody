@@ -14,14 +14,11 @@ const SessionScreen = lazy(() =>
 const ProgressScreen = lazy(() =>
   import('@/features/progress/ProgressScreen').then((m) => ({ default: m.ProgressScreen })),
 );
-const MusclesScreen = lazy(() =>
-  import('@/features/muscles/MusclesScreen').then((m) => ({ default: m.MusclesScreen })),
+const ExercisesScreen = lazy(() =>
+  import('@/features/exercises/ExercisesScreen').then((m) => ({ default: m.ExercisesScreen })),
 );
 const BodyScreen = lazy(() =>
   import('@/features/body/BodyScreen').then((m) => ({ default: m.BodyScreen })),
-);
-const LibraryScreen = lazy(() =>
-  import('@/features/library/LibraryScreen').then((m) => ({ default: m.LibraryScreen })),
 );
 const SettingsScreen = lazy(() =>
   import('@/features/settings/SettingsScreen').then((m) => ({ default: m.SettingsScreen })),
@@ -35,12 +32,10 @@ function Screen({ route }: { route: Route }) {
       return <SessionScreen sessionId={route.sessionId} />;
     case 'progress':
       return <ProgressScreen />;
-    case 'muscles':
-      return <MusclesScreen mode={route.mode} muscle={route.muscle} />;
+    case 'exercises':
+      return <ExercisesScreen mode={route.mode} muscle={route.muscle} />;
     case 'body':
       return <BodyScreen />;
-    case 'library':
-      return <LibraryScreen muscle={route.muscle} />;
     case 'settings':
       return <SettingsScreen />;
   }

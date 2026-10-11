@@ -9,13 +9,13 @@ import { navigate, parseRoute } from '@/lib/router';
 import { useAppStore } from '@/store';
 
 import { musclesOf, ZONES } from './bodyMap';
-import { MusclesScreen } from './MusclesScreen';
+import { ExercisesScreen } from './ExercisesScreen';
 
 /** Renders the screen for the current hash, like the app shell does. */
 function renderRoute() {
   const route = parseRoute(window.location.hash);
-  if (route.name !== 'muscles') throw new Error('not on the muscles route');
-  return render(<MusclesScreen mode={route.mode} muscle={route.muscle} />);
+  if (route.name !== 'exercises') throw new Error('not on the exercises route');
+  return render(<ExercisesScreen mode={route.mode} muscle={route.muscle} />);
 }
 
 function entry(exerciseId: string, date: string, sets: number): HistoryEntry {
@@ -31,8 +31,14 @@ function entry(exerciseId: string, date: string, sets: number): HistoryEntry {
   };
 }
 
+const count = () => screen.getByRole('status').textContent;
+const names = () =>
+  screen
+    .getAllByRole('button', { name: /^Open the photos of/ })
+    .map((b) => b.getAttribute('aria-label')!.replace('Open the photos of ', ''));
+
 beforeEach(() => {
-  navigate({ name: 'muscles' }, { replace: true });
+  navigate({ name: 'exercises' }, { replace: true });
 });
 
 describe('body map data', () => {
@@ -48,9 +54,10 @@ describe('body map data', () => {
   });
 });
 
-describe('MusclesScreen: overview', () => {
+describe('ExercisesScreen: overview', () => {
   it('shows both views with a keyboard-reachable button per muscle', () => {
     renderRoute();
+    expect(screen.getByRole('heading', { level: 1, name: 'Exercises' })).toBeInTheDocument();
     const front = screen.getByRole('group', { name: 'Muscle map, front view' });
     const back = screen.getByRole('group', { name: 'Muscle map, back view' });
     expect(
@@ -83,7 +90,7 @@ describe('MusclesScreen: overview', () => {
     });
     chest.focus();
     await userEvent.keyboard('{Enter}');
-    expect(window.location.hash).toBe('#/muscles?muscle=chest');
+    expect(window.location.hash).toBe('#/exercises?muscle=chest');
 
     view.unmount();
     renderRoute();
@@ -101,7 +108,7 @@ describe('MusclesScreen: overview', () => {
     ).toHaveAttribute('aria-pressed', 'true');
 
     await userEvent.click(within(detail).getByRole('button', { name: 'Close chest' }));
-    expect(window.location.hash).toBe('#/muscles');
+    expect(window.location.hash).toBe('#/exercises');
   });
 
   it('lists every exercise below the map, and only those of the chosen muscle', async () => {
@@ -116,7 +123,7 @@ describe('MusclesScreen: overview', () => {
     );
     view.unmount();
     renderRoute();
-    expect(window.location.hash).toBe('#/muscles?muscle=chest');
+    expect(window.location.hash).toBe('#/exercises?muscle=chest');
     expect(screen.getByRole('heading', { level: 2, name: 'Chest exercises' })).toBeInTheDocument();
     const chest = within(screen.getByRole('list', { name: 'Chest exercises' }));
     expect(chest.getAllByRole('listitem')).toHaveLength(28);
@@ -127,7 +134,7 @@ describe('MusclesScreen: overview', () => {
   });
 
   it('says when a muscle gets no direct work in the plan', () => {
-    navigate({ name: 'muscles', muscle: 'neck' }, { replace: true });
+    navigate({ name: 'exercises', muscle: 'neck' }, { replace: true });
     renderRoute();
     expect(screen.getByRole('region', { name: 'Neck details' })).toHaveTextContent(
       'Your plan has no direct work for this muscle.',
@@ -135,8 +142,140 @@ describe('MusclesScreen: overview', () => {
   });
 });
 
-describe('MusclesScreen: plan mode', () => {
-  beforeEach(() => navigate({ name: 'muscles', mode: 'plan' }, { replace: true }));
+describe('ExercisesScreen: catalog', () => {
+  it('lists the whole catalog as a grid, plan exercises first', () => {
+    renderRoute();
+    expect(screen.getByRole('heading', { level: 2, name: 'All exercises' })).toBeInTheDocument();
+    expect(count()).toBe('141 exercises');
+    expect(names()).toHaveLength(141);
+    expect(screen.getByRole('button', { name: 'Grid' })).toHaveAttribute('aria-pressed', 'true');
+
+    const first = screen.getAllByRole('button', { name: /^Open the photos of/ })[0]!;
+    expect(first).toHaveTextContent('In plan');
+  });
+
+  it('searches by name, muscle and equipment, in either language', async () => {
+    renderRoute();
+    const search = screen.getByRole('searchbox', { name: 'Search exercises' });
+
+    await userEvent.type(search, 'goblet');
+    expect(names()).toEqual(['Dumbbell Goblet Squat']);
+
+    await userEvent.clear(search);
+    await userEvent.type(search, 'планка');
+    expect(names()).toEqual(['Plank', 'Side Plank']);
+    expect(count()).toBe('2 exercises');
+
+    await userEvent.clear(search);
+    await userEvent.type(search, 'medicine ball');
+    expect(names()).toEqual(['Medicine Ball Slam']);
+
+    await userEvent.clear(search);
+    await userEvent.type(search, 'qqq');
+    expect(screen.getByText('Nothing found. Try another search or filter.')).toBeInTheDocument();
+    expect(count()).toBe('0 exercises');
+  });
+
+  it('filters by owned equipment and by the plan', async () => {
+    renderRoute();
+    await userEvent.click(screen.getByRole('radio', { name: 'My gear' }));
+    expect(names()).not.toContain('Barbell Squat');
+    expect(screen.queryByText(/^Needs /)).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('radio', { name: 'In plan' }));
+    expect(count()).toBe('16 exercises');
+  });
+
+  it('labels what each exercise needs', () => {
+    renderRoute();
+    const tile = (name: string) =>
+      screen.getByRole('button', { name: `Open the photos of ${name}` });
+    expect(tile('Push-Up')).toHaveTextContent('No gear');
+    expect(tile('Dumbbell Bench Press')).toHaveTextContent('dumbbells + bench');
+    expect(tile('Barbell Squat')).toHaveTextContent('Needs barbell + squat rack');
+  });
+
+  it('picks a muscle with a chip, like on the map, and marks assisting exercises', async () => {
+    const view = renderRoute();
+    const chips = screen.getByRole('group', { name: 'Filter by muscle' });
+    expect(within(chips).getAllByRole('button')).toHaveLength(17);
+
+    await userEvent.click(within(chips).getByRole('button', { name: 'Chest 17' }));
+    expect(window.location.hash).toBe('#/exercises?muscle=chest');
+
+    view.unmount();
+    renderRoute();
+    expect(screen.getByRole('button', { name: 'Chest 17' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    expect(
+      within(screen.getByRole('group', { name: /front view/ })).getByRole('button', {
+        name: 'Chest',
+      }),
+    ).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('region', { name: 'Chest details' })).toBeInTheDocument();
+    expect(count()).toBe('28 exercises');
+    expect(names()[0]).toBe('Dumbbell Bench Press');
+    expect(screen.getAllByText('Assists')).toHaveLength(11);
+
+    await userEvent.click(screen.getByRole('button', { name: 'Chest 17' }));
+    expect(window.location.hash).toBe('#/exercises');
+  });
+
+  it('keeps the chosen muscle when the map mode changes', async () => {
+    navigate({ name: 'exercises', muscle: 'chest' }, { replace: true });
+    renderRoute();
+    await userEvent.click(screen.getByRole('radio', { name: 'Plan' }));
+    expect(window.location.hash).toBe('#/exercises?mode=plan&muscle=chest');
+  });
+
+  it('opens the photos of an exercise', async () => {
+    renderRoute();
+    await userEvent.click(screen.getByRole('button', { name: 'Open the photos of Plank' }));
+    expect(screen.getByRole('dialog', { name: 'Plank' })).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('remembers the chosen density', async () => {
+    const view = renderRoute();
+    await userEvent.click(screen.getByRole('button', { name: 'Compact list' }));
+    expect(localStorage.getItem('homebody.libraryDensity')).toBe('compact');
+    view.unmount();
+    renderRoute();
+    expect(screen.getByRole('button', { name: 'Compact list' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+  });
+
+  it('shows everything about an exercise as a detailed card', async () => {
+    renderRoute();
+    await userEvent.click(screen.getByRole('button', { name: 'Detailed cards' }));
+    await userEvent.type(screen.getByRole('searchbox'), 'goblet');
+
+    const card = screen.getByRole('article', { name: 'Dumbbell Goblet Squat' });
+    const fact = (term: string) => within(card).getByText(term).nextElementSibling;
+    expect(fact('Primary muscles')).toHaveTextContent('Quads');
+    expect(fact('Assisting')).toHaveTextContent('Calves, glutes, hamstrings');
+    expect(fact('Equipment')).toHaveTextContent('Dumbbells or kettlebell');
+    expect(fact('Type')).toHaveTextContent('compound (multi-joint), with weight, tracks ≈1RM');
+    expect(fact('Difficulty')).toHaveTextContent('beginner');
+    expect(fact('Next session')).toHaveTextContent('Mon, Oct 19: 3 × 12 · 24 kg');
+    expect(fact('≈1RM now')).toHaveTextContent('36 kg');
+    expect(card).toHaveTextContent('Technique · 3 steps');
+
+    await userEvent.click(within(card).getByRole('button', { name: 'Do not suggest' }));
+    expect(useAppStore.getState().state.excluded).toEqual({ Goblet_Squat: true });
+    expect(card).toHaveTextContent('Excluded');
+    await userEvent.click(within(card).getByRole('button', { name: 'Back into the plan' }));
+    expect(useAppStore.getState().state.excluded).toEqual({});
+  });
+});
+
+describe('ExercisesScreen: plan mode', () => {
+  beforeEach(() => navigate({ name: 'exercises', mode: 'plan' }, { replace: true }));
 
   it('heats the map by planned weekly volume and ranks the muscles', () => {
     renderRoute();
@@ -164,20 +303,20 @@ describe('MusclesScreen: plan mode', () => {
     renderRoute();
     const ranked = screen.getByRole('region', { name: 'Sets per week in the plan' });
     await userEvent.click(within(ranked).getByRole('button', { name: /Hamstrings/ }));
-    expect(window.location.hash).toBe('#/muscles?mode=plan&muscle=hamstrings');
+    expect(window.location.hash).toBe('#/exercises?mode=plan&muscle=hamstrings');
   });
 
   it('switches the mode through the route', async () => {
     renderRoute();
     await userEvent.click(screen.getByRole('radio', { name: 'Done' }));
-    expect(window.location.hash).toBe('#/muscles?mode=done');
+    expect(window.location.hash).toBe('#/exercises?mode=done');
     await userEvent.click(screen.getByRole('radio', { name: 'Overview' }));
-    expect(window.location.hash).toBe('#/muscles');
+    expect(window.location.hash).toBe('#/exercises');
   });
 });
 
-describe('MusclesScreen: done mode', () => {
-  beforeEach(() => navigate({ name: 'muscles', mode: 'done' }, { replace: true }));
+describe('ExercisesScreen: done mode', () => {
+  beforeEach(() => navigate({ name: 'exercises', mode: 'done' }, { replace: true }));
 
   it('invites the user to log sets when there is no history', () => {
     renderRoute();
@@ -217,7 +356,8 @@ describe('MusclesScreen: done mode', () => {
   it('lists the exercises of a chosen muscle under the ranking and jumps to them', async () => {
     const scrollIntoView = vi.spyOn(Element.prototype, 'scrollIntoView');
     const view = renderRoute();
-    expect(screen.queryByRole('searchbox', { name: 'Search exercises' })).not.toBeInTheDocument();
+    expect(screen.getByRole('searchbox', { name: 'Search exercises' })).toBeInTheDocument();
+    expect(count()).toBe('141 exercises');
 
     await userEvent.click(screen.getByRole('button', { name: /^Chest:/ }));
     view.unmount();
@@ -226,12 +366,12 @@ describe('MusclesScreen: done mode', () => {
     const detail = screen.getByRole('region', { name: 'Chest details' });
     await userEvent.click(within(detail).getByRole('button', { name: /17 chest exercises/ }));
     expect(scrollIntoView.mock.contexts).toContain(heading.parentElement);
-    expect(window.location.hash).toBe('#/muscles?mode=done&muscle=chest');
+    expect(window.location.hash).toBe('#/exercises?mode=done&muscle=chest');
   });
 
   it('warns that a muscle trained yesterday is still recovering', () => {
     useAppStore.setState({ history: [entry('Dumbbell_Bench_Press', '2026-10-13', 4)] });
-    navigate({ name: 'muscles', mode: 'done', muscle: 'chest' }, { replace: true });
+    navigate({ name: 'exercises', mode: 'done', muscle: 'chest' }, { replace: true });
     renderRoute();
     const detail = screen.getByRole('region', { name: 'Chest details' });
     expect(within(detail).getByText('since trained').previousElementSibling).toHaveTextContent(
@@ -243,10 +383,21 @@ describe('MusclesScreen: done mode', () => {
   });
 });
 
-describe('MusclesScreen: Russian', () => {
+describe('ExercisesScreen: Russian', () => {
+  it('translates the catalog and still finds English names', async () => {
+    await i18n.changeLanguage('ru');
+    renderRoute();
+    expect(screen.getByRole('heading', { level: 1, name: 'Упражнения' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('141 упражнение');
+    await userEvent.type(screen.getByRole('searchbox'), 'goblet');
+    expect(
+      screen.getByRole('button', { name: 'Открыть фото: Гоблет-присед с гантелью' }),
+    ).toHaveTextContent('В плане');
+  });
+
   it('translates the map', async () => {
     await i18n.changeLanguage('ru');
-    navigate({ name: 'muscles', mode: 'plan', muscle: 'chest' }, { replace: true });
+    navigate({ name: 'exercises', mode: 'plan', muscle: 'chest' }, { replace: true });
     renderRoute();
     expect(screen.getByRole('group', { name: 'Карта мышц, вид спереди' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Грудь: ниже нормы' })).toBeInTheDocument();

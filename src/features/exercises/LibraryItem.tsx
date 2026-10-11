@@ -23,12 +23,10 @@ type Props = {
   muscle?: MuscleId | undefined;
   plan: LoadedPlan;
   today: IsoDate;
-  /** Heading level of a detailed card, one below the heading of the list. */
-  level?: 2 | 3;
 };
 
 /** One exercise of the library, in the chosen density. */
-export function LibraryItem({ exercise, density, inPlan, muscle, plan, today, level = 2 }: Props) {
+export function LibraryItem({ exercise, density, inPlan, muscle, plan, today }: Props) {
   const { t } = useTranslation();
   const format = useFormat();
   const text = useExerciseText();
@@ -90,16 +88,15 @@ export function LibraryItem({ exercise, density, inPlan, muscle, plan, today, le
   const capacity = plan.capacity[exercise.id];
   const steps = text.instructions(exercise);
   const weighted = exercise.type === 'weighted';
-  const Heading = level === 2 ? 'h2' : 'h3';
 
   return (
     <article className={styles.card} aria-labelledby={`library-${exercise.id}`}>
       <ExercisePhoto exercise={exercise} />
       <div className={styles.body}>
         <div>
-          <Heading id={`library-${exercise.id}`} className={styles.title}>
+          <h3 id={`library-${exercise.id}`} className={styles.title}>
             {name}
-          </Heading>
+          </h3>
           {format.locale !== 'en' && (
             <p className={styles.muscles} lang="en">
               {exercise.name.en}

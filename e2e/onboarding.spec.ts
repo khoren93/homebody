@@ -44,9 +44,8 @@ test.describe('first launch', () => {
     const nav = page.getByRole('navigation', { name: 'Sections' });
     for (const [link, heading] of [
       ['Progress', 'Progress'],
-      ['Muscles', 'Muscles'],
+      ['Exercises', 'Exercises'],
       ['Body', 'Body'],
-      ['Library', 'Library'],
     ] as const) {
       await nav.getByRole('link', { name: link, exact: true }).click();
       await expect(page.getByRole('heading', { level: 1, name: heading })).toBeVisible();

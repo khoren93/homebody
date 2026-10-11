@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Icon, type IconName } from '@/components/Icon';
@@ -56,21 +56,17 @@ function searchText(exercise: Exercise): string {
 
 type Props = {
   title: string;
-  /** Heading level of the title: 1 when the list is the screen, 2 inside another screen. */
-  level?: 1 | 2;
   /** Only exercises that train this muscle, as a primary or secondary mover. */
   muscle?: MuscleId | undefined;
   /** Id of the header, so a screen can scroll to the list. */
   id?: string;
-  /** More filters, shown between the controls and the results. */
-  children?: ReactNode;
 };
 
 /**
  * The exercise catalog with its search, filters and density switch. It renders
  * the blocks of a screen side by side, so it sits directly inside a `Page`.
  */
-export function ExerciseBrowser({ title, level = 1, muscle, id, children }: Props) {
+export function ExerciseBrowser({ title, muscle, id }: Props) {
   const { t } = useTranslation();
   const format = useFormat();
   const text = useExerciseText();
@@ -80,7 +76,6 @@ export function ExerciseBrowser({ title, level = 1, muscle, id, children }: Prop
   const [query, setQuery] = useState('');
   const [availability, setAvailability] = useState<Availability>('all');
   const [density, setDensity] = useState<Density>(savedDensity);
-  const Heading = level === 1 ? 'h1' : 'h2';
 
   const inPlan = useMemo(() => new Set(planExerciseIds(plan)), [plan]);
   const index = useMemo(
@@ -107,7 +102,7 @@ export function ExerciseBrowser({ title, level = 1, muscle, id, children }: Prop
   return (
     <>
       <header id={id} className={styles.head}>
-        <Heading>{title}</Heading>
+        <h2>{title}</h2>
         <Num className={styles.count} role="status">
           {t('library.count', { count: results.length })}
         </Num>
@@ -150,8 +145,6 @@ export function ExerciseBrowser({ title, level = 1, muscle, id, children }: Prop
         </div>
       </div>
 
-      {children}
-
       {results.length === 0 ? (
         <Panel>
           <p>{t('library.empty')}</p>
@@ -167,7 +160,6 @@ export function ExerciseBrowser({ title, level = 1, muscle, id, children }: Prop
                 muscle={muscle}
                 plan={plan}
                 today={today}
-                level={level === 1 ? 2 : 3}
               />
             </li>
           ))}
