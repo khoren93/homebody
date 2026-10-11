@@ -1,0 +1,50 @@
+/* A raised sheet: surface-2 on top of the ground. */
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface-2);
+}
+
+.head,
+.headEnd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.close {
+  display: grid;
+  width: var(--control-s);
+  height: var(--control-s);
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-muted);
+}
+
+.note {
+  font-size: var(--text-body-s);
+}
+
+.browse {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--control);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.arrow {
+  color: var(--accent-ink);
+}

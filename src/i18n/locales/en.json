@@ -613,5 +613,66 @@
     },
     "show": "Show the progress of {{name}}",
     "sessionDetails": "Progress and plan for {{weeks}}"
+  },
+  "map": {
+    "intro": {
+      "overview": "Tap a muscle to see what it does and which exercises train it.",
+      "done": "How you loaded your muscles in finished workouts. The hotter the zone, the more working sets per week.",
+      "plan": "How your current plan loads the muscles in a regular week."
+    },
+    "mode": {
+      "label": "Map mode",
+      "overview": "Overview",
+      "done": "Done",
+      "plan": "Plan"
+    },
+    "period": {
+      "label": "Period",
+      "7": "7 days",
+      "30": "30 days",
+      "0": "All time"
+    },
+    "front": "Front",
+    "back": "Back",
+    "frontLabel": "Muscle map, front view",
+    "backLabel": "Muscle map, back view",
+    "zone": "{{muscle}}: {{tier}}",
+    "zonePlain": "{{muscle}}",
+    "tiers": {
+      "0": "none",
+      "1": "light",
+      "2": "building",
+      "3": "optimal",
+      "4": "over"
+    },
+    "legend": "Load legend",
+    "norm": "Target for the “{{goal}}” goal: {{min}}–{{max}} sets a week for a large muscle, fewer for small ones. Secondary work counts as half a set.",
+    "noHistory": "There are no finished exercises in this period yet: tick your sets during a workout and the map lights up.",
+    "workouts_one": "{{count}} workout",
+    "workouts_other": "{{count}} workouts",
+    "regularWeek": "a regular week",
+    "ranked": {
+      "plan": "Sets per week in the plan",
+      "done7": "Sets in the last 7 days",
+      "done30": "Sets per week, 30-day average",
+      "done0": "Sets per week, all-time average"
+    },
+    "detail": {
+      "label": "{{muscle}} details",
+      "sets7": "sets · 7 days",
+      "sets30": "sets · 30 days",
+      "planned": "planned a week",
+      "target": "weekly target",
+      "since": "since trained",
+      "never": "—",
+      "today": "today",
+      "days": "{{count}}d",
+      "recovering": "This muscle is still recovering: give it 48 hours before the next hard session.",
+      "notInPlan": "Your plan has no direct work for this muscle. You can swap an exercise in a workout under “Technique and replacement”.",
+      "exercises_one": "{{count}} {{muscle}} exercise",
+      "exercises_other": "{{count}} {{muscle}} exercises",
+      "browse": "Browse →",
+      "close": "Close {{muscle}}"
+    }
   }
 }

@@ -1,0 +1,81 @@
+.figure {
+  display: block;
+  width: 100%;
+  max-width: 11.5rem;
+  height: auto;
+  overflow: visible;
+}
+
+.body {
+  fill: var(--body);
+  pointer-events: none;
+}
+
+.zone {
+  cursor: pointer;
+  fill: var(--heat-0);
+  stroke: var(--surface);
+  stroke-width: 1.2;
+  transition: fill var(--duration-normal) ease-out;
+}
+
+.zone:focus {
+  outline: none;
+}
+
+.zone:focus-visible {
+  stroke: var(--accent-ink);
+  stroke-width: 2.4;
+}
+
+.tier1 {
+  fill: var(--heat-1);
+}
+
+.tier2 {
+  fill: var(--heat-2);
+}
+
+/* Optimal zones glow softly, overloaded ones pulse. Both stop under reduced motion. */
+.tier3 {
+  fill: var(--heat-3);
+  filter: drop-shadow(0 0 2.2px var(--heat-3));
+}
+
+.tier4 {
+  fill: var(--heat-4);
+  filter: drop-shadow(0 0 3.6px var(--heat-4));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tier4 {
+    animation: pulse 1.8s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes pulse {
+  from {
+    filter: drop-shadow(0 0 2px var(--heat-4));
+  }
+
+  to {
+    filter: drop-shadow(0 0 6px var(--heat-4));
+  }
+}
+
+.selected {
+  stroke: var(--ink);
+  stroke-width: 2.4;
+}
+
+/* In the overview nothing is heated; the selected muscle takes the accent. */
+.plain.selected {
+  fill: var(--accent);
+}
+
+.lines {
+  fill: none;
+  pointer-events: none;
+  stroke: var(--surface);
+  stroke-width: 1;
+}

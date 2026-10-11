@@ -1,0 +1,48 @@
+.legend {
+  display: flex;
+  gap: var(--space-1);
+  padding: 0 6px;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  color: var(--ink-muted);
+  font-size: 10.5px;
+  text-align: center;
+}
+
+.current {
+  color: var(--ink);
+}
+
+.swatch {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+}
+
+.tier0 {
+  background: var(--heat-0);
+}
+
+.tier1 {
+  background: var(--heat-1);
+}
+
+.tier2 {
+  background: var(--heat-2);
+}
+
+.tier3 {
+  background: var(--heat-3);
+}
+
+.tier4 {
+  background: var(--heat-4);
+}

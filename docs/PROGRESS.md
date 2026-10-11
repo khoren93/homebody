@@ -36,7 +36,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 18. Session: set tracker, rest timer, wake lock, rating
 - [x] 19. Plan: missed-session move and skip
 - [x] 20. Calculator: progression tables and charts
-- [ ] 21. Muscles: body map with heat modes and muscle detail
+- [x] 21. Muscles: body map with heat modes and muscle detail
 - [ ] 22. Muscles: exercise library with search, filters and densities
 - [ ] 23. Body: weight, girths, body fat, charts
 - [ ] 24. Body: progress photos with compare
@@ -186,3 +186,11 @@ tightly related ones) that leaves the project building, linted and tested.
   exercises are compact rows with sparklines. The same details are available
   inside each workout card. Charts are hand-written SVG with tested scale
   geometry. 518 tests.
+- **2026-10-11 — Step 21.** Muscle map, built to the mockup: front and back
+  figures with 17 zones that are real buttons (Tab, Enter, Space), three modes
+  (overview, done over 7 days, 30 days or all time, and planned weekly volume),
+  five heat tiers with a glow for optimal and a pulse for overloaded zones (off
+  under reduced motion), the legend, a ranked bar list, and a detail sheet per
+  muscle (description, sets, weekly target, time since trained, recovery
+  warning, no-direct-work hint, link to its exercises). Mode and selection live
+  in the URL. 530 tests.

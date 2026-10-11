@@ -19,7 +19,7 @@ function Screen({ route }: { route: Route }) {
     case 'progress':
       return <ProgressScreen />;
     case 'muscles':
-      return <MusclesScreen />;
+      return <MusclesScreen mode={route.mode} muscle={route.muscle} />;
     case 'body':
       return <BodyScreen />;
     case 'library':
