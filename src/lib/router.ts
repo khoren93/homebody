@@ -9,10 +9,11 @@ import { isIsoDate } from '@/engine';
  *
  *   #/plan                      plan overview (default)
  *   #/session/2026-10-12        one workout
- *   #/calculator
+ *   #/progress
  *   #/muscles?mode=plan&muscle=chest
  *   #/body
- *   #/settings
+ *   #/library?muscle=chest
+ *   #/settings                  opened from the header, not a tab
  */
 export const MUSCLE_MODES = ['overview', 'done', 'plan'] as const;
 export type MuscleMode = (typeof MUSCLE_MODES)[number];
@@ -20,18 +21,20 @@ export type MuscleMode = (typeof MUSCLE_MODES)[number];
 export type Route =
   | { name: 'plan' }
   | { name: 'session'; sessionId: string }
-  | { name: 'calculator' }
+  | { name: 'progress' }
   | { name: 'muscles'; mode?: MuscleMode; muscle?: MuscleId }
   | { name: 'body' }
+  | { name: 'library'; muscle?: MuscleId }
   | { name: 'settings' };
 
-/** The tab a route belongs to. A session is part of the plan tab. */
-export type TabName = 'plan' | 'calculator' | 'muscles' | 'body' | 'settings';
+export type TabName = 'plan' | 'progress' | 'muscles' | 'body' | 'library';
 
-export const TABS: readonly TabName[] = ['plan', 'calculator', 'muscles', 'body', 'settings'];
+export const TABS: readonly TabName[] = ['plan', 'progress', 'muscles', 'body', 'library'];
 
-export function tabOf(route: Route): TabName {
-  return route.name === 'session' ? 'plan' : route.name;
+/** The tab a route belongs to, if any. A session is part of the plan; settings have no tab. */
+export function tabOf(route: Route): TabName | undefined {
+  if (route.name === 'session') return 'plan';
+  return route.name === 'settings' ? undefined : route.name;
 }
 
 function oneOf<T extends string>(values: readonly T[], value: string | null): T | undefined {
@@ -46,10 +49,14 @@ export function parseRoute(hash: string): Route {
   switch (name) {
     case 'session':
       return param && isIsoDate(param) ? { name: 'session', sessionId: param } : { name: 'plan' };
-    case 'calculator':
+    case 'progress':
     case 'body':
     case 'settings':
       return { name };
+    case 'library': {
+      const muscle = oneOf(MUSCLE_IDS, params.get('muscle'));
+      return muscle ? { name: 'library', muscle } : { name: 'library' };
+    }
     case 'muscles': {
       const route: Route = { name: 'muscles' };
       const mode = oneOf(MUSCLE_MODES, params.get('mode'));
@@ -74,6 +81,8 @@ export function routeHref(route: Route): string {
       const query = params.toString();
       return query ? `#/muscles?${query}` : '#/muscles';
     }
+    case 'library':
+      return route.muscle ? `#/library?muscle=${route.muscle}` : '#/library';
     default:
       return `#/${route.name}`;
   }

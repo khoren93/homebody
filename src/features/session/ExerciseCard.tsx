@@ -160,7 +160,7 @@ export function RandomSwapButton({ options, onClick }: { options: number; onClic
   return (
     <div>
       <Button size="sm" disabled={options === 0} onClick={onClick}>
-        <Icon name="shuffle" />
+        <Icon name="swap" />
         {options > 0
           ? `${t('session.swap.random')} · ${t('session.swap.options', { count: options })}`
           : t('session.swap.none')}

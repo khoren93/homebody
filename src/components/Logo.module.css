@@ -1,0 +1,17 @@
+.logo {
+  flex: none;
+  width: 30px;
+  height: 30px;
+}
+
+.plate {
+  fill: var(--accent);
+}
+
+.line {
+  fill: none;
+  stroke: var(--on-accent);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

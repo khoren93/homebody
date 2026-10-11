@@ -26,8 +26,12 @@ describe('App shell', () => {
       within(nav)
         .getAllByRole('link')
         .map((link) => link.textContent),
-    ).toEqual(['Plan', 'Calculator', 'Muscles', 'Body', 'Settings']);
+    ).toEqual(['Plan', 'Progress', 'Muscles', 'Body', 'Library']);
     expect(within(nav).getByRole('link', { name: 'Plan' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'Open settings' })).toHaveAttribute(
+      'href',
+      '#/settings',
+    );
     expect(screen.getByRole('link', { name: 'Skip to content' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 1, name: 'Plan for 4 weeks' })).toBeInTheDocument();
   });
@@ -36,10 +40,25 @@ describe('App shell', () => {
     render(<App />);
     go({ name: 'settings' });
     expect(screen.getByRole('heading', { level: 1, name: 'Settings' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Settings' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'Open settings' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    const nav = screen.getByRole('navigation', { name: 'Sections' });
+    expect(within(nav).queryByRole('link', { current: 'page' })).not.toBeInTheDocument();
 
+    go({ name: 'library' });
+    expect(within(nav).getByRole('link', { name: 'Library' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+  });
+
+  it('hides the tab bar during a workout', () => {
+    render(<App />);
     go({ name: 'session', sessionId: '2026-10-19' });
-    expect(screen.getByRole('link', { name: 'Plan' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('heading', { level: 1, name: 'Full body A' })).toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Sections' })).not.toBeInTheDocument();
   });
 
   it('switches the interface language and remembers the choice', async () => {

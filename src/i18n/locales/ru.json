@@ -6,10 +6,12 @@
   "nav": {
     "label": "Разделы",
     "plan": "План",
-    "calculator": "Калькулятор",
+    "progress": "Прогресс",
     "muscles": "Мышцы",
     "body": "Тело",
-    "settings": "Настройки"
+    "library": "Каталог",
+    "settings": "Настройки",
+    "openSettings": "Открыть настройки"
   },
   "common": {
     "cancel": "Отмена",

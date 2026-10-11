@@ -9,7 +9,7 @@ const PATHS = {
       <path d="M3.5 10h17M8 3v4M16 3v4" />
     </>
   ),
-  calculator: <path d="M2.5 12h3M18.5 12h3M5.5 8v8M18.5 8v8M8 6.5v11M16 6.5v11M8 12h8" />,
+  progress: <path d="M2.5 12h3M18.5 12h3M5.5 8v8M18.5 8v8M8 6.5v11M16 6.5v11M8 12h8" />,
   muscles: (
     <>
       <circle cx="12" cy="4.5" r="2.2" />
@@ -22,6 +22,14 @@ const PATHS = {
       <path d="M15 6h5v5" />
     </>
   ),
+  library: (
+    <>
+      <rect x="4" y="4" width="7" height="7" rx="2" />
+      <rect x="13" y="4" width="7" height="7" rx="2" />
+      <rect x="4" y="13" width="7" height="7" rx="2" />
+      <rect x="13" y="13" width="7" height="7" rx="2" />
+    </>
+  ),
   settings: (
     <>
       <path d="M4 7h10M18 7h2M4 17h4M12 17h8" />
@@ -30,10 +38,28 @@ const PATHS = {
     </>
   ),
   expand: <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />,
-  shuffle: (
+  swap: <path d="M4 7h11l-3-3M20 17H9l3 3" />,
+  back: <path d="M15 5 8 12l7 7" />,
+  play: <path d="M7 4.5 19 12 7 19.5Z" fill="currentColor" stroke="none" />,
+  search: (
     <>
-      <rect x="3.5" y="3.5" width="17" height="17" rx="3.5" />
-      <path d="M8.5 8.5h.01M15.5 15.5h.01M15.5 8.5h.01M8.5 15.5h.01M12 12h.01" />
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m20 20-4.2-4.2" />
+    </>
+  ),
+  chevron: <path d="m6 9 6 6 6-6" />,
+  list: <path d="M4 7h16M4 12h16M4 17h16" />,
+  cards: (
+    <>
+      <rect x="4" y="4" width="16" height="7" rx="2" />
+      <rect x="4" y="13" width="16" height="7" rx="2" />
+    </>
+  ),
+  plus: <path d="M12 5v14M5 12h14" />,
+  camera: (
+    <>
+      <path d="M4 8h3l1.5-2h7L17 8h3v11H4Z" />
+      <circle cx="12" cy="13" r="3.5" />
     </>
   ),
   close: <path d="M6 6l12 12M18 6L6 18" />,

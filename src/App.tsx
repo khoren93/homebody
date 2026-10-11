@@ -1,9 +1,10 @@
 import { AppShell } from '@/app/AppShell';
 import { LoadErrorScreen, LoadingScreen } from '@/app/StatusScreens';
 import { BodyScreen } from '@/features/body/BodyScreen';
-import { CalculatorScreen } from '@/features/calculator/CalculatorScreen';
+import { LibraryScreen } from '@/features/library/LibraryScreen';
 import { MusclesScreen } from '@/features/muscles/MusclesScreen';
 import { PlanScreen } from '@/features/plan/PlanScreen';
+import { ProgressScreen } from '@/features/progress/ProgressScreen';
 import { SessionScreen } from '@/features/session/SessionScreen';
 import { SettingsScreen } from '@/features/settings/SettingsScreen';
 import type { Route } from '@/lib/router';
@@ -15,12 +16,14 @@ function Screen({ route }: { route: Route }) {
       return <PlanScreen />;
     case 'session':
       return <SessionScreen sessionId={route.sessionId} />;
-    case 'calculator':
-      return <CalculatorScreen />;
+    case 'progress':
+      return <ProgressScreen />;
     case 'muscles':
       return <MusclesScreen />;
     case 'body':
       return <BodyScreen />;
+    case 'library':
+      return <LibraryScreen />;
     case 'settings':
       return <SettingsScreen />;
   }

@@ -6,10 +6,12 @@
   "nav": {
     "label": "Sections",
     "plan": "Plan",
-    "calculator": "Calculator",
+    "progress": "Progress",
     "muscles": "Muscles",
     "body": "Body",
-    "settings": "Settings"
+    "library": "Library",
+    "settings": "Settings",
+    "openSettings": "Open settings"
   },
   "common": {
     "cancel": "Cancel",

@@ -6,7 +6,7 @@ import { routeHref, type TabName, TABS } from '@/lib/router';
 import styles from './TabBar.module.css';
 
 /** Bottom navigation between the five sections of the app. */
-export function TabBar({ current }: { current: TabName }) {
+export function TabBar({ current }: { current: TabName | undefined }) {
   const { t } = useTranslation();
 
   return (

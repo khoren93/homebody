@@ -2,8 +2,10 @@ import { type ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Banner } from '@/components/Banner';
+import { Icon } from '@/components/Icon';
+import { Logo } from '@/components/Logo';
 import { useFrameTicker } from '@/features/exercise/useFrameTicker';
-import { type Route, tabOf, useRoute } from '@/lib/router';
+import { type Route, routeHref, tabOf, useRoute } from '@/lib/router';
 import { useAppStore } from '@/store';
 
 import styles from './AppShell.module.css';
@@ -41,10 +43,18 @@ export function AppShell({ children }: { children: (route: Route) => ReactNode }
       </a>
       <div className={styles.frame}>
         <header className={styles.header}>
-          <span className={styles.brand}>{t('app.name')}</span>
-          <span className={styles.storage}>
-            {storage === 'indexeddb' ? t('shell.savedLocally') : null}
-          </span>
+          <a className={styles.brand} href={routeHref({ name: 'plan' })}>
+            <Logo />
+            <span className={styles.wordmark}>{t('app.name').toLowerCase()}</span>
+          </a>
+          <a
+            className={styles.settings}
+            href={routeHref({ name: 'settings' })}
+            aria-label={t('nav.openSettings')}
+            aria-current={route.name === 'settings' ? 'page' : undefined}
+          >
+            <Icon name="settings" />
+          </a>
         </header>
         {storage === 'memory' && <Banner role="alert">{t('shell.notSaved')}</Banner>}
         {saveFailed && (
@@ -56,7 +66,7 @@ export function AppShell({ children }: { children: (route: Route) => ReactNode }
           {children(route)}
         </main>
       </div>
-      <TabBar current={tabOf(route)} />
+      {route.name !== 'session' && <TabBar current={tabOf(route)} />}
     </>
   );
 }
