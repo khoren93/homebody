@@ -1,0 +1,9 @@
+/*
+ * Fonts of the design system, bundled with the app so that nothing is loaded
+ * from a third-party host and everything works offline.
+ *
+ * Archivo ships its width axis (the brand uses the expanded cut at 125 %).
+ */
+@import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource-variable/geist/index.css';
+@import '@fontsource-variable/geist-mono/index.css';

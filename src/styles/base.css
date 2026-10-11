@@ -6,39 +6,48 @@
 }
 
 html {
-  background: var(--color-bg);
+  background: var(--bg);
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  font-size: var(--text-md);
-  line-height: var(--leading-normal);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.43;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Display type: Archivo, expanded, heavy. Used for titles and numbers. */
 h1,
 h2,
 h3 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--leading-tight);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: var(--text-2xl);
+  font-size: var(--display-m);
 }
 
 h2 {
-  font-size: var(--text-xl);
+  font-size: var(--display-s);
 }
 
 h3 {
-  font-size: var(--text-lg);
+  font-family: var(--font-sans);
+  font-size: var(--text-title);
+  font-stretch: normal;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.375;
 }
 
 p,
@@ -67,7 +76,7 @@ button:disabled {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--accent-ink);
 }
 
 img,
@@ -78,7 +87,7 @@ svg {
 
 :focus-visible {
   outline: var(--focus-ring);
-  outline-offset: 2px;
+  outline-offset: var(--focus-offset);
 }
 
 [hidden] {

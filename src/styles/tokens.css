@@ -1,101 +1,180 @@
 /*
- * Design tokens. Components must take every color, size and radius from
- * here and never hard-code design values (see docs/adr/0002).
+ * Design tokens of the Homebody design system.
  *
- * The values are provisional placeholders until the design system arrives.
- * Colors are written as light-dark(<light>, <dark>); the active scheme
- * follows the system unless the user picks one (data-theme on <html>).
+ * Token names and values mirror the system's tokens.json one to one; the
+ * usage notes there are the reference. Components take every color, size and
+ * radius from here and never hard-code design values (see docs/adr/0002).
+ *
+ * Colors are written as light-dark(<light>, <dark>). The scheme follows the
+ * device unless the user picks one (data-theme on <html>).
  */
 :root {
   color-scheme: light dark;
 
-  /* Surfaces and text */
-  --color-bg: light-dark(#eef1f5, #0d1117);
-  --color-surface: light-dark(#ffffff, #161c25);
-  --color-sunken: light-dark(#e3e8ef, #1e2530);
-  --color-text: light-dark(#121821, #e7ecf3);
-  --color-text-muted: light-dark(#566170, #97a3b4);
-  --color-border: light-dark(#d6dce5, #2a323f);
+  /* Ground and surfaces */
+  --bg: light-dark(#f6f1eb, #110f0d);
+  --surface: light-dark(#ffffff, #1a1714);
+  --surface-2: light-dark(#f1eae2, #221d19);
+  --surface-3: light-dark(#ede5dc, #241f1b);
+  --line: light-dark(#e2d9cf, #2e2924);
 
-  /* Brand and feedback */
-  --color-accent: light-dark(#1f4fc9, #6f97ff);
-  --color-accent-soft: light-dark(#dfe7fa, #1c2a4a);
-  --color-on-accent: light-dark(#ffffff, #0b1020);
-  --color-success: light-dark(#1f7a44, #4cc07a);
-  --color-on-success: light-dark(#ffffff, #06210f);
-  --color-warning: light-dark(#8a5600, #e3a33b);
-  --color-warning-soft: light-dark(#fbf0d9, #33270f);
-  --color-danger: light-dark(#c2332a, #f0685c);
-  --color-danger-soft: light-dark(#fbe3e1, #3a1614);
+  /* Text */
+  --ink: light-dark(#1a1512, #f4efe9);
+  --ink-muted: light-dark(#6e655c, #a69d93);
 
-  /* Overlay that is dark in both themes (photo viewer) */
-  --color-overlay: #06090e;
-  --color-on-overlay: #ffffff;
-  --color-scrim: rgb(0 0 0 / 60%);
+  /* Brand and action: fills use accent, text on a surface uses accent-ink */
+  --accent: light-dark(#f05a1a, #ff6a2b);
+  --accent-ink: light-dark(#a83d0c, #ff8a52);
+  --on-accent: #1a0e07;
+  --accent-soft: light-dark(#fce4d6, #2e1d14);
 
-  /* Barbell plates */
-  --color-plate-25: light-dark(#cf3a2e, #e2564a);
-  --color-plate-20: light-dark(#1f4fc9, #6f97ff);
-  --color-plate-15: light-dark(#e2b012, #e9bf3a);
-  --color-plate-10: light-dark(#2c9a52, #43b56b);
-  --color-plate-5: light-dark(#f6f6f2, #d9dad4);
-  --color-plate-small: light-dark(#2a2f36, #59616d);
+  /* Done and improving */
+  --good: light-dark(#12a47c, #3dd6a8);
+  --good-ink: light-dark(#0a7a5c, #3dd6a8);
+  --on-good: light-dark(#06281e, #08241c);
+  --good-soft: light-dark(#ddf3ea, #12261f);
 
-  /* Body map */
-  --color-body: light-dark(#d9dee6, #252d39);
-  --color-muscle: light-dark(#b8c1ce, #3a4657);
-  --color-heat-1: light-dark(#f7dcb9, #5b3d22);
-  --color-heat-2: light-dark(#f2b06b, #9b5b23);
-  --color-heat-3: light-dark(#e8772e, #dc792d);
-  --color-heat-4: light-dark(#c63c29, #f05d40);
+  /* Training load, reserved for the muscle map and load bars */
+  --heat-0: light-dark(#e4dcd3, #3a332e);
+  --heat-1: light-dark(#f6d3b5, #5e3a26);
+  --heat-2: light-dark(#f2a66a, #a4521f);
+  --heat-3: light-dark(#ea6a24, #ff7a2f);
+  --heat-4: light-dark(#d9304a, #ff3e5b);
+  --body: light-dark(#d9d0c6, #2a2420);
 
-  /* Typography */
-  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: var(--font-body);
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-bold: 650;
-  --text-xs: 0.75rem;
-  --text-sm: 0.8125rem;
-  --text-md: 0.9375rem;
-  --text-lg: 1.1875rem;
-  --text-xl: 1.375rem;
-  --text-2xl: 1.75rem;
-  --text-3xl: 2.125rem;
-  --text-display: 3rem;
-  --leading-tight: 1.1;
-  --leading-normal: 1.45;
+  /* Rest timer, deliberately inverted against the theme */
+  --timer-bg: light-dark(#1a1512, #f4efe9);
+  --timer-ink: light-dark(#f6f1eb, #110f0d);
+  --timer-well: light-dark(#2e2924, #e3dbd2);
 
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
+  /* Shadows: floating things only, cards never get one */
+  --shadow-float: light-dark(0 14px 32px rgb(60 38 20 / 18%), 0 18px 40px rgb(0 0 0 / 45%));
 
-  /* Shape */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
+  /*
+   * Typography. Fonts are bundled with the app. Archivo has no Cyrillic
+   * glyphs, so Cyrillic display text falls through to Geist at the same weight.
+   */
+  --font-display: 'Archivo Variable', 'Geist Variable', system-ui, sans-serif;
+  --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+  --display-stretch: 125%;
+  --display-weight: 800;
+
+  /* Type scale: size / line height */
+  --display-rx: 2.875rem; /* 46px, the prescription */
+  --display-l: 2rem; /* 32px, hero card titles */
+  --display-m: 1.75rem; /* 28px, screen titles */
+  --display-s: 1.375rem; /* 22px, card titles and stat values */
+  --text-title: 1rem; /* 16px / 22px, weight 600 */
+  --text-body: 0.875rem; /* 14px / 20px */
+  --text-body-s: 0.8125rem; /* 13px / 18px */
+  --text-caption: 0.75rem; /* 12px / 16px */
+  --text-tab: 0.6875rem; /* 11px / 14px, weight 500 */
+  --text-eyebrow: 0.6875rem; /* 11px mono, uppercase */
+  --tracking-eyebrow: 0.12em;
+
+  /* Spacing, 4px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Radius grows with the object */
+  --radius-s: 10px;
+  --radius-m: 14px;
+  --radius-l: 18px;
+  --radius-xl: 24px;
   --radius-pill: 999px;
-  --border-width: 1px;
-  --focus-ring: 2px solid var(--color-accent);
-  --shadow-raised: 0 8px 24px rgb(0 0 0 / 25%);
 
-  /* Layout */
-  --content-width: 65rem;
-  --page-gutter: var(--space-4);
-  --tab-bar-height: 3.875rem;
-  --control-height: 2.75rem;
+  /*
+   * App-level tokens that the design system does not name. They are derived
+   * from system tokens wherever possible.
+   */
+  --danger: var(--heat-4);
+  --photo-plate: #ffffff; /* exercise photos always sit on a white plate */
+  --scrim: light-dark(rgb(255 255 255 / 88%), rgb(17 15 13 / 78%));
+  --on-scrim: var(--ink);
+  --overlay: #110f0d; /* the full-screen photo viewer is dark in both themes */
+  --on-overlay: #f4efe9;
+  --focus-ring: 2px solid var(--accent-ink);
+  --focus-offset: 3px;
+  --control: 44px; /* minimum touch target */
+  --control-l: 54px; /* primary button */
+  --control-s: 38px; /* small button */
+  --content-width: 46rem;
+  --tab-bar-height: 82px;
+  --rail-width: 5.5rem;
   --z-tab-bar: 5;
   --z-timer: 6;
   --z-overlay: 20;
+  --duration-fast: 0.2s;
+  --duration-normal: 0.35s;
 
-  /* Motion */
-  --duration-fast: 0.18s;
-  --duration-normal: 0.3s;
+  /* Barbell plates use the colors people know from real plates */
+  --plate-25: light-dark(#cf3a2e, #e2564a);
+  --plate-20: light-dark(#2f5fd0, #6f97ff);
+  --plate-15: light-dark(#e2b012, #e9bf3a);
+  --plate-10: light-dark(#2c9a52, #43b56b);
+  --plate-5: light-dark(#f6f6f2, #d9dad4);
+  --plate-small: light-dark(#2a2f36, #59616d);
+
+  /*
+   * Names used before the design system arrived. They keep older component
+   * styles working while each screen is moved to the system tokens.
+   */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-sunken: var(--surface-3);
+  --color-text: var(--ink);
+  --color-text-muted: var(--ink-muted);
+  --color-border: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-success: var(--good);
+  --color-on-success: var(--on-good);
+  --color-warning: var(--accent-ink);
+  --color-warning-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--surface-3);
+  --color-overlay: var(--overlay);
+  --color-on-overlay: var(--on-overlay);
+  --color-scrim: var(--scrim);
+  --color-plate-25: var(--plate-25);
+  --color-plate-20: var(--plate-20);
+  --color-plate-15: var(--plate-15);
+  --color-plate-10: var(--plate-10);
+  --color-plate-5: var(--plate-5);
+  --color-plate-small: var(--plate-small);
+  --color-body: var(--body);
+  --color-muscle: var(--heat-0);
+  --color-heat-1: var(--heat-1);
+  --color-heat-2: var(--heat-2);
+  --color-heat-3: var(--heat-3);
+  --color-heat-4: var(--heat-4);
+  --font-body: var(--font-sans);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+  --text-xs: var(--text-caption);
+  --text-sm: var(--text-body-s);
+  --text-md: var(--text-body);
+  --text-lg: var(--text-title);
+  --text-xl: var(--display-s);
+  --text-2xl: var(--display-m);
+  --text-3xl: var(--display-rx);
+  --leading-tight: 1.1;
+  --leading-normal: 1.43;
+  --radius-sm: var(--radius-s);
+  --radius-md: var(--radius-m);
+  --radius-lg: var(--radius-xl);
+  --border-width: 1px;
+  --shadow-raised: var(--shadow-float);
+  --page-gutter: var(--space-5);
+  --control-height: var(--control);
 }
 
 :root[data-theme='light'] {

@@ -162,3 +162,8 @@ tightly related ones) that leaves the project building, linted and tested.
   "restore calculation", manual and random replacement with undo, and exclusion
   with a restore list in the settings. Edits to a finished session rewrite its
   recorded result. Shared Dialog and Disclosure components. 458 tests.
+- **2026-10-11 — Design.** The Homebody design system and screen mockups
+  arrived ([ADR 0004](adr/0004-design-system.md)). Its tokens and fonts are
+  adopted first; components and screens are then restyled one by one in
+  `style:` commits that leave the logic untouched. Screens built after this
+  point follow the design from the start.

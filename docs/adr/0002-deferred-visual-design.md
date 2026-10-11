@@ -1,6 +1,6 @@
 # ADR 0002: Visual design is deferred and replaceable
 
-- **Status:** accepted
+- **Status:** accepted; the design has since been delivered, see [ADR 0004](0004-design-system.md)
 - **Date:** 2026-10-11
 
 ## Context
