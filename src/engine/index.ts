@@ -8,6 +8,7 @@ export * from './loads';
 export * from './nextBlock';
 export * from './plan';
 export * from './plates';
+export * from './progress';
 export * from './swap';
 export type * from './types';
 export * from './volume';

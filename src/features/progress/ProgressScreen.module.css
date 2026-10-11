@@ -1,0 +1,21 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+/* The disclosure brings its own padding and rule. */
+.explainer {
+  padding: 0;
+  font-size: var(--text-body-s);
+}
+
+.explainer details {
+  border-top: 0;
+}
+
+.formula {
+  font-size: var(--text-body);
+}

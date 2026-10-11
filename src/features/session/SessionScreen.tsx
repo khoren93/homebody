@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Banner } from '@/components/Banner';
 import { Button, IconLink } from '@/components/Button';
+import { Disclosure } from '@/components/Disclosure';
 import { Icon } from '@/components/Icon';
 import { Muted, Page } from '@/components/Layout';
 import { ProgressRing } from '@/components/ProgressRing';
@@ -12,6 +13,7 @@ import { nextOccurrence } from '@/engine';
 import { useExerciseText } from '@/features/exercise/useExerciseText';
 import { MissedBanner } from '@/features/plan/MissedBanner';
 import { useSessionLabels } from '@/features/plan/useSessionLabels';
+import { ProgressDetails } from '@/features/progress/ProgressDetails';
 import { useFormat } from '@/i18n/useFormat';
 import { cx } from '@/lib/cx';
 import { navigate, routeHref } from '@/lib/router';
@@ -66,6 +68,7 @@ function Workout({
   const missed = useAppStore((store) => isMissed(session, store.state, today));
   const setLogs = useAppStore((store) => store.setLogs);
   const overrides = useAppStore((store) => store.state.overrides);
+  const weeks = useAppStore((store) => store.state.schedule.weeks);
   const progress = sessionProgress(session, setLogs);
   useWakeLock(true);
 
@@ -180,6 +183,19 @@ function Workout({
             session={session}
             index={index + 1}
             complete={ticks.every(Boolean)}
+            details={
+              <Disclosure
+                summary={t('progress.sessionDetails', {
+                  weeks: t('units.weeks', { count: weeks }),
+                })}
+              >
+                <ProgressDetails
+                  exercise={exercise}
+                  sessions={sessions}
+                  currentSessionId={session.id}
+                />
+              </Disclosure>
+            }
             swap={
               <RandomSwapButton
                 options={randomSwap.optionCount(item)}

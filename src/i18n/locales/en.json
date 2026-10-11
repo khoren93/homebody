@@ -569,5 +569,49 @@
     "skippedTitle": "This session was skipped.",
     "skippedBody": "It does not count in the plan. If you did it after all, restore it and tick the sets.",
     "restore": "Restore"
+  },
+  "progress": {
+    "subtitle": "Estimated one-rep max, block {{block}}",
+    "intro": "Sets, reps and load for every exercise across the whole plan. The solid line is what you did, the dashed line is what the plan expects. Press a date to open that session.",
+    "explainTitle": "What is ≈1RM?",
+    "explainBody": "It is the estimated one-rep max: the heaviest weight you could lift once in an exercise with good form. You never have to test it; it is calculated with the Epley formula:",
+    "explainFormula": "1RM ≈ weight × (1 + (reps + reps in reserve) / 30)",
+    "explainExample": "For example, 20 kg for 10 reps with 2 reps in reserve: 20 × (1 + 12 / 30) = 28 kg. For exercises with two dumbbells it is counted per hand.",
+    "explainWhy": "Weights and reps change from session to session, and the 1RM turns them into one number for strength. If the 1RM grows, you are getting stronger. The calculator uses it to pick the weight and reps for every next session. Exercises without weight show a limit instead: the reps or seconds you could do to failure.",
+    "empty": "There are no exercises in the plan yet.",
+    "unit": {
+      "weighted": "kg ≈1RM",
+      "reps": "reps max",
+      "timed": "s max"
+    },
+    "perHand": "per hand",
+    "edited": "your edits applied",
+    "legend": {
+      "done": "done",
+      "plan": "plan"
+    },
+    "today": "today",
+    "chartLabel": "Progress of {{name}}",
+    "summary": {
+      "sessions": "Sessions: {{count}}",
+      "last": "Last: {{value}}",
+      "best": "Best: {{value}}"
+    },
+    "result": {
+      "weighted": "{{load}} × {{reps}}",
+      "reps": "{{count}} reps",
+      "timed": "{{seconds}} s"
+    },
+    "table": {
+      "caption": "Sessions of {{name}}",
+      "date": "Date",
+      "sets": "Sets",
+      "load": "Load",
+      "e1rm": "≈1RM",
+      "limit": "Limit",
+      "deload": "deload"
+    },
+    "show": "Show the progress of {{name}}",
+    "sessionDetails": "Progress and plan for {{weeks}}"
   }
 }

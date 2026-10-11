@@ -32,6 +32,8 @@ type Props = {
   notice?: ReactNode;
   /** Blocks after the prescription: set tracker, effort rating. */
   children?: ReactNode;
+  /** Collapsible blocks before the technique, such as the progress of the exercise. */
+  details?: ReactNode;
 };
 
 /**
@@ -47,6 +49,7 @@ export function ExerciseCard({
   swap,
   notice,
   children,
+  details,
 }: Props) {
   const { t } = useTranslation();
   const format = useFormat();
@@ -167,6 +170,7 @@ export function ExerciseCard({
       </div>
 
       <PrescriptionEditor exercise={exercise} item={item} sessionId={session.id} />
+      {details}
       <TechniqueDetails exercise={exercise} item={item} />
     </article>
   );

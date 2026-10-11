@@ -35,7 +35,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 17. Session: workout screen with exercise cards, swap, exclude, edits
 - [x] 18. Session: set tracker, rest timer, wake lock, rating
 - [x] 19. Plan: missed-session move and skip
-- [ ] 20. Calculator: progression tables and charts
+- [x] 20. Calculator: progression tables and charts
 - [ ] 21. Muscles: body map with heat modes and muscle detail
 - [ ] 22. Muscles: exercise library with search, filters and densities
 - [ ] 23. Body: weight, girths, body fat, charts
@@ -179,3 +179,10 @@ tightly related ones) that leaves the project building, linted and tested.
   shifts that session and everything after it by the same number of days, or
   "Skip", which leaves it out of the plan and can be undone. Rows show missed,
   not finished, skipped and moved states. 492 tests.
+- **2026-10-11 — Step 20.** Progress screen (the calculator), built to the
+  mockup: one expanded card per exercise with its headline capacity, a chart
+  (solid for done, dashed for the plan, today marked), the history summary and
+  gain, and the session-by-session table with links to the workouts; the other
+  exercises are compact rows with sparklines. The same details are available
+  inside each workout card. Charts are hand-written SVG with tested scale
+  geometry. 518 tests.

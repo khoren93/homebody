@@ -1,0 +1,107 @@
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.accent {
+  --series: var(--accent);
+}
+
+.good {
+  --series: var(--good);
+}
+
+.grid line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.axis text {
+  fill: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.axis .marker {
+  fill: var(--ink);
+}
+
+.line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.solid .line {
+  stroke: var(--series);
+  stroke-width: 2.5;
+}
+
+.solid .dot {
+  fill: var(--series);
+}
+
+.solid .current {
+  fill: var(--surface);
+  stroke: var(--series);
+  stroke-width: 3;
+}
+
+.area {
+  fill: var(--series);
+  fill-opacity: 0.12;
+}
+
+.dashed .line {
+  stroke: var(--ink);
+  stroke-dasharray: 4 5;
+  stroke-opacity: 0.55;
+  stroke-width: 2;
+}
+
+.dashed .dot {
+  fill: var(--surface);
+  stroke: var(--ink);
+  stroke-opacity: 0.55;
+  stroke-width: 1.5;
+}
+
+.spark {
+  flex: none;
+  width: 64px;
+  height: 24px;
+}
+
+.spark path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.legend {
+  display: flex;
+  gap: var(--space-4);
+  color: var(--ink-muted);
+  font-size: var(--text-caption);
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.solidKey {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--series);
+}
+
+.dashedKey {
+  width: 16px;
+  border-top: 2px dashed var(--ink-muted);
+}
