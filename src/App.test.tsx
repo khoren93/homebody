@@ -33,7 +33,7 @@ describe('App shell', () => {
       '#/settings',
     );
     expect(screen.getByRole('link', { name: 'Skip to content' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 1, name: 'Plan for 4 weeks' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Full body A' })).toBeInTheDocument();
   });
 
   it('switches screens when the route changes', () => {

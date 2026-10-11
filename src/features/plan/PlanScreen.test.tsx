@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { i18n } from '@/i18n';
 import { actions, useAppStore } from '@/store';
@@ -26,41 +26,67 @@ describe('PlanScreen', () => {
     expect(screen.queryByText('This is a sample plan.')).not.toBeInTheDocument();
   });
 
-  it('presents the next session with its focus, effort and exercises', () => {
+  it('presents the next session with its focus, gear, size and a way to start it', () => {
     render(<PlanScreen />);
     const hero = screen.getByRole('region', { name: 'Full body A' });
-    expect(hero).toHaveTextContent('Next session · week 1');
-    expect(hero).toHaveTextContent('Squat & chest press focus');
-    expect(hero).toHaveTextContent('Mon, Oct 19 · about 45 min · 3 reps in reserve');
+    expect(within(hero).getByRole('heading', { level: 1 })).toHaveTextContent('Full body A');
+    expect(hero).toHaveTextContent('Mon, Oct 19 · week 1 · Introduction');
+    expect(hero).toHaveTextContent('RIR 3');
+    expect(hero).toHaveTextContent('Squat & chest press focus · dumbbells, bench');
     expect(
       within(hero)
-        .getAllByRole('listitem')
-        .map((li) => li.textContent),
+        .getAllByRole('img')
+        .map((img) => img.getAttribute('alt')),
     ).toEqual([
       'Dumbbell Goblet Squat',
       'Dumbbell Bench Press',
       'One-Arm Dumbbell Row',
       'Dumbbell Romanian Deadlift',
-      'Standing Dumbbell Press',
-      'Plank',
     ]);
-    expect(within(hero).getByRole('link', { name: 'Open workout' })).toHaveAttribute(
+    expect(hero).toHaveTextContent('+2');
+    for (const [value, label] of [
+      ['6', 'exercises'],
+      ['17', 'working sets'],
+      ['45′', 'with rest'],
+    ]) {
+      expect(within(hero).getByText(label!).previousElementSibling).toHaveTextContent(value!);
+    }
+    expect(within(hero).getByRole('link', { name: 'Start workout' })).toHaveAttribute(
       'href',
       '#/session/2026-10-19',
     );
   });
 
-  it('shows the key figures of the plan', () => {
+  it('offers to continue a session that was started', () => {
+    useAppStore.setState({ setLogs: { '2026-10-19': { Goblet_Squat: [true] } } });
     render(<PlanScreen />);
-    expect(screen.getByRole('heading', { level: 1, name: 'Plan for 4 weeks' })).toBeInTheDocument();
-    for (const [value, label] of [
-      ['4', 'weeks'],
-      ['0/12', 'sessions done'],
-      ['3', 'days per week'],
-      ['45', 'minutes at most'],
-    ]) {
-      expect(screen.getByText(label!).previousElementSibling).toHaveTextContent(value!);
-    }
+    expect(screen.getByRole('link', { name: 'Continue workout' })).toBeInTheDocument();
+  });
+
+  it('shows where the user is in the block', () => {
+    render(<PlanScreen />);
+    const block = screen.getByRole('region', { name: 'Block 1 · 4 weeks' });
+    expect(block).toHaveTextContent('0 / 12 done');
+    const weeks = within(block).getAllByRole('listitem');
+    expect(weeks.map((week) => week.textContent)).toEqual(['Intro', 'Work', 'Peak', 'Deload']);
+    expect(weeks[0]).toHaveAttribute('aria-current', 'step');
+    expect(weeks[0]).toHaveAccessibleName('Week 1, Intro: 0 of 3 sessions done');
+  });
+
+  it('shows the current week with today and the training days', () => {
+    // Monday of the first plan week.
+    vi.setSystemTime(new Date(2026, 9, 19, 12));
+    render(<PlanScreen />);
+    const strip = screen.getByRole('list', { name: 'This week' });
+    const days = within(strip).getAllByRole('listitem');
+    expect(days).toHaveLength(7);
+    expect(within(strip).getByRole('link', { name: 'Mon, Oct 19: Full body A' })).toHaveAttribute(
+      'aria-current',
+      'date',
+    );
+    expect(within(strip).getAllByRole('link')).toHaveLength(3);
+    expect(within(strip).getByLabelText('Tue, Oct 20: rest day')).toBeInTheDocument();
+    vi.setSystemTime(new Date(2026, 9, 14, 12));
   });
 
   it('lists every week with its phase and sessions', () => {
@@ -89,8 +115,10 @@ describe('PlanScreen', () => {
     expect(tick).toBeChecked();
     expect(store().state.done).toEqual({ '2026-10-19': true });
     expect(store().history).toHaveLength(6);
-    expect(screen.getByText('sessions done').previousElementSibling).toHaveTextContent('1/12');
-    expect(screen.getByRole('region', { name: 'Full body B' })).toHaveTextContent('Next session');
+    expect(screen.getByRole('region', { name: 'Block 1 · 4 weeks' })).toHaveTextContent(
+      '1 / 12 done',
+    );
+    expect(screen.getByRole('region', { name: 'Full body B' })).toHaveTextContent('Wed, Oct 21');
 
     await userEvent.click(tick);
     expect(store().state.done).toEqual({});
@@ -122,9 +150,7 @@ describe('PlanScreen', () => {
 
     expect(store().state.block).toBe(2);
     expect(store().state.schedule.start).toBe('2026-11-16');
-    expect(
-      screen.getByRole('heading', { level: 1, name: 'Block 2 · 4 weeks' }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Block 2 · 4 weeks' })).toBeInTheDocument();
   });
 
   it('says when the block is complete', () => {
@@ -146,12 +172,12 @@ describe('PlanScreen', () => {
 
   it('shows the planned weekly volume with a link to the muscle map', () => {
     render(<PlanScreen />);
-    const volume = screen.getByRole('region', { name: 'Weekly volume' });
+    const volume = screen.getByRole('region', { name: 'This week’s load' });
     expect(volume).toHaveTextContent('10–20 sets, the optimal range for the “muscle gain” goal');
     const rows = within(volume).getAllByRole('listitem');
     expect(rows[0]).toHaveTextContent('Shoulders');
     expect(rows[0]).toHaveTextContent('17.5');
-    expect(within(volume).getByRole('link', { name: 'Muscle map' })).toHaveAttribute(
+    expect(within(volume).getByRole('link', { name: 'Muscle map →' })).toHaveAttribute(
       'href',
       '#/muscles?mode=plan',
     );
@@ -167,11 +193,17 @@ describe('PlanScreen', () => {
   it('is fully translated to Russian', async () => {
     await i18n.changeLanguage('ru');
     render(<PlanScreen />);
-    expect(screen.getByRole('heading', { level: 1, name: 'План на 4 недели' })).toBeInTheDocument();
     const hero = screen.getByRole('region', { name: 'Всё тело A' });
-    expect(hero).toHaveTextContent('Следующая тренировка · неделя 1');
-    expect(hero).toHaveTextContent('запас 3 повтора до отказа');
-    expect(hero).toHaveTextContent('Гоблет-присед с гантелью');
+    expect(hero).toHaveTextContent('неделя 1 · Втягивающая');
+    expect(hero).toHaveTextContent('запас 3');
+    expect(hero).toHaveTextContent('Акцент: присед и жим лёжа · гантели, скамья');
+    expect(within(hero).getByText('рабочих подходов').previousElementSibling).toHaveTextContent(
+      '17',
+    );
+    expect(within(hero).getByRole('link', { name: 'Начать тренировку' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Блок 1 · 4 недели' })).toHaveTextContent(
+      '0 / 12 выполнено',
+    );
     expect(screen.getByRole('region', { name: 'Неделя 4' })).toHaveTextContent(
       'Разгрузка · меньше подходов и вес',
     );

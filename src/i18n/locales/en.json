@@ -360,9 +360,6 @@
     }
   },
   "plan": {
-    "title_one": "Plan for {{count}} week",
-    "title_other": "Plan for {{count}} weeks",
-    "block": "Block {{block}}",
     "sample": {
       "title": "This is a sample plan.",
       "body": "Body weight 80 kg, dumbbells up to 24 kg, three 45-minute sessions a week. Enter your own details and the plan will be recalculated.",
@@ -377,17 +374,20 @@
       "rir_one": "{{count}} rep in reserve",
       "rir_other": "{{count}} reps in reserve",
       "deload": "deload",
-      "open": "Open workout"
+      "start": "Start workout",
+      "resume": "Continue workout",
+      "rirChip": "RIR {{rir}}",
+      "more": "+{{count}}",
+      "exercises_one": "exercise",
+      "exercises_other": "exercises",
+      "workingSets_one": "working set",
+      "workingSets_other": "working sets",
+      "minutes": "{{minutes}}′",
+      "withRest": "with rest"
     },
     "blockDone": {
       "title": "Block complete",
       "body": "Every session is ticked off. Press “Start the next block” at the bottom of the page: the new plan continues from the weights you reached."
-    },
-    "stats": {
-      "weeks": "weeks",
-      "sessions": "sessions done",
-      "daysPerWeek": "days per week",
-      "maxMinutes": "minutes at most"
     },
     "week": "Week {{week}}",
     "phaseRir": "{{phase}} · {{rir}} in reserve",
@@ -410,10 +410,21 @@
       "confirm": "Yes, start block {{block}}"
     },
     "volume": {
-      "title": "Weekly volume",
-      "map": "Muscle map",
+      "title": "This week’s load",
+      "map": "Muscle map →",
       "about": "Working sets per muscle; secondary work counts as half a set. The marked zone is {{min}}–{{max}} sets, the optimal range for the “{{goal}}” goal."
-    }
+    },
+    "blockCard": {
+      "title": "Block {{block}} · {{weeks}}",
+      "done": "{{done}} / {{total}} done",
+      "weekLabel": "Week {{week}}, {{phase}}: {{done}} of {{total}} sessions done"
+    },
+    "weekStrip": {
+      "label": "This week",
+      "session": "{{date}}: {{name}}",
+      "rest": "{{date}}: rest day"
+    },
+    "allSessions": "All sessions"
   },
   "exercise": {
     "compound": "compound",
@@ -505,5 +516,11 @@
       "excludeHint": "For exercises that are uncomfortable or painful. You can bring them back in the settings."
     },
     "missing": "This session is no longer in the plan."
+  },
+  "phaseShort": {
+    "intro": "Intro",
+    "working": "Work",
+    "peak": "Peak",
+    "deload": "Deload"
   }
 }

@@ -38,7 +38,7 @@ export function VolumePanel({ volume }: { volume: Partial<Record<MuscleId, numbe
         goal: t(`goal.${goal}`).toLocaleLowerCase(format.locale),
       })}
       aside={
-        <ButtonLink size="sm" href={routeHref({ name: 'muscles', mode: 'plan' })}>
+        <ButtonLink variant="ghost" size="sm" href={routeHref({ name: 'muscles', mode: 'plan' })}>
           {t('plan.volume.map')}
         </ButtonLink>
       }

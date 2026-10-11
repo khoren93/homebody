@@ -1,0 +1,61 @@
+/* The hero card: a surface with an accent-tinted border. One accent action lives here. */
+.hero {
+  --well: var(--surface-3);
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.rir {
+  background: var(--accent-soft);
+}
+
+.title {
+  font-size: var(--display-l);
+  line-height: 1.02;
+}
+
+.focus {
+  margin-top: var(--space-1);
+  color: var(--ink-muted);
+}
+
+.thumbs {
+  display: flex;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.thumb,
+.more {
+  width: 62px;
+  height: 62px;
+  border-radius: var(--radius-m);
+}
+
+.thumb {
+  background: var(--photo-plate);
+  object-fit: cover;
+}
+
+.more {
+  display: grid;
+  place-items: center;
+  background: var(--surface-3);
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-body-s);
+}

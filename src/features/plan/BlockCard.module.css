@@ -1,0 +1,64 @@
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-stretch: normal;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.43;
+}
+
+.done {
+  color: var(--ink-muted);
+  font-size: var(--text-caption);
+}
+
+.weeks {
+  display: grid;
+  gap: 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--line);
+}
+
+.complete {
+  background: var(--good);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.label {
+  overflow: hidden;
+  color: var(--ink-muted);
+  font-size: 11.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.week[aria-current='step'] .label {
+  color: var(--ink);
+  font-weight: 600;
+}
