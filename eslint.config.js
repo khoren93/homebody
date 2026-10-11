@@ -96,6 +96,14 @@ export default defineConfig(
     },
   },
 
+  // Tests pass spied methods to `expect`, which is safe.
+  {
+    files: ['src/**/*.test.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off',
+    },
+  },
+
   // Tooling and config files run in Node and are not part of a TS project.
   {
     files: ['*.config.{js,ts}', 'scripts/**/*.{js,mjs,ts}'],

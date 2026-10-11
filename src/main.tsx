@@ -2,9 +2,24 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { App } from './App';
+import { toIsoDate } from './engine';
 import { initI18n } from './i18n';
+import { flushStore, initStore } from './store';
+import { HomebodyDb } from './store/db';
+import { createDexiePersistence } from './store/persistence';
 
 initI18n();
+
+void initStore({
+  persistence: createDexiePersistence(new HomebodyDb()),
+  today: toIsoDate(new Date()),
+});
+
+// Make sure the last edits are written before the page goes away.
+window.addEventListener('pagehide', () => void flushStore());
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') void flushStore();
+});
 
 const root = document.getElementById('root');
 if (!root) throw new Error('Root element #root is missing from index.html');

@@ -25,7 +25,7 @@ tightly related ones) that leaves the project building, linted and tested.
 ### Application core
 
 - [x] 12. i18n with English and Russian locales and a language switch
-- [ ] 13. Persisted store, migrations and IndexedDB adapters
+- [x] 13. Persisted store, migrations and IndexedDB adapters
 - [ ] 14. Design tokens, theme and app shell with tab navigation
 
 ### Features
@@ -123,3 +123,11 @@ tightly related ones) that leaves the project building, linted and tested.
   equipment, templates with their focus, phases, ratings, engine notes) are in;
   feature strings are added with each screen. Tests keep the locales in sync:
   same keys, same interpolation variables, all plural forms.
+- **2026-10-11 — Step 13.** Zustand store over a versioned, Zod-validated state
+  document with a migration chain; Dexie database with separate tables for
+  state, history, set logs and photos; a `Persistence` port with IndexedDB and
+  in-memory implementations; diff-based writes (debounced state, row-level
+  history and set logs); safe handling of unreadable data and of unavailable
+  storage; the memoized derived plan (`usePlan`) and `useToday`. Feature actions
+  are added as pure transforms with their screens. ADR 0003 records the model.
+  339 tests.
