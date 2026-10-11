@@ -1,3 +1,5 @@
 pnpm-lock.yaml
 public/
 CHANGELOG.md
+*.golden.json
+src/engine/__tests__/fixtures/scenarios.json

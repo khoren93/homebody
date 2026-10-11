@@ -70,8 +70,9 @@ Rules the engine follows:
 - **Dates are ISO strings** (`YYYY-MM-DD`) handled with calendar arithmetic, so
   results do not depend on the device time zone.
 
-The formulas are documented in `docs/TRAINING_SCIENCE.md`, which is added
-together with the engine.
+The formulas are documented in [`TRAINING_SCIENCE.md`](TRAINING_SCIENCE.md).
+Golden fixtures recorded from the original prototype guard the engine against
+unintended changes in its output.
 
 ## State and persistence
 

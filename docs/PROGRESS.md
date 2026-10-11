@@ -18,7 +18,7 @@ tightly related ones) that leaves the project building, linted and tested.
 ### Data and engine
 
 - [x] 8. Exercise dataset, schema and validation
-- [ ] 9. Engine: plan builder
+- [x] 9. Engine: plan builder
 - [ ] 10. Engine: load calculator, e1RM and progression
 - [ ] 11. Engine: volume and muscle-load analytics
 
@@ -91,3 +91,10 @@ tightly related ones) that leaves the project building, linted and tested.
   `public/exercises/<id>/`, `make data-validate` (schema + photo integrity, also
   in CI) and `make data-build` (sync photos and draft records from
   free-exercise-db).
+- **2026-10-11 — Step 9.** Plan builder ported to `src/engine`: splits,
+  templates, slot filling (swaps, exclusions, variant rotation, fallbacks,
+  swap-only exercises), time fitting, the four-week block and shifted sessions,
+  plus swap pools with an injected random source. 132 tests, including parity
+  tests that compare 23 scenarios with golden plans recorded from the prototype
+  engine; engine coverage is gated at 90 % in the Vitest config.
+  `docs/TRAINING_SCIENCE.md` documents the planning rules.

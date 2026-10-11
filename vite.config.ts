@@ -21,7 +21,17 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html', 'lcov'],
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/**/*.test.{ts,tsx}', 'src/test/**', 'src/main.tsx', 'src/**/*.d.ts'],
+      exclude: [
+        'src/**/*.test.{ts,tsx}',
+        'src/**/__tests__/**',
+        'src/test/**',
+        'src/main.tsx',
+        'src/**/*.d.ts',
+      ],
+      // The training engine is the product: keep it thoroughly tested.
+      thresholds: {
+        'src/engine/**': { statements: 90, branches: 90, functions: 90, lines: 90 },
+      },
     },
   },
 });
