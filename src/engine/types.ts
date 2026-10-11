@@ -138,3 +138,61 @@ export type Plan = {
   split: readonly TemplateId[];
   templates: Partial<Record<TemplateId, TemplatePlan>>;
 };
+
+/** Why a prescription deviates from the ideal rep range. Translated by the UI. */
+export type NoteKey =
+  /** Even the lightest available weight is too heavy for the rep range. */
+  | 'lightestTooHeavy'
+  /** The heaviest available weight is too light: reps exceed the range. */
+  | 'notEnoughWeight'
+  /** The step to the next weight is large: reps fall below the range for now. */
+  | 'bigStep'
+  /** A bodyweight exercise became too easy: more than 25 reps per set. */
+  | 'tooManyReps';
+
+export type WarmupSet = { weight: number; reps: number };
+
+type PrescriptionBase = {
+  /**
+   * The estimated maximum this prescription is based on: one-rep max in kg
+   * for weighted exercises, max reps or max seconds for the others.
+   */
+  capacity: number;
+  /** True when the numbers come from the user (an edit or a non-neutral rating). */
+  edited: boolean;
+  rating?: Rating;
+  note?: NoteKey;
+};
+
+export type WeightedPrescription = PrescriptionBase & {
+  type: 'weighted';
+  /** Load in kg; per hand for `pair` exercises. */
+  weight: number;
+  reps: number;
+  /** Every weight the user could choose instead. */
+  options: number[];
+  /** Ramp-up sets before the first heavy compound exercise of a session. */
+  warmup?: WarmupSet[];
+};
+
+export type RepsPrescription = PrescriptionBase & { type: 'reps'; reps: number };
+
+export type TimedPrescription = PrescriptionBase & { type: 'timed'; seconds: number };
+
+export type Prescription = WeightedPrescription | RepsPrescription | TimedPrescription;
+
+export type LoadedItem = PlanItem & { prescription: Prescription };
+
+export type LoadedSession = Omit<Session, 'items'> & { items: LoadedItem[] };
+
+/** Where the current estimate of an exercise comes from. */
+export type CapacitySource = 'auto' | 'carry' | 'edit';
+
+/** The running estimate for an exercise: its value and the week it was set in. */
+export type Capacity = { value: number; week: number; source: CapacitySource };
+
+export type LoadedPlan = Omit<Plan, 'sessions'> & {
+  sessions: LoadedSession[];
+  /** The latest estimate per exercise id after walking the whole plan. */
+  capacity: Record<string, Capacity>;
+};

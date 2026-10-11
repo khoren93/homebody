@@ -19,7 +19,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 - [x] 8. Exercise dataset, schema and validation
 - [x] 9. Engine: plan builder
-- [ ] 10. Engine: load calculator, e1RM and progression
+- [x] 10. Engine: load calculator, e1RM and progression
 - [ ] 11. Engine: volume and muscle-load analytics
 
 ### Application core
@@ -98,3 +98,10 @@ tightly related ones) that leaves the project building, linted and tested.
   tests that compare 23 scenarios with golden plans recorded from the prototype
   engine; engine coverage is gated at 90 % in the Vitest config.
   `docs/TRAINING_SCIENCE.md` documents the planning rules.
+- **2026-10-11 — Step 10.** Load calculator ported: baseline capacities (level,
+  sex, age, body weight at plan start), Epley e1RM with reps in reserve, weight
+  selection from the owned weights with explanatory note keys, weekly
+  progression, deload rules, edits and ratings that re-anchor the estimate, load
+  scale, warm-up sets, plate breakdown and the next-block carry-over. Parity
+  tests compare every prescription of the 23 scenarios with the prototype (211
+  tests in total). The engine returns new objects instead of mutating the plan.

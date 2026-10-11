@@ -1,6 +1,6 @@
 import type { PatternId } from '@/data/schema';
 
-import type { Goal, Level, RepRange, TemplateId } from './types';
+import type { Goal, Level, Rating, RepRange, TemplateId } from './types';
 
 /**
  * Training level.
@@ -224,3 +224,27 @@ export const TIMING = {
   minExercises: 3,
   maxExercises: 8,
 } as const;
+
+/** Body weight assumed when the log is empty, in kg. */
+export const DEFAULT_BODY_WEIGHT = 75;
+
+/**
+ * Strength relative to a man of the same body weight and level. The gap is
+ * larger for the upper body than for the lower body.
+ */
+export const FEMALE_FACTORS = {
+  weighted: { upper: 0.55, lower: 0.72 },
+  bodyweight: { upper: 0.6, lower: 0.9 },
+} as const;
+
+/** After 40, expected strength drops by 0.8 % per year, down to 70 % at most. */
+export const AGE = { from: 40, lossPerYear: 0.008, floor: 0.7 } as const;
+
+/** Reps in reserve a rating adds to (or takes from) the prescribed amount. */
+export const RATING_RIR: Record<Rating, number> = { easy: 2, ok: 0, hard: -1, fail: -2 };
+
+/** Deload weeks use this share of the regular load. */
+export const DELOAD_LOAD = 0.9;
+
+/** Plate sizes in kg, heaviest first, used to load a bar. */
+export const PLATES = [25, 20, 15, 10, 5, 2.5, 1.25, 0.5] as const;

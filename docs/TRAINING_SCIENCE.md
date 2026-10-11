@@ -108,3 +108,120 @@ simply repeat the block.
 A session keeps the date it was originally planned for as its identity. When
 you do a missed session later, the rest of the plan shifts forward by the same
 number of days, and the order and progression stay intact.
+
+## 2. Calculating loads
+
+### 2.1 Estimated one-rep max with reps in reserve
+
+Strength is tracked as an **estimated one-rep max (e1RM)**: the heaviest
+weight you could lift once with good form. It is never tested; it is derived
+from ordinary sets with the Epley formula, extended with reps in reserve:
+
+```
+e1RM = weight × (1 + (reps + RIR) / 30)
+```
+
+A set of 10 reps at 20 kg with 2 reps left in the tank counts like a set of 12
+to failure: `20 × (1 + 12 / 30) = 28 kg`. For exercises with a dumbbell in
+each hand the e1RM is per hand.
+
+Bodyweight exercises use **max reps**, and timed holds use the **longest
+hold**, in the same role. The app calls all three the _capacity_ of an
+exercise.
+
+### 2.2 Starting point
+
+Before anything is logged, the capacity is estimated from the profile:
+
+```
+weighted:    ratio × body weight × level × sex × age
+bodyweight:  max reps (or seconds) × level × sex × age
+```
+
+- **ratio** is stored per exercise: the e1RM of an intermediate man divided by
+  his body weight (0.45 for a goblet squat, 0.38 per hand for a dumbbell bench
+  press, ...). Body weight is the value logged at the plan start.
+- **level:** beginner 0.55, intermediate 1.0, advanced 1.35 for weights;
+  0.5, 1.0, 1.5 for reps and holds.
+- **sex:** for women 0.55 (upper body) and 0.72 (lower body) for weights;
+  0.6 and 0.9 for reps and holds.
+- **age:** 1.0 up to 40, then 0.8 % less per year, never below 0.7.
+
+These are population averages and only a first guess. One edited set replaces
+them with your own numbers.
+
+### 2.3 Choosing the weight
+
+Given the e1RM, the prescribed RIR and the rep range of the goal, every weight
+you own is scored by the reps it allows:
+
+```
+reps(weight) = round(30 × (e1RM / weight − 1) − RIR)
+
+score = |reps − target|                        inside the rep range
+score = 10 + 2 × (min − reps)                  below the range
+score = 10 + (reps − max)                      above the range
+```
+
+The lowest score wins and ties go to the heavier weight. Going under the range
+is penalised twice as hard as going over it, because too many reps are merely
+inefficient while too few mean the weight is too heavy for the prescribed
+effort.
+
+When no weight lands inside the range, the app says why:
+
+| Situation                                 | Advice                                           |
+| ----------------------------------------- | ------------------------------------------------ |
+| Even the lightest weight allows no rep    | Do fewer reps and build up gradually.            |
+| The heaviest weight gives too many reps   | Slow the lowering phase down to three seconds.   |
+| The next weight up drops reps below range | Expected with big jumps; reps recover in a week. |
+| A bodyweight exercise exceeds 25 reps     | Move to a harder variation or slow it down.      |
+
+Bodyweight exercises are prescribed at `max reps − RIR` (at most 40), timed
+holds at `longest hold × (1 − 0.08 × RIR)` rounded to five seconds.
+
+### 2.4 Progression
+
+The capacity is expected to grow every week:
+
+| Level        | Weighted (e1RM) | Reps and holds |
+| ------------ | --------------- | -------------- |
+| Beginner     | +3 %            | +6 %           |
+| Intermediate | +1.5 %          | +3.5 %         |
+| Advanced     | +0.75 %         | +2 %           |
+
+Together with the falling RIR of the block this produces a classic overload
+pattern: similar weights for more reps, then a step up in weight.
+
+In a **deload week** weighted exercises use 90 % of the e1RM at RIR 4,
+bodyweight exercises `(max reps − 4) × 0.8` and holds 85 % of the usual time.
+
+### 2.5 Following what you actually do
+
+The plan is recalculated from your results, never the other way round.
+
+- **Edits.** When you change the weight or the reps of an exercise, its
+  capacity is re-anchored to that set and every later session is recalculated
+  from it.
+- **Ratings.** After an exercise you can say how it went. The rating adjusts
+  the reps in reserve that were actually left:
+
+  | Rating     | Meaning                   | RIR change |
+  | ---------- | ------------------------- | ---------- |
+  | Easy       | Could have done 3 or more | +2         |
+  | As planned | Effort was as prescribed  | 0          |
+  | Hard       | At the limit              | −1         |
+  | Failed     | Did not complete the reps | −2         |
+
+- **Load scale.** A global multiplier (40–130 %) scales every calculated e1RM
+  before the weight is chosen. Your own edits are never scaled.
+- **Next block.** Each capacity is projected to the end of the block and
+  carried into the next one, which starts on the following Monday. The load
+  scale is baked into the carried values and reset to 100 %.
+
+### 2.6 Warm-up sets and plates
+
+The first heavy compound exercise of a session gets two ramp-up sets: 8 reps
+at about 50 % and 3 reps at about 75 % of the working weight, rounded down to
+weights you own. For barbell exercises the app shows which plates go on each
+side, using standard plates from 25 kg down to 0.5 kg.
