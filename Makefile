@@ -8,7 +8,7 @@ PNPM ?= pnpm
 COMPOSE ?= docker compose
 
 .PHONY: help install dev build preview test test-watch coverage e2e lint format typecheck check \
-	data-validate data-build docker-build docker-run docker-dev docker-stop clean
+	data-validate data-build screenshots docker-build docker-run docker-dev docker-stop clean
 
 help: ## Show available targets
 	@awk 'BEGIN { FS = ":.*## " } /^[a-zA-Z0-9_-]+:.*## / { printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -53,6 +53,9 @@ data-validate: ## Validate data/exercises.json against the schema
 
 data-build: ## Rebuild the dataset/images from upstream (scripts/)
 	$(PNPM) data:build
+
+screenshots: build ## Capture README screenshots, hero and demo GIF into docs/assets
+	$(PNPM) screenshots
 
 docker-build: ## Build the production image
 	$(COMPOSE) build app

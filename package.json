@@ -33,6 +33,7 @@
     "e2e": "playwright test",
     "data:validate": "node scripts/validate-data.ts",
     "data:build": "node scripts/build-data.ts",
+    "screenshots": "node scripts/capture-screenshots.ts",
     "prepare": "lefthook install"
   },
   "dependencies": {

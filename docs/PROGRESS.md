@@ -48,7 +48,7 @@ tightly related ones) that leaves the project building, linted and tested.
 - [x] 27. End-to-end tests (onboarding, workout, swap, backup)
 - [x] 28. Deploy demo to GitHub Pages
 - [ ] 29. Full README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, templates
-- [ ] 30. Screenshots and demo GIF
+- [x] 30. Screenshots and demo GIF
 - [ ] 31. Release v0.1.0
 
 ## Log
@@ -246,3 +246,9 @@ Function`, which the Content-Security-Policy blocks harmlessly.
   a plain static server (app, photos and service worker scope all resolve). The
   job is skipped while the repository is private, because Pages needs a public
   repository on the free plan; it has therefore not run yet.
+- **2026-10-11 — Step 30.** README images, captured from the real app by `make
+screenshots`: the script plays two weeks of training through the UI, then
+  takes one screenshot per screen in both themes (`docs/assets/screens/`),
+  composes the hero image from three of them after the design mockup
+  (`hero-dark.png`, `hero-light.png`) and records a short demo GIF. Done before
+  step 29 so that the README can reference files that exist.
