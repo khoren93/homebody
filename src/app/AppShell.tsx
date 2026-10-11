@@ -14,6 +14,7 @@ import { useAppStore } from '@/store';
 
 import styles from './AppShell.module.css';
 import { TabBar } from './TabBar';
+import { UpdatePrompt } from './UpdatePrompt';
 
 /** Scrolls to the top when the user moves to another screen. */
 function useScrollReset(route: Route): void {
@@ -68,6 +69,7 @@ export function AppShell({ children }: { children: (route: Route) => ReactNode }
             </div>
           </header>
         )}
+        <UpdatePrompt />
         {storage === 'memory' && <Banner role="alert">{t('shell.notSaved')}</Banner>}
         {saveFailed && (
           <Banner role="alert" tone="danger">

@@ -11,11 +11,53 @@
     <meta name="theme-color" content="#f6f1eb" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#110f0d" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="apple-touch-icon" href="%BASE_URL%icons/apple-touch-icon.png" />
     <title>Homebody</title>
     <script src="%BASE_URL%theme.js"></script>
+    <style>
+      /* First paint, before the app has loaded: the ground color and the mark. */
+      html {
+        background: #f6f1eb;
+        color-scheme: light dark;
+      }
+      .boot {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+      }
+      @media (prefers-color-scheme: dark) {
+        html:not([data-theme='light']) {
+          background: #110f0d;
+        }
+      }
+      html[data-theme='dark'] {
+        background: #110f0d;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot">
+        <svg width="56" height="56" viewBox="0 0 30 30" role="img" aria-label="Homebody">
+          <rect width="30" height="30" rx="9" fill="#FF6A2B" />
+          <path
+            d="M7.5 15.5 L15 9 L22.5 15.5"
+            fill="none"
+            stroke="#1A0E07"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10 21 H20 M10 18.5 V23.5 M20 18.5 V23.5"
+            fill="none"
+            stroke="#1A0E07"
+            stroke-width="2.6"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

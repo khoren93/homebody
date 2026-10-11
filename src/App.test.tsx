@@ -7,6 +7,7 @@ import { initStore } from '@/store';
 import { createMemoryPersistence } from '@/store/persistence';
 
 import { App } from './App';
+import { usePwaStore } from './app/pwa';
 import { TEST_TODAY } from './test/setup';
 
 beforeEach(() => {
@@ -36,10 +37,10 @@ describe('App shell', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Full body A' })).toBeInTheDocument();
   });
 
-  it('switches screens when the route changes', () => {
+  it('switches screens when the route changes', async () => {
     render(<App />);
     go({ name: 'settings' });
-    expect(screen.getByRole('heading', { level: 1, name: 'Settings' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'Settings' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Open settings' })).toHaveAttribute(
       'aria-current',
       'page',
@@ -54,10 +55,10 @@ describe('App shell', () => {
     );
   });
 
-  it('hides the tab bar during a workout', () => {
+  it('hides the tab bar during a workout', async () => {
     render(<App />);
     go({ name: 'session', sessionId: '2026-10-19' });
-    expect(screen.getByRole('heading', { level: 1, name: 'Full body A' })).toBeInTheDocument();
+    expect(await screen.findByText('Set 1 of 17')).toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: 'Sections' })).not.toBeInTheDocument();
   });
 
@@ -65,7 +66,7 @@ describe('App shell', () => {
     render(<App />);
     go({ name: 'settings' });
 
-    await userEvent.click(screen.getByRole('radio', { name: 'Русский' }));
+    await userEvent.click(await screen.findByRole('radio', { name: 'Русский' }));
 
     expect(await screen.findByRole('heading', { level: 1, name: 'Настройки' })).toBeInTheDocument();
     expect(screen.getByRole('navigation', { name: 'Разделы' })).toBeInTheDocument();
@@ -77,7 +78,7 @@ describe('App shell', () => {
     render(<App />);
     go({ name: 'settings' });
 
-    await userEvent.click(screen.getByRole('radio', { name: 'Dark' }));
+    await userEvent.click(await screen.findByRole('radio', { name: 'Dark' }));
     expect(document.documentElement.dataset.theme).toBe('dark');
     expect(localStorage.getItem('homebody.theme')).toBe('dark');
 
@@ -116,5 +117,18 @@ describe('App with unreadable data', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Yes, erase everything' }));
 
     expect(await screen.findByRole('navigation', { name: 'Sections' })).toBeInTheDocument();
+  });
+});
+
+describe('App updates', () => {
+  it('offers to reload when a new version is waiting', async () => {
+    const applyUpdate = vi.fn();
+    usePwaStore.setState({ updateReady: true, applyUpdate });
+    render(<App />);
+    const banner = screen.getByText('A new version of Homebody is ready.');
+    expect(banner).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Reload' }));
+    expect(applyUpdate).toHaveBeenCalled();
+    usePwaStore.setState({ updateReady: false });
   });
 });

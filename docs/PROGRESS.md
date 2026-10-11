@@ -44,7 +44,7 @@ tightly related ones) that leaves the project building, linted and tested.
 
 ### Release
 
-- [ ] 26. PWA install and offline support
+- [x] 26. PWA install and offline support
 - [ ] 27. End-to-end tests (onboarding, workout, swap, backup)
 - [ ] 28. Deploy demo to GitHub Pages
 - [ ] 29. Full README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, templates
@@ -221,3 +221,15 @@ tightly related ones) that leaves the project building, linted and tested.
   converted. "Restore the automatic calculation" clears edits, replacements,
   carried capacities and the load scale; "Erase all data" wipes the device; both
   ask first. This completes feature parity with the prototype. 601 tests.
+- **2026-10-11 — Step 26.** PWA: web manifest with icons rendered from the mark,
+  a service worker that precaches the app shell, fonts and all exercise photos
+  (314 entries, about 9 MB) so the whole app works offline, and an update prompt
+  that never reloads mid-workout. Verified in Chrome: after one visit the app,
+  the library and its photos load with the network off. Secondary screens are
+  lazy-loaded, libraries and the dataset have their own chunks, and index.html
+  paints the mark before any script runs. Lighthouse (mobile, production
+  container): performance 87, accessibility 100, best practices 96, SEO 100.
+  Deferred: performance is 3 points under the 90 target on the local container;
+  the remaining cost is the size of the critical scripts, to be re-measured on
+  the deployed demo. The one best-practices finding is Dexie probing `new
+Function`, which the Content-Security-Policy blocks harmlessly.

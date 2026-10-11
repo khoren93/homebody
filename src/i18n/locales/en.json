@@ -287,7 +287,9 @@
     "skip": "Skip to content",
     "savedLocally": "Saved on this device",
     "notSaved": "Storage is unavailable: changes will be lost when you close the page.",
-    "saveFailed": "The last change could not be saved."
+    "saveFailed": "The last change could not be saved.",
+    "updateReady": "A new version of Homebody is ready.",
+    "reload": "Reload"
   },
   "loadError": {
     "title": "Your saved data could not be read",
