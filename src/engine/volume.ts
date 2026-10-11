@@ -32,7 +32,9 @@ function addSets(volume: Volume, catalog: Catalog, exerciseId: string, sets: num
  */
 export function weeklyVolume(
   plan: {
-    sessions: readonly (Pick<Session, 'week' | 'deload'> & { items: readonly PlanItem[] })[];
+    sessions: readonly (Pick<Session, 'week' | 'deload'> & {
+      items: readonly Pick<PlanItem, 'exerciseId' | 'sets'>[];
+    })[];
   },
   catalog: Catalog,
 ): Volume {

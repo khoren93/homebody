@@ -41,7 +41,7 @@ describe('weeklyVolume', () => {
         },
       ],
     };
-    expect(weeklyVolume(plan as never, catalog)).toEqual({
+    expect(weeklyVolume(plan, catalog)).toEqual({
       quads: 3,
       calves: 1.5,
       glutes: 1.5,
@@ -58,7 +58,7 @@ describe('weeklyVolume', () => {
         { week: 0, deload: true, items: [{ exerciseId: 'Plank', sets: 2 }] },
       ],
     };
-    expect(weeklyVolume(plan as never, catalog)).toEqual({ abs: 2 });
+    expect(weeklyVolume(plan, catalog)).toEqual({ abs: 2 });
   });
 
   it('is empty for an empty plan', () => {
