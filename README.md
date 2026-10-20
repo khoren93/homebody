@@ -87,6 +87,8 @@ the browser, and can be installed as an app.
 
 ## Quick start
 
+[![Launch on PicoRunner](https://picorunner.com/badges/launch.svg)](https://picorunner.com/launch/?repository=https%3A%2F%2Fgithub.com%2Fkhoren93%2Fhomebody)
+
 You need [Node.js](https://nodejs.org) 24, [pnpm](https://pnpm.io) 10 and `make`.
 
 ```sh
